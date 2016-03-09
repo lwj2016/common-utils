@@ -8,6 +8,18 @@ public class StringUtil {
 
 
     public static boolean isEmpty(String str) {
-        return str == null && str.trim().length() == 0;
+        return str == null || str.trim().length() == 0;
+    }
+
+    public static String formatNotNull(String string) {
+        if (string == null) {
+            return "";
+        }
+        return string;
+    }
+
+    public static boolean isValid(String string) {
+
+        return !isEmpty(string);
     }
 }
