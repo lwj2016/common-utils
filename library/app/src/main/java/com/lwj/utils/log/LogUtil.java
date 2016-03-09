@@ -2,7 +2,7 @@ package com.lwj.utils.log;
 
 /**
  * Created by lwj on 2016/3/8.
- * liuwenjie@goumin.com
+ * lwjfork@gmail.com
  */
 public class LogUtil extends Timber{
     public static void setLog(boolean open) {

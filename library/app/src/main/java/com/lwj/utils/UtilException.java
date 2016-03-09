@@ -2,7 +2,7 @@ package com.lwj.utils;
 
 /**
  * Created by lwj on 2016/3/8.
- * liuwenjie@goumin.com
+ * lwjfork@gmail.com
  */
 public class UtilException extends Exception {
 
