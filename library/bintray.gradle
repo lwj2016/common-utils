@@ -1,22 +1,9 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "1.0.0"
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:22.2.0'
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:design:22.2.0'
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 
 //填写唯一包名
 group = PROJ_GROUP
 version = PROJ_VERSION
-
 
 install {
     repositories.mavenInstaller {
@@ -55,12 +42,6 @@ install {
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.0'
-}
-
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
@@ -82,6 +63,8 @@ artifacts {
 }
 
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 //配置上传Bintray相关信息
 bintray {
     //读取Bintray帐号和密码。
@@ -102,3 +85,5 @@ bintray {
         publish = true  //是否发布
     }
 }
+//    how to import and compile
+//    compile PROJ_GROUP:PROJ_NAME:PROJ_VERSION
