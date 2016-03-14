@@ -190,8 +190,6 @@ public class NetUtil {
      *
      * @param url
      * @return
-     * @throws ClientProtocolException
-     * @throws IOException
      */
     public static String getStringByPost(String url, List<NameValuePair> nameValuePairs) {
         HttpPost httppost = new HttpPost(url);

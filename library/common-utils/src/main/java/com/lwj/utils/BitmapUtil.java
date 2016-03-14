@@ -478,7 +478,6 @@ public class BitmapUtil {
      * @param path
      * @param options
      * @return
-     * @throws java.io.FileNotFoundException
      */
     public static Bitmap getBitmapByPath(String path, BitmapFactory.Options options, int screenWidth, int screenHeight) {
         File file = new File(path);
