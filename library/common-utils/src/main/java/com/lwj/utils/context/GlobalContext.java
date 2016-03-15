@@ -3,7 +3,7 @@
  * <p/>
  * Copyright(c) 2011-2013 Mobitide Android Team. All Rights Reserved.
  */
-package com.lwj.utils;
+package com.lwj.utils.context;
 
 import android.app.Application;
 import android.content.Context;

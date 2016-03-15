@@ -2,6 +2,8 @@ package com.lwj.utils;
 
 import android.content.res.Resources;
 
+import com.lwj.utils.context.GlobalContext;
+
 /**
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com

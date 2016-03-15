@@ -48,20 +48,4 @@ public class ViewUtil {
         }
         return null;
     }
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if(listAdapter != null) {
-            int totalHeight = 0;
-
-            for(int params = 0; params < listAdapter.getCount(); ++params) {
-                View listItem = listAdapter.getView(params, (View)null, listView);
-                listItem.measure(0, 0);
-                totalHeight += listItem.getMeasuredHeight();
-            }
-
-            ViewGroup.LayoutParams var5 = listView.getLayoutParams();
-            var5.height = totalHeight + listView.getDividerHeight() * (listAdapter.getCount() - 1);
-            listView.setLayoutParams(var5);
-        }
-    }
 }
