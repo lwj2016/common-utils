@@ -44,8 +44,6 @@ import java.net.URLEncoder;
 import java.util.List;
 
 public class NetUtil {
-    private static int timeoutMillis = 5000;
-
     /**
      * 检查网络连接状态
      *
@@ -185,55 +183,6 @@ public class NetUtil {
         return getParam(l, name);
     }
 
-    /**
-     * 用post方式从指定url获取文本文件的字符串
-     *
-     * @param url
-     * @return
-     */
-    public static String getStringByPost(String url, List<NameValuePair> nameValuePairs) {
-        HttpPost httppost = new HttpPost(url);
-        // List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        // nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-        // Your DATA
 
-        try {
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpParams params = httpClient.getParams();
-        HttpConnectionParams.setConnectionTimeout(params, timeoutMillis);
-        HttpConnectionParams.setSoTimeout(params, timeoutMillis);
 
-        CookieManager cookieManager = CookieManager.getInstance();
-        String cookie = cookieManager.getCookie(url);
-        httppost.addHeader("Cookie", cookie);
-
-        HttpResponse httpResponse;
-        try {
-            httpResponse = httpClient.execute(httppost);
-            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                return EntityUtils.toString(httpResponse.getEntity());
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            httppost.abort();
-        } catch (IOException e) {
-            e.printStackTrace();
-            httppost.abort();
-        }
-        return null;
-    }
-
-    public static void addCookies(String url, HttpResponse response) {
-        Header[] headers = response.getHeaders("Set-Cookie");
-        if (headers != null && headers.length > 0) {
-            CookieManager cookieManager = CookieManager.getInstance();
-            for (Header h : headers) {
-                cookieManager.setCookie(url, h.getValue());
-            }
-        }
-    }
 }

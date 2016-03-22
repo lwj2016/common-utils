@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 
 import com.lwj.utils.context.GlobalContext;
 
@@ -57,4 +58,12 @@ public class ResUtil {
         return GlobalContext.getContext().getResources();
     }
 
+    /**
+     *  获取 drawable
+     * @param drawableResId  drawable id
+     * @return drawable
+     */
+    public static Drawable getDrawable(int  drawableResId){
+       return getResources().getDrawable(drawableResId);
+    }
 }
