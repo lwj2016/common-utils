@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,4 +34,5 @@ public class CollectionUtil {
         Collections.emptyList();
         return (T[])objs;
     }
+
 }
