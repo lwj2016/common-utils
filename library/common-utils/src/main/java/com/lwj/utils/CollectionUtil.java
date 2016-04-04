@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +18,7 @@ public class CollectionUtil {
     public static <T> List<T> arrayToList(T... objects) {
         return Arrays.asList(objects);
     }
+
     public static <T> ArrayList<T> arrayToArrayList(T... objects) {
         return new ArrayList<>(Arrays.asList(objects));
     }
@@ -27,12 +27,13 @@ public class CollectionUtil {
 
         return listToArray(list);
     }
+
     @SuppressWarnings("unchecked")
-    public static <T> T[] listToArray(ArrayList<T> list){
+    public static <T> T[] listToArray(ArrayList<T> list) {
 
         Object[] objs = list.toArray();
         Collections.emptyList();
-        return (T[])objs;
+        return (T[]) objs;
     }
 
 }

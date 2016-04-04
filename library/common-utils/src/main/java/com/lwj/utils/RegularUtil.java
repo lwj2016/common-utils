@@ -16,21 +16,22 @@ public class RegularUtil {
      */
     public static boolean isEmail(String email) {
         String pattern1 = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-        return isEmail(email,pattern1);
+        return isEmail(email, pattern1);
     }
 
     /**
-     *  验证是否是邮箱
+     * 验证是否是邮箱
+     *
      * @param email
      * @param regex
      * @return
      */
-    public static boolean isEmail(String email,String regex) {
+    public static boolean isEmail(String email, String regex) {
         boolean tag = true;
         Pattern pattern = Pattern.compile(regex);
-        Matcher mat=pattern.matcher(email);
-        if(!mat.find()){
-            tag=false;
+        Matcher mat = pattern.matcher(email);
+        if (!mat.find()) {
+            tag = false;
         }
         return tag;
     }
@@ -45,6 +46,7 @@ public class RegularUtil {
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }
+
     /**
      * 验证手机号
      *
@@ -52,22 +54,24 @@ public class RegularUtil {
      * @return
      */
     public static boolean isPhone(String str) {
-        String  p = "(^(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7})$";
+        String p = "(^(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7})$";
 
         return isPhone(str, p);
     }
+
     /**
      * 验证手机号
      *
      * @param str
      * @return
      */
-    public static boolean isPhone(String str,String number) {
+    public static boolean isPhone(String str, String regex) {
         Pattern p = Pattern
-                .compile(number);
+                .compile(regex);
         Matcher m = p.matcher(str);
         return m.matches();
     }
+
     /**
      * @param c
      * @return 是否为中文

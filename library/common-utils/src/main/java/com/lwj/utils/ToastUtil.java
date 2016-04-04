@@ -54,7 +54,7 @@ public class ToastUtil {
     }
 
     private static void showToast(Context context, String message, int duration) {
-        if(context != null) {
+        if (context != null) {
             try {
                 Toast.makeText(context, message, duration).show();
             } catch (Exception var5) {

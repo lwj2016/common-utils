@@ -110,6 +110,7 @@ public abstract class ArrayListAdapter<T> extends BaseAdapter {
 
     /**
      * use addItem2Last
+     *
      * @param t
      */
     @Deprecated

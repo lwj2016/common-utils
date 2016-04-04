@@ -6,7 +6,6 @@ import android.os.Build;
  * 版本匹配的问题
  *
  * @author Cyning
- *
  */
 public class VersionCompatUtils {
     /**

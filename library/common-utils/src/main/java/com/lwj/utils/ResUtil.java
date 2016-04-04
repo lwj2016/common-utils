@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
@@ -52,6 +53,7 @@ public class ResUtil {
 
     /**
      * 获得全局的resources
+     *
      * @return
      */
     public static Resources getResources() {
@@ -59,11 +61,33 @@ public class ResUtil {
     }
 
     /**
-     *  获取 drawable
-     * @param drawableResId  drawable id
+     * 获取 drawable
+     *
+     * @param drawableResId drawable id
      * @return drawable
      */
-    public static Drawable getDrawable(int  drawableResId){
-       return getResources().getDrawable(drawableResId);
+    public static Drawable getDrawable(int drawableResId) {
+        return getResources().getDrawable(drawableResId);
     }
+
+    /**
+     * 获取 int 数组
+     *
+     * @param resId
+     * @return
+     */
+    public static int[] getIntegerArray(int resId) {
+
+        return getResources().getIntArray(resId);
+    }
+
+    /**
+     * 获取  AssetManager
+     *
+     * @return
+     */
+    public static AssetManager getAssetManager() {
+        return getResources().getAssets();
+    }
+
 }

@@ -53,6 +53,7 @@ public class FileUtil {
 
     /**
      * 文件存到sd卡
+     *
      * @param name
      * @param content
      */
@@ -149,6 +150,7 @@ public class FileUtil {
         }
         return isFinish;
     }
+
     public static Object readObject(String path, String name) {
         FileInputStream f_in = null;
         Object object = null;
@@ -278,6 +280,7 @@ public class FileUtil {
 
         return file.exists();
     }
+
     public static boolean createNewFolder(String path) {
         File file = new File(path);
         if (!file.exists()) {

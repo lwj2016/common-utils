@@ -13,11 +13,12 @@ public class ActivityUtil {
 
     /**
      * 调用某一个Action
+     *
      * @param context
      * @param intent
      */
     public static void startActivity(Context context, Intent intent) {
-        context.startActivity(intent);
+        startActivity(context, intent, false);
     }
 
 
@@ -29,7 +30,7 @@ public class ActivityUtil {
      */
     public static void startActivity(Context context, Class cls) {
         Intent intent = new Intent(context, cls);
-        startActivity(context,intent);
+        startActivity(context, intent);
     }
 
 
@@ -44,7 +45,7 @@ public class ActivityUtil {
         Intent intent = new Intent(context, cls);
         intent.setClass(context, cls);
         intent.putExtras(bundle);
-        startActivity(context,intent);
+        startActivity(context, intent);
     }
 
 
@@ -75,6 +76,43 @@ public class ActivityUtil {
         act.startActivityForResult(intent, Code);
     }
 
+    /**
+     * 调用某一个Action
+     *
+     * @param context
+     * @param intent
+     */
+    public static void startActivity(Context context, Intent intent, boolean isFinish) {
+        context.startActivity(intent);
+        if (isFinish) {
+            ((Activity) context).finish();
+        }
+    }
 
 
+    /**
+     * 一个Activity 开启 另一个 Activity
+     *
+     * @param context
+     * @param cls
+     */
+    public static void startActivity(Context context, Class cls, boolean isFinish) {
+        Intent intent = new Intent(context, cls);
+        startActivity(context, intent, isFinish);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle
+     *
+     * @param context
+     * @param cls
+     * @param bundle
+     */
+    public static void startActivity(Context context, Class cls, Bundle bundle, boolean isFinish) {
+        Intent intent = new Intent(context, cls);
+        intent.setClass(context, cls);
+        intent.putExtras(bundle);
+        startActivity(context, intent, isFinish);
+    }
 }

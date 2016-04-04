@@ -2,41 +2,21 @@ package com.lwj.utils;
 
 import android.app.Service;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.webkit.CookieManager;
 
 import com.lwj.utils.log.LogUtil;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.ProtocolException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.DefaultRedirectHandler;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -86,9 +66,6 @@ public class NetUtil {
         }
         return false;
     }
-
-
-
 
 
     public static String getHostUrl(String url) {
@@ -183,6 +160,60 @@ public class NetUtil {
         return getParam(l, name);
     }
 
+    public static Bitmap loadBitmapFromURL(String url) {
+        if (!url.contains("http://")) {
+            url = "http://" + url;
+        }
+        LogUtil.d("Thread--- %s ------ start load -----%s", Thread.currentThread().getId(), url);
+        Bitmap bmp = null;
+        try {
+            byte[] imageBytes = loadRawDataFromURL(url);
+            bmp = BitmapFactory.decodeByteArray(imageBytes, 0,
+                    imageBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        return bmp;
+    }
 
+    // 。
+
+    /**
+     * 给定一个URL，从这个URL下载原始数据块
+     *
+     * @param urlStr url
+     * @return
+     * @throws Exception
+     */
+    public static byte[] loadRawDataFromURL(String urlStr) throws Exception {
+        URL url = new URL(urlStr);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        // 配置基础网络链接参数
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(3000);
+
+        InputStream is = conn.getInputStream();
+        BufferedInputStream bis = new BufferedInputStream(is);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        final int BUFFER_SIZE = 1024 * 5;
+        final int EOF = -1;
+
+        int c;
+        byte[] buf = new byte[BUFFER_SIZE];
+
+        while (true) {
+            c = bis.read(buf);
+            if (c == EOF)
+                break;
+            baos.write(buf, 0, c);
+        }
+        conn.disconnect();
+        is.close();
+        byte[] data = baos.toByteArray();
+        baos.flush();
+        return data;
+    }
 }

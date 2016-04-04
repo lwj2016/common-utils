@@ -27,6 +27,7 @@ public class StringUtil {
 
         return !isEmpty(string);
     }
+
     /**
      * 将输入流转换为字符串
      *

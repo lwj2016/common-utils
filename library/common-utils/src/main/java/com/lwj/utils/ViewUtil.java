@@ -2,9 +2,6 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 /**
  * Created by lwj on 2016/3/8.

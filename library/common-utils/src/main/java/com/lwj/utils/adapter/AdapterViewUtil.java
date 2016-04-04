@@ -12,30 +12,31 @@ import android.widget.ListView;
  */
 public class AdapterViewUtil {
 
-    public static <T> T getItemModel(ListView listView,int i){
+    public static <T> T getItemModel(ListView listView, int i) {
 
-        if(listView == null){
+        if (listView == null) {
             return null;
         }
-        if(i < 0){
-            return  null;
+        if (i < 0) {
+            return null;
         }
         int headerCount = listView.getHeaderViewsCount();
         if (i >= headerCount) {
-            return  (T) listView.getAdapter().getItem(i);
+            return (T) listView.getAdapter().getItem(i);
         }
         return null;
     }
 
     /**
-     *  判断 listview  是否滑动到顶部了
+     * 判断 listview  是否滑动到顶部了
+     *
      * @param listView
      * @return
      */
-    public static  boolean isAdapterViewAttach(AbsListView listView){
+    public static boolean isAdapterViewAttach(AbsListView listView) {
 
-        if(listView != null && listView.getChildCount() >0){
-            if(listView.getChildAt(0).getTop()<0){
+        if (listView != null && listView.getChildCount() > 0) {
+            if (listView.getChildAt(0).getTop() < 0) {
                 return false;
             }
 
@@ -45,15 +46,16 @@ public class AdapterViewUtil {
 
     /**
      * 设置 listive 全部展开
+     *
      * @param listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        if(listAdapter != null) {
+        if (listAdapter != null) {
             int totalHeight = 0;
 
-            for(int params = 0; params < listAdapter.getCount(); ++params) {
-                View listItem = listAdapter.getView(params, (View)null, listView);
+            for (int params = 0; params < listAdapter.getCount(); ++params) {
+                View listItem = listAdapter.getView(params, (View) null, listView);
                 listItem.measure(0, 0);
                 totalHeight += listItem.getMeasuredHeight();
             }

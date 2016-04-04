@@ -1,6 +1,6 @@
 /**
  * Filename : GlobalContext.java Author : CX Date : 2013-8-12
- * <p/>
+ * <p>
  * Copyright(c) 2011-2013 Mobitide Android Team. All Rights Reserved.
  */
 package com.lwj.utils.context;
