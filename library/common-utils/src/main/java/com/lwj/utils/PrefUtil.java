@@ -84,7 +84,7 @@ public class PrefUtil {
     public void saveFloat(String key, float value) {
         this.mSharedPreferences.edit().putFloat(key, value).commit();
     }
-    @SuppressWarnings("NewApi")
+
     public Float getFloat(String key) {
         return Float.valueOf(this.mSharedPreferences.getFloat(key, 0.0F));
     }
@@ -95,5 +95,8 @@ public class PrefUtil {
 
     public SharedPreferences getSharedPreferences() {
         return this.mSharedPreferences;
+    }
+    public  void clear(){
+        this.mSharedPreferences.edit().clear().commit();
     }
 }
