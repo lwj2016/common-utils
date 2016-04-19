@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.widget.RelativeLayout;
 
 import com.lwj.utils.context.GlobalContext;
 
@@ -90,4 +91,22 @@ public class ResUtil {
         return getResources().getAssets();
     }
 
+    /**
+     *
+     * @param res
+     * @param args
+     * @return
+     */
+    public static String getFormatString(String res, Object... args){
+       return String.format(res,args);
+    }
+    /**
+     *
+     * @param resId
+     * @param args
+     * @return
+     */
+    public static String getFormatString(int resId,Object... args){
+        return getFormatString(ResUtil.getString(resId),args);
+    }
 }
