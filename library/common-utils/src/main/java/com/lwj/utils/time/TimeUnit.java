@@ -1,7 +1,5 @@
 package com.lwj.utils.time;
 
-import java.util.concurrent.BlockingQueue;
-
 /**
  * Created by lwj on 16/5/13.
  * Des:
@@ -33,9 +31,6 @@ public enum TimeUnit {
             return u.toMillis(d);
         }
 
-        int excessNanos(long d, long m) {
-            return 0;
-        }
     },
     SECONDS {
         public long toMillis(long d) {
@@ -60,10 +55,6 @@ public enum TimeUnit {
 
         public long convert(long d, TimeUnit u) {
             return u.toSeconds(d);
-        }
-
-        int excessNanos(long d, long m) {
-            return 0;
         }
     },
     MINUTES {
@@ -91,9 +82,6 @@ public enum TimeUnit {
             return u.toMinutes(d);
         }
 
-        int excessNanos(long d, long m) {
-            return 0;
-        }
     },
     HOURS {
         public long toMillis(long d) {
@@ -120,9 +108,6 @@ public enum TimeUnit {
             return u.toHours(d);
         }
 
-        int excessNanos(long d, long m) {
-            return 0;
-        }
     },
     DAYS {
         public long toMillis(long d) {
@@ -149,9 +134,6 @@ public enum TimeUnit {
             return u.toDays(d);
         }
 
-        int excessNanos(long d, long m) {
-            return 0;
-        }
     };
 
 
@@ -195,31 +177,6 @@ public enum TimeUnit {
         throw new AbstractMethodError();
     }
 
-    /**
-     * Equivalent to {@code NANOSECONDS.convert(duration, this)}.
-     *
-     * @param duration the duration
-     * @return the converted duration,
-     * or {@code Long.MIN_VALUE} if conversion would negatively
-     * overflow, or {@code Long.MAX_VALUE} if it would positively overflow.
-     * @see #convert
-     */
-    public long toNanos(long duration) {
-        throw new AbstractMethodError();
-    }
-
-    /**
-     * Equivalent to {@code MICROSECONDS.convert(duration, this)}.
-     *
-     * @param duration the duration
-     * @return the converted duration,
-     * or {@code Long.MIN_VALUE} if conversion would negatively
-     * overflow, or {@code Long.MAX_VALUE} if it would positively overflow.
-     * @see #convert
-     */
-    public long toMicros(long duration) {
-        throw new AbstractMethodError();
-    }
 
     /**
      * Equivalent to {@code MILLISECONDS.convert(duration, this)}.
@@ -287,86 +244,8 @@ public enum TimeUnit {
         throw new AbstractMethodError();
     }
 
-    /**
-     * Utility to compute the excess-nanosecond argument to wait,
-     * sleep, join.
-     *
-     * @param d the duration
-     * @param m the number of milliseconds
-     * @return the number of nanoseconds
-     */
-    abstract int excessNanos(long d, long m);
 
-    /**
-     * Performs a timed {@link Object#wait(long, int) Object.wait}
-     * using this time unit.
-     * This is a convenience method that converts timeout arguments
-     * into the form required by the {@code Object.wait} method.
-     * <p>
-     * <p>For example, you could implement a blocking {@code poll}
-     * method (see {@link BlockingQueue#poll BlockingQueue.poll})
-     * using:
-     * <p>
-     * <pre> {@code
-     * public synchronized Object poll(long timeout, TimeUnit unit)
-     *     throws InterruptedException {
-     *   while (empty) {
-     *     unit.timedWait(this, timeout);
-     *     ...
-     *   }
-     * }}</pre>
-     *
-     * @param obj     the object to wait on
-     * @param timeout the maximum time to wait. If less than
-     *                or equal to zero, do not wait at all.
-     * @throws InterruptedException if interrupted while waiting
-     */
-    public void timedWait(Object obj, long timeout)
-            throws InterruptedException {
-        if (timeout > 0) {
-            long ms = toMillis(timeout);
-            int ns = excessNanos(timeout, ms);
-            obj.wait(ms, ns);
-        }
-    }
 
-    /**
-     * Performs a timed {@link Thread#join(long, int) Thread.join}
-     * using this time unit.
-     * This is a convenience method that converts time arguments into the
-     * form required by the {@code Thread.join} method.
-     *
-     * @param thread  the thread to wait for
-     * @param timeout the maximum time to wait. If less than
-     *                or equal to zero, do not wait at all.
-     * @throws InterruptedException if interrupted while waiting
-     */
-    public void timedJoin(Thread thread, long timeout)
-            throws InterruptedException {
-        if (timeout > 0) {
-            long ms = toMillis(timeout);
-            int ns = excessNanos(timeout, ms);
-            thread.join(ms, ns);
-        }
-    }
-
-    /**
-     * Performs a {@link Thread#sleep(long, int) Thread.sleep} using
-     * this time unit.
-     * This is a convenience method that converts time arguments into the
-     * form required by the {@code Thread.sleep} method.
-     *
-     * @param timeout the minimum time to sleep. If less than
-     *                or equal to zero, do not sleep at all.
-     * @throws InterruptedException if interrupted while sleeping
-     */
-    public void sleep(long timeout) throws InterruptedException {
-        if (timeout > 0) {
-            long ms = toMillis(timeout);
-            int ns = excessNanos(timeout, ms);
-            Thread.sleep(ms, ns);
-        }
-    }
 
     public static final long C2 = 1L;
     public static final long C3 = C2 * 1000L;
