@@ -11,11 +11,6 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 16/3/15.
  */
 public class ToastUtil {
-    static Toast toast;
-    static TextView contentView;
-
-    public ToastUtil() {
-    }
 
     public static void showToast(int messageID) {
         showToast(GlobalContext.getContext(), messageID);

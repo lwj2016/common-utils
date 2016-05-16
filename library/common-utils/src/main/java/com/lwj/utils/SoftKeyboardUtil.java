@@ -1,12 +1,8 @@
 package com.lwj.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * soft key board help
