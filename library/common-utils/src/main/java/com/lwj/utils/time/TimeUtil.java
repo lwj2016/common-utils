@@ -217,40 +217,87 @@ public class TimeUtil {
             int year = c1.get(Calendar.YEAR);
             int year1 = c2.get(Calendar.YEAR);
             for (int i = year + 1; i < year1; i++) {
-                c1.set(Calendar.YEAR,i);
+                c1.set(Calendar.YEAR, i);
                 days = days + c1.getActualMaximum(Calendar.DAY_OF_YEAR);
             }
             return days;
         }
     }
 
+    /**
+     * 通过日期获取当月的含有的天数
+     *
+     * @param date
+     * @return
+     */
+    public static int getTotalDaysInMonth(Date date) {
 
-    public static int getCountDaysInMonth(int month, int year) {
-        int count = -1;
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                count = 31;
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                count = 30;
-                break;
-            case 2:
-                if (year % 4 == 0)
-                    count = 29;
-                else
-                    count = 28;
-                if ((year % 100 == 0) & (year % 400 != 0))
-                    count = 28;
-        }
-        return count;
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date);
+        return c1.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 通过日期获取当年的含有的天数
+     *
+     * @param date
+     * @return
+     */
+    public static int getTotalDaysInYear(Date date) {
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date);
+        return c1.getActualMaximum(Calendar.DAY_OF_YEAR);
+    }
+
+
+    /**
+     * 获取 月偏移  忽略 年
+     *
+     * @param firstDate
+     * @param secondDate
+     * @return
+     */
+    public static int getOffsetMonthIngoreY(Date firstDate, Date secondDate) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(firstDate);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(secondDate);
+        return c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取 天数偏移  忽略 年 月
+     *
+     * @param firstDate
+     * @param secondDate
+     * @return
+     */
+    public static int getOffsetDayIngoreYM(Date firstDate, Date secondDate) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(firstDate);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(secondDate);
+        return c2.get(Calendar.DAY_OF_MONTH) - c1.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取 日期 距离当前日期的 年 月  日
+     * ps 通常用于计算生日
+     *
+     * @param date
+     * @return
+     */
+    public static int[] getBirth(Date date) {
+        Date today = new Date();
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(today);
+        int[] m = new int[3];
+        m[0] = c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
+        m[1] = c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH);
+        m[2] = c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH);
+        return m;
     }
 }
