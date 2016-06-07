@@ -17,8 +17,6 @@ public class CompareUtil {
     public static boolean compareFloat(float float1, float float2, float float_epsilon) {
         float abs = Math.abs(float1 - float2);
         return abs >= float_epsilon;
-
-
     }
 
 }

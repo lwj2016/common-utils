@@ -90,18 +90,15 @@ public class FileUtil {
             s.flush();
             s.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             if (f_out != null) {
                 try {
                     f_out.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -166,15 +163,12 @@ public class FileUtil {
             object = s.readObject();
             s.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         } finally {
@@ -182,7 +176,6 @@ public class FileUtil {
                 try {
                     f_in.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

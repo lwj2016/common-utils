@@ -11,6 +11,48 @@ import android.os.Bundle;
  */
 public class ActivityUtil {
 
+    public static long innerTime = 0L;
+
+    /**
+     *   每次打开同一个界面的时间间隔
+     */
+    public static long INNER_INTERVAL = 1000L;
+    /**
+     *  检测是否可以打开界面
+     * @return
+     */
+    public static boolean checkVaild() {
+
+        long nowTime = System.currentTimeMillis();
+        if (nowTime - innerTime > INNER_INTERVAL) {
+            return true;
+        }
+        innerTime = nowTime;
+        return false;
+    }
+
+
+    /**
+     * 调用某一个Action
+     *
+     * @param context
+     * @param intent
+     */
+    public static void startActivity(Context context, Intent intent, boolean isFinish) {
+        if(!checkVaild()){
+            return;
+        }
+        context.startActivity(intent);
+        if (isFinish) {
+            ((Activity) context).finish();
+        }
+    }
+    public static void startActivityForResult(Activity act, Intent intent,int code){
+        if(!checkVaild()){
+            return;
+        }
+        act.startActivityForResult(intent,code);
+    }
     /**
      * 调用某一个Action
      *
@@ -21,7 +63,6 @@ public class ActivityUtil {
         startActivity(context, intent, false);
     }
 
-
     /**
      * 一个Activity 开启 另一个 Activity
      *
@@ -30,63 +71,7 @@ public class ActivityUtil {
      */
     public static void startActivity(Context context, Class cls) {
         Intent intent = new Intent(context, cls);
-        startActivity(context, intent);
-    }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，带Bundle
-     *
-     * @param context
-     * @param cls
-     * @param bundle
-     */
-    public static void startActivity(Context context, Class cls, Bundle bundle) {
-        Intent intent = new Intent(context, cls);
-        intent.setClass(context, cls);
-        intent.putExtras(bundle);
-        startActivity(context, intent);
-    }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
-     *
-     * @param act
-     * @param cls
-     * @param Code
-     */
-    public static void startActivityForResult(Activity act, Class cls, int Code) {
-        Intent intent = new Intent(act, cls);
-        act.startActivityForResult(intent, Code);
-    }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
-     *
-     * @param act
-     * @param cls
-     * @param bundle
-     * @param Code
-     */
-    public static void startActivityForResult(Activity act, Class cls, Bundle bundle, int Code) {
-        Intent intent = new Intent(act, cls);
-        intent.putExtras(bundle);
-        act.startActivityForResult(intent, Code);
-    }
-
-    /**
-     * 调用某一个Action
-     *
-     * @param context
-     * @param intent
-     */
-    public static void startActivity(Context context, Intent intent, boolean isFinish) {
-        context.startActivity(intent);
-        if (isFinish) {
-            ((Activity) context).finish();
-        }
+        startActivity(context, intent,false);
     }
 
 
@@ -115,4 +100,47 @@ public class ActivityUtil {
         intent.putExtras(bundle);
         startActivity(context, intent, isFinish);
     }
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle
+     *
+     * @param context
+     * @param cls
+     * @param bundle
+     */
+    public static void startActivity(Context context, Class cls, Bundle bundle) {
+        Intent intent = new Intent(context, cls);
+        intent.setClass(context, cls);
+        intent.putExtras(bundle);
+        startActivity(context, intent,false);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
+     *
+     * @param act
+     * @param cls
+     * @param Code
+     */
+    public static void startActivityForResult(Activity act, Class cls, int Code) {
+        Intent intent = new Intent(act, cls);
+        startActivityForResult(act,intent, Code);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
+     *
+     * @param act
+     * @param cls
+     * @param bundle
+     * @param Code
+     */
+    public static void startActivityForResult(Activity act, Class cls, Bundle bundle, int Code) {
+        Intent intent = new Intent(act, cls);
+        intent.putExtras(bundle);
+        startActivityForResult(act,intent, Code);
+    }
+
+
 }

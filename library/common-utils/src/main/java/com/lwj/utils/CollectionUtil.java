@@ -32,7 +32,6 @@ public class CollectionUtil {
     public static <T> T[] listToArray(ArrayList<T> list) {
 
         Object[] objs = list.toArray();
-        Collections.emptyList();
         return (T[]) objs;
     }
 
