@@ -3,7 +3,6 @@ package com.lwj.utils;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.widget.RelativeLayout;
 
 import com.lwj.utils.context.GlobalContext;
 
@@ -15,8 +14,8 @@ public class ResUtil {
     /**
      * 从strings.xml中读取String
      *
-     * @param resId  String res id
-     * @return   string
+     * @param resId String res id
+     * @return string
      */
     public static String getString(int resId) {
         return getResources().getString(resId);
@@ -25,8 +24,8 @@ public class ResUtil {
     /**
      * 从colors.xml中读取color
      *
-     * @param resId   color id
-     * @return  color
+     * @param resId color id
+     * @return color
      */
     public static int getColor(int resId) {
         return getResources().getColor(resId);
@@ -35,8 +34,8 @@ public class ResUtil {
     /**
      * 从arrays.xml中读取array[]
      *
-     * @param resId   String array id
-     * @return   String[]
+     * @param resId String array id
+     * @return String[]
      */
     public static String[] getStringArray(int resId) {
         return getResources().getStringArray(resId);
@@ -45,8 +44,8 @@ public class ResUtil {
     /**
      * 从dimens.xml里读取dimen
      *
-     * @param resId  dimensid
-     * @return  dimen
+     * @param resId dimensid
+     * @return dimen
      */
     public static int getDimen(int resId) {
         return getResources().getDimensionPixelSize(resId);
@@ -55,7 +54,7 @@ public class ResUtil {
     /**
      * 获得全局的resources
      *
-     * @return  resources
+     * @return resources
      */
     public static Resources getResources() {
         return GlobalContext.getContext().getResources();
@@ -74,8 +73,8 @@ public class ResUtil {
     /**
      * 获取 int 数组
      *
-     * @param resId  IntegerArray id
-     * @return  IntegerArray
+     * @param resId IntegerArray id
+     * @return IntegerArray
      */
     public static int[] getIntegerArray(int resId) {
 
@@ -85,28 +84,27 @@ public class ResUtil {
     /**
      * 获取  AssetManager
      *
-     * @return  AssetManager
+     * @return AssetManager
      */
     public static AssetManager getAssetManager() {
         return getResources().getAssets();
     }
 
     /**
-     *
      * @param res
      * @param args
      * @return
      */
-    public static String getFormatString(String res, Object... args){
-       return String.format(res,args);
+    public static String getFormatString(String res, Object... args) {
+        return String.format(res, args);
     }
+
     /**
-     *
      * @param resId
      * @param args
      * @return
      */
-    public static String getFormatString(int resId,Object... args){
-        return getFormatString(ResUtil.getString(resId),args);
+    public static String getFormatString(int resId, Object... args) {
+        return getFormatString(ResUtil.getString(resId), args);
     }
 }

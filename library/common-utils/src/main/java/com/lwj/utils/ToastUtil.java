@@ -2,7 +2,6 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwj.utils.context.GlobalContext;

@@ -10,6 +10,6 @@ public class Preconditions {
         if (value == null) {
             throw new NullPointerException(message);
         }
-       return value;
+        return value;
     }
 }

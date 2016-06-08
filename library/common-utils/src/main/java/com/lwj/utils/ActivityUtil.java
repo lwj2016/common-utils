@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.lwj.utils.log.LogUtil;
+
 /**
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
@@ -14,11 +16,13 @@ public class ActivityUtil {
     public static long innerTime = 0L;
 
     /**
-     *   每次打开同一个界面的时间间隔
+     * 每次打开同一个界面的时间间隔
      */
     public static long INNER_INTERVAL = 1000L;
+
     /**
-     *  检测是否可以打开界面
+     * 检测是否可以打开界面
+     *
      * @return
      */
     public static boolean checkVaild() {
@@ -28,6 +32,7 @@ public class ActivityUtil {
             return true;
         }
         innerTime = nowTime;
+        LogUtil.i("open fast and the interval is %s", String.valueOf(INNER_INTERVAL));
         return false;
     }
 
@@ -39,7 +44,7 @@ public class ActivityUtil {
      * @param intent
      */
     public static void startActivity(Context context, Intent intent, boolean isFinish) {
-        if(!checkVaild()){
+        if (!checkVaild()) {
             return;
         }
         context.startActivity(intent);
@@ -47,12 +52,14 @@ public class ActivityUtil {
             ((Activity) context).finish();
         }
     }
-    public static void startActivityForResult(Activity act, Intent intent,int code){
-        if(!checkVaild()){
+
+    public static void startActivityForResult(Activity act, Intent intent, int code) {
+        if (!checkVaild()) {
             return;
         }
-        act.startActivityForResult(intent,code);
+        act.startActivityForResult(intent, code);
     }
+
     /**
      * 调用某一个Action
      *
@@ -71,7 +78,7 @@ public class ActivityUtil {
      */
     public static void startActivity(Context context, Class cls) {
         Intent intent = new Intent(context, cls);
-        startActivity(context, intent,false);
+        startActivity(context, intent, false);
     }
 
 
@@ -100,6 +107,7 @@ public class ActivityUtil {
         intent.putExtras(bundle);
         startActivity(context, intent, isFinish);
     }
+
     /**
      * 一个Activity 开启 另一个 Activity，带Bundle
      *
@@ -111,7 +119,7 @@ public class ActivityUtil {
         Intent intent = new Intent(context, cls);
         intent.setClass(context, cls);
         intent.putExtras(bundle);
-        startActivity(context, intent,false);
+        startActivity(context, intent, false);
     }
 
 
@@ -124,7 +132,7 @@ public class ActivityUtil {
      */
     public static void startActivityForResult(Activity act, Class cls, int Code) {
         Intent intent = new Intent(act, cls);
-        startActivityForResult(act,intent, Code);
+        startActivityForResult(act, intent, Code);
     }
 
 
@@ -139,7 +147,7 @@ public class ActivityUtil {
     public static void startActivityForResult(Activity act, Class cls, Bundle bundle, int Code) {
         Intent intent = new Intent(act, cls);
         intent.putExtras(bundle);
-        startActivityForResult(act,intent, Code);
+        startActivityForResult(act, intent, Code);
     }
 
 

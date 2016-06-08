@@ -15,7 +15,7 @@ public class PrefUtil {
     private SharedPreferences mSharedPreferences;
 
     public static PrefUtil getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new PrefUtil(GlobalContext.getContext());
         }
         return instance;
@@ -96,7 +96,8 @@ public class PrefUtil {
     public SharedPreferences getSharedPreferences() {
         return this.mSharedPreferences;
     }
-    public  void clear(){
+
+    public void clear() {
         this.mSharedPreferences.edit().clear().commit();
     }
 }

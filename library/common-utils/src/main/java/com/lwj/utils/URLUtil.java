@@ -1,11 +1,7 @@
 package com.lwj.utils;
 
-import android.net.Uri;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLStreamHandler;
-import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
