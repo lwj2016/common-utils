@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 /**
  * Created by lwj on 2016/3/8.
@@ -56,4 +57,29 @@ public class StringUtil {
         }
         return sb.toString();
     }
+
+    /**
+     * 数组转 字符串
+     *
+     * @param array
+     * @return
+     */
+    public static String toString(Object[] array) {
+        return Arrays.toString(array);
+    }
+
+    public static String toString(Object[] array, String seg) {
+        if (array == null || array.length == 0) {
+            return "null";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(array[0].toString());
+        int length = array.length;
+        for (int i = 1; i < length; i++) {
+            sb.append(seg);
+            sb.append(array[i]);
+        }
+        return sb.toString();
+    }
+
 }

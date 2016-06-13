@@ -95,12 +95,7 @@ public class AppUtil {
                 isRunning = true;
                 break;
             }
-
-
         }
-
         return isRunning;
     }
-
-
 }

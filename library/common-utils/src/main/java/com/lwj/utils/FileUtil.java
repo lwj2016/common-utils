@@ -21,12 +21,39 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 
 /**
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
 public class FileUtil {
+
+
+    /**
+     * 单位换算
+     *
+     * @param size 单位为B
+     * @param isInteger 是否返回取整的单位
+     * @return 转换后的单位
+     */
+    public static String formatFileSize(long size, boolean isInteger) {
+        DecimalFormat df = isInteger ? fileIntegerFormat : fileDecimalFormat;
+        String fileSizeString = "0M";
+        if (size < 1024 && size > 0) {
+            fileSizeString = df.format((double) size) + "B";
+        } else if (size < 1024 * 1024) {
+            fileSizeString = df.format((double) size / 1024) + "K";
+        } else if (size < 1024 * 1024 * 1024) {
+            fileSizeString = df.format((double) size / (1024 * 1024)) + "M";
+        } else {
+            fileSizeString = df.format((double) size / (1024 * 1024 * 1024)) + "G";
+        }
+        return fileSizeString;
+    }
+}
+
+
     /**
      * @param _context
      * @param filename
@@ -325,9 +352,11 @@ public class FileUtil {
         }
         return res;
     }
-
-    public static boolean isSDCardReady() {
-        String STATE = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(STATE);
+    public static long getLastModified(String fileName) {
+        File file = new File(fileName);
+        return getLastModified(file);
+    }
+    public static long getLastModified(File file){
+        return file.lastModified();
     }
 }
