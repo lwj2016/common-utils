@@ -80,10 +80,8 @@ public class DeviceUtil {
         // endIndex
         int end = content.indexOf('k');
         // 截取字符串信息
-
         content = content.substring(begin + 1, end).trim();
         mTotal = Integer.parseInt(content);
         return mTotal;
     }
-}
 }

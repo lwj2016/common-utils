@@ -31,30 +31,6 @@ public class FileUtil {
 
 
     /**
-     * 单位换算
-     *
-     * @param size 单位为B
-     * @param isInteger 是否返回取整的单位
-     * @return 转换后的单位
-     */
-    public static String formatFileSize(long size, boolean isInteger) {
-        DecimalFormat df = isInteger ? fileIntegerFormat : fileDecimalFormat;
-        String fileSizeString = "0M";
-        if (size < 1024 && size > 0) {
-            fileSizeString = df.format((double) size) + "B";
-        } else if (size < 1024 * 1024) {
-            fileSizeString = df.format((double) size / 1024) + "K";
-        } else if (size < 1024 * 1024 * 1024) {
-            fileSizeString = df.format((double) size / (1024 * 1024)) + "M";
-        } else {
-            fileSizeString = df.format((double) size / (1024 * 1024 * 1024)) + "G";
-        }
-        return fileSizeString;
-    }
-}
-
-
-    /**
      * @param _context
      * @param filename
      * @return 从 assets 里读文件
