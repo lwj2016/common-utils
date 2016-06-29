@@ -45,7 +45,5 @@ public class AnimationUtil {
         return buildSequentAnim(null,animators);
     }
 
-    public static  getValueAnimatorAnimator(){
-        return null;
-    }
+   
 }
