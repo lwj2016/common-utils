@@ -65,9 +65,9 @@ public class RegularUtil {
      * @param str
      * @return
      */
-    public static boolean isPhone(String str, String number) {
+    public static boolean isPhone(String str, String regularStr) {
         Pattern p = Pattern
-                .compile(number);
+                .compile(regularStr);
         Matcher m = p.matcher(str);
         return m.matches();
     }

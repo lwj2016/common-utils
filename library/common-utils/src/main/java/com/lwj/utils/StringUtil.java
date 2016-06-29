@@ -1,9 +1,8 @@
 package com.lwj.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.UndeclaredThrowableException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
@@ -29,34 +28,6 @@ public class StringUtil {
         return !isEmpty(string);
     }
 
-    /**
-     * 将输入流转换为字符串
-     *
-     * @param is
-     * @return
-     */
-    public static String convertStreamToString(InputStream is) {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append((line));
-                // sb.append((line + "\n"));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sb.toString();
-    }
 
     /**
      * 数组转 字符串
@@ -82,4 +53,18 @@ public class StringUtil {
         return sb.toString();
     }
 
+    public static byte[]  str2Bytes(String str){
+
+        if(isEmpty(str)){
+            return new byte[]{};
+        }
+       return str.getBytes(Charset.defaultCharset());
+    }
+    public static byte[]  str2Bytes(String str,String charSetName) throws UnsupportedEncodingException {
+
+        if(isEmpty(str)){
+            return new byte[]{};
+        }
+        return str.getBytes(charSetName);
+    }
 }

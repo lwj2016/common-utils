@@ -1,24 +1,51 @@
 package com.lwj.utils;
 
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 
-import com.lwj.utils.context.GlobalContext;
+import java.util.ArrayList;
 
 /**
- * Created by lwj on 16/4/4.
- * Des:  动画操作类
+ * Created by lwj on 16/6/29.
+ * Des:
  */
 public class AnimationUtil {
 
-    /**
-     * 获取动画
-     *
-     * @param animationID
-     * @return
-     */
-    public static Animation getAnimation(int animationID) {
-        return AnimationUtils.loadAnimation(GlobalContext.getContext(), animationID);
+
+    public static AnimatorSet buildSyncAnim(AnimatorSet animatorSet, ArrayList<Animator> animators) {
+        if (animatorSet == null) {
+            animatorSet = new AnimatorSet();
+        }
+
+        if (CollectionUtil.isListMoreOne(animators)) {
+            int count = animators.size();
+            for (int i = 0; i < count - 1; i++) {
+
+                animatorSet.play(animators.get(i)).with(animators.get(i+1));
+            }
+        }
+        return animatorSet;
     }
 
+    public static AnimatorSet buildSyncAnim( ArrayList<Animator> animators) {
+       return buildSyncAnim(null,animators);
+    }
+    public static AnimatorSet buildSequentAnim(AnimatorSet animatorSet, ArrayList<Animator> animators){
+        if (animatorSet == null) {
+            animatorSet = new AnimatorSet();
+        }
+
+        animatorSet.playSequentially(animators);
+        return animatorSet;
+    }
+
+
+    public static AnimatorSet buildSequentAnim( ArrayList<Animator> animators) {
+        return buildSequentAnim(null,animators);
+    }
+
+    public static  getValueAnimatorAnimator(){
+        return null;
+    }
 }

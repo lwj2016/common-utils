@@ -154,6 +154,13 @@ public class TimeUtil {
         return getFormatByTime(format, days, TimeUnit.DAYS);
     }
 
+    /**
+     * get the years offset
+     *
+     * @param firstDate
+     * @param endDate
+     * @return
+     */
     public static int getOffsetYears(Date firstDate, Date endDate) {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
@@ -167,6 +174,30 @@ public class TimeUtil {
         return offsetYears;
     }
 
+    public static int getOffsetMonths(Date firstDate, Date endDate, boolean isIgnoreYear) {
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(firstDate);
+        c2.setTime(endDate);
+        if (c1.after(c2)) {
+            c1 = c2;
+            c2.setTime(firstDate);
+        }
+        int offsetYears = c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR);
+        if (offsetYears == 0 || isIgnoreYear) {
+            return c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
+        } else {
+            return (c1.getMaximum(Calendar.MONTH) + 1) * (offsetYears - 1) + c1.getMaximum(Calendar.MONTH) - c1.get(Calendar.MONTH) + c2.get(Calendar.MONTH) + 1;
+        }
+    }
+
+    /**
+     * get the months offset
+     *
+     * @param firstDate
+     * @param endDate
+     * @return
+     */
     public static int getOffsetMonths(Date firstDate, Date endDate) {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();

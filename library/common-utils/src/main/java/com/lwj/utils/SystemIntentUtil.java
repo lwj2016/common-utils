@@ -13,7 +13,7 @@ import java.io.File;
 
 /**
  * Created by lwj on 16/3/23.
- * Des: 打开系统界面工具类
+ * Des: open the system app or  service
  */
 public class SystemIntentUtil {
     /**

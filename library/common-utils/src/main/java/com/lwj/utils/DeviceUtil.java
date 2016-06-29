@@ -19,7 +19,8 @@ import java.io.IOException;
 public class DeviceUtil {
 
     /**
-     *  SD 卡是否准备好
+     * SD 卡是否准备好
+     *
      * @return
      */
     public static boolean isSDCardReady() {
@@ -35,6 +36,7 @@ public class DeviceUtil {
         }
         return device_id;
     }
+
     // 获得可用的内存
     public static long getUseableMemory(Context mContext) {
         long MEM_UNUSED;
@@ -50,6 +52,7 @@ public class DeviceUtil {
         MEM_UNUSED = mi.availMem / 1024;
         return MEM_UNUSED;
     }
+
     public static long getTotalMemory() {
         long mTotal;
         // /proc/meminfo读出的内核信息进行解释

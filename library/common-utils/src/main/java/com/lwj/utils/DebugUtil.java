@@ -8,22 +8,22 @@ import java.io.File;
  */
 public class DebugUtil {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         File file = new File("holy shit");
 
         System.out.println(getTag(file));
         System.out.println(getTag(File.class));
     }
 
-    public static <T> String getTag(Class<T> tClass){
-        if(tClass == null){
+    public static <T> String getTag(Class<T> tClass) {
+        if (tClass == null) {
             return "null";
         }
         return tClass.getSimpleName();
     }
 
-    public static <T> String getTag(Object object){
-        if(object == null){
+    public static <T> String getTag(Object object) {
+        if (object == null) {
             return "null";
         }
         return object.getClass().getSimpleName();

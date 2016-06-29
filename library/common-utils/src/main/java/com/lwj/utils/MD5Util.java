@@ -116,7 +116,13 @@ public class MD5Util {
         return sb.toString();
     }
 
-    public static String md5sum(String filename) {
+    /**
+     * get the md5 of file
+     *
+     * @param filename
+     * @return
+     */
+    public static String md5File(String filename) {
         InputStream fis;
         byte[] buffer = new byte[1024];
         int numRead = 0;

@@ -3,6 +3,8 @@ package com.lwj.utils;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.lwj.utils.context.GlobalContext;
 
@@ -106,5 +108,15 @@ public class ResUtil {
      */
     public static String getFormatString(int resId, Object... args) {
         return getFormatString(ResUtil.getString(resId), args);
+    }
+
+    /**
+     * 获取动画
+     *
+     * @param animationID
+     * @return
+     */
+    public static Animation getAnimation(int animationID) {
+        return AnimationUtils.loadAnimation(GlobalContext.getContext(), animationID);
     }
 }

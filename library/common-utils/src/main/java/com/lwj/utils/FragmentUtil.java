@@ -13,14 +13,12 @@ public class FragmentUtil {
     public static void addFragmentIntoActivity(FragmentActivity activity, Fragment fragment, int fragmentId) {
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         ft.replace(fragmentId, fragment);
-        //ft.addToBackStack(null);
         ft.commitAllowingStateLoss();
     }
 
     public static void addFragmentIntoFragment(Fragment baseFragment, Fragment fragment, int fragmentId) {
         FragmentTransaction ft = baseFragment.getChildFragmentManager().beginTransaction();
         ft.replace(fragmentId, fragment);
-        //ft.addToBackStack(null);
         ft.commitAllowingStateLoss();
     }
 }

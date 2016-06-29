@@ -21,7 +21,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DecimalFormat;
 
 /**
  * Created by lwj on 16/3/9.
@@ -328,11 +327,13 @@ public class FileUtil {
         }
         return res;
     }
+
     public static long getLastModified(String fileName) {
         File file = new File(fileName);
         return getLastModified(file);
     }
-    public static long getLastModified(File file){
+
+    public static long getLastModified(File file) {
         return file.lastModified();
     }
 }

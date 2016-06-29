@@ -11,7 +11,6 @@ public class FormatUtil {
         int l = 0;
         try {
             l = Integer.valueOf(str);
-            ;
         } catch (NumberFormatException e) {
             LogUtil.e("strToInteger %s", "error");
         }
@@ -22,7 +21,6 @@ public class FormatUtil {
         float l = 0f;
         try {
             l = Float.valueOf(str);
-            ;
         } catch (NumberFormatException e) {
             LogUtil.e("strToFloat %s", "error");
         }
@@ -33,7 +31,6 @@ public class FormatUtil {
         long l = 0L;
         try {
             l = Long.valueOf(str);
-            ;
         } catch (NumberFormatException e) {
             LogUtil.e("strToLong %s", "error");
         }
@@ -45,7 +42,6 @@ public class FormatUtil {
         double l = 0d;
         try {
             l = Double.valueOf(str);
-            ;
         } catch (NumberFormatException e) {
             LogUtil.e("strToDouble %s", "error");
         }

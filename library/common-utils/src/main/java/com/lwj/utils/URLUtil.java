@@ -1,5 +1,7 @@
 package com.lwj.utils;
 
+import com.lwj.utils.log.LogUtil;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,8 +39,8 @@ public class URLUtil {
         try {
             url = new URL(urlStr);
         } catch (MalformedURLException e) {
+            LogUtil.e("this  "+urlStr+" could not be parsed as a URL");
         }
-
         return url;
     }
 
@@ -179,20 +181,5 @@ public class URLUtil {
         }
         return mapRequest;
     }
-//    public static  String appendQuery(String urlStr,String queryStr){
-//        URL url = getUrlFromStr(urlStr);
-//        url.setURLStreamHandlerFactory(new URLStreamHandlerFactory() {
-//            @Override
-//            public URLStreamHandler createURLStreamHandler(String protocol) {
-//                return null;
-//            }
-//
-//        });
-//        String query = getQuery(urlStr);
-//        if(StringUtil.isEmpty(query)){
-//
-//        }else {
-//
-//        }
 
 }
