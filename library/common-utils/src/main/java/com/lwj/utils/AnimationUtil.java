@@ -2,7 +2,6 @@ package com.lwj.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,6 @@ public class AnimationUtil {
         if (animatorSet == null) {
             animatorSet = new AnimatorSet();
         }
-
         animatorSet.playSequentially(animators);
         return animatorSet;
     }
@@ -45,5 +43,5 @@ public class AnimationUtil {
         return buildSequentAnim(null,animators);
     }
 
-   
+
 }
