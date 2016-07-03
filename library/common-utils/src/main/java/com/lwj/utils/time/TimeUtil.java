@@ -154,6 +154,8 @@ public class TimeUtil {
         return getFormatByTime(format, days, TimeUnit.DAYS);
     }
 
+
+
     /**
      * get the years offset
      *
@@ -330,5 +332,70 @@ public class TimeUtil {
         m[1] = c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH);
         m[2] = c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH);
         return m;
+    }
+
+    /**
+     *   是否是同一年
+     * @param firstDate
+     * @param endDate
+     * @return
+     */
+    public static boolean isSameYear(Date firstDate, Date endDate){
+        return getOffsetYears(firstDate,endDate)==0;
+    }
+
+    /**
+     *
+     * @param date
+     * @return
+     */
+    public static boolean isSameYear(Date date){
+        return isSameYear(date,new Date());
+    }
+
+    private static boolean isSameMonth(Date date,Date date1,boolean isIgnoreY){
+        if(isIgnoreY){
+           return getOffsetMonthIngoreY(date,date1) == 0;
+        }
+        return getOffsetMonths(date,date1) == 0;
+    }
+
+    /**
+     *  是否是同一个月
+     * @param date
+     * @param date1
+     * @return
+     */
+    public static boolean isSameMonth(Date date,Date date1){
+
+        return isSameMonth(date,date1,false);
+    }
+
+    /**
+     *  是否是同一月
+     * @param date
+     * @param date1
+     * @return
+     */
+    public static boolean isSameMonthIgnoreY(Date date,Date date1){
+
+        return isSameMonth(date,date1,true);
+    }
+    /**
+     *  是否是同一月
+     * @param date
+     * @return
+     */
+    public static boolean isSameMonth(Date date){
+
+        return isSameMonth(date,new Date(),false);
+    }
+    /**
+     *  是否是同一月
+     * @param date
+     * @return
+     */
+    public static boolean isSameMonthIngoreY(Date date){
+        return isSameMonth(date,new Date(),true);
     }
 }
