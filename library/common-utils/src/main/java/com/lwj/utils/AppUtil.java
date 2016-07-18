@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public class AppUtil {
         }
     }
 
+    public static String getVersionName() {
+        return getVersionName(GlobalContext.getContext());
+    }
+
     public static int getVersionCode(Context context) {
         try {
             PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -37,6 +42,10 @@ public class AppUtil {
             var2.printStackTrace();
             return -1;
         }
+    }
+
+    public static int getVersionCode() {
+        return getVersionCode(GlobalContext.getContext());
     }
 
     public static String getPackageName(Context context) {
@@ -49,6 +58,10 @@ public class AppUtil {
         }
     }
 
+    public static String getPackageName() {
+        return getPackageName(GlobalContext.getContext());
+    }
+
     public static String getAppName(Context context) {
         try {
             PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -59,16 +72,35 @@ public class AppUtil {
         }
     }
 
-    public static boolean isInstall(Context context, String _packageName) throws PackageManager.NameNotFoundException {
+    public static String getAppName() {
+        return getAppName(GlobalContext.getContext());
+    }
+
+    public static boolean isInstall(Context context, String _packageName) {
         boolean isInstall = false;
-        PackageInfo packageInfo = context.getApplicationContext().getPackageManager().getPackageInfo(_packageName, 0);
-        if (packageInfo == null) {
+
+        PackageInfo packageInfo;
+
+        try {
+            packageInfo = context.getApplicationContext().getPackageManager().getPackageInfo(_packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        if (packageInfo == null)
+
+        {
             isInstall = false;
-        } else {
+        } else
+
+        {
             isInstall = true;
         }
 
         return isInstall;
+    }
+
+    public static boolean isInstall(String _packageName) {
+        return isInstall(GlobalContext.getContext(), _packageName);
     }
 
     public static void gotoMarket(Context context, String packageName) throws Exception {

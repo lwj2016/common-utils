@@ -1,7 +1,8 @@
 package com.lwj.utils;
 
+import com.lwj.utils.log.LogUtil;
+
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -53,18 +54,35 @@ public class StringUtil {
         return sb.toString();
     }
 
-    public static byte[]  str2Bytes(String str){
+    public static byte[] str2Bytes(String str) {
 
-        if(isEmpty(str)){
+        if (isEmpty(str)) {
             return new byte[]{};
         }
-       return str.getBytes(Charset.defaultCharset());
+        return str.getBytes(Charset.defaultCharset());
     }
-    public static byte[]  str2Bytes(String str,String charSetName) throws UnsupportedEncodingException {
 
-        if(isEmpty(str)){
-            return new byte[]{};
+    public static byte[] str2Bytes(String str, String charSetName) {
+        byte[] result;
+        if (isEmpty(str)) {
+            result =  new byte[]{};
+        }else {
+            try {
+                result  = str.getBytes(charSetName);
+            }catch (UnsupportedEncodingException e){
+                e.printStackTrace();
+                result= new byte[]{};
+            }
         }
-        return str.getBytes(charSetName);
+        return result;
+    }
+
+    public static int getByteLength(String str) {
+        return getByteLength(str, Charset.defaultCharset().displayName());
+    }
+
+    public static int getByteLength(String str, String charSetName) {
+
+        return str2Bytes(str, charSetName).length;
     }
 }

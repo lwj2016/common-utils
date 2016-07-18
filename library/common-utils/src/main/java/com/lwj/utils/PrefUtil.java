@@ -21,6 +21,12 @@ public class PrefUtil {
         return instance;
     }
 
+    public static PrefUtil getInstance(Context context) {
+        if (instance == null) {
+            instance = new PrefUtil(GlobalContext.getContext());
+        }
+        return instance;
+    }
     private PrefUtil(Context context) {
         this.mSharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }

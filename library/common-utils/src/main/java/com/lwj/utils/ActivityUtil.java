@@ -25,7 +25,7 @@ public class ActivityUtil {
      *
      * @return
      */
-    public static boolean checkVaild() {
+    public static boolean checkValid() {
 
         long nowTime = System.currentTimeMillis();
         if (nowTime - innerTime > INNER_INTERVAL) {
@@ -44,7 +44,7 @@ public class ActivityUtil {
      * @param intent
      */
     public static void startActivity(Context context, Intent intent, boolean isFinish) {
-        if (!checkVaild()) {
+        if (!checkValid()) {
             return;
         }
         context.startActivity(intent);
@@ -54,7 +54,7 @@ public class ActivityUtil {
     }
 
     public static void startActivityForResult(Activity act, Intent intent, int code) {
-        if (!checkVaild()) {
+        if (!checkValid()) {
             return;
         }
         act.startActivityForResult(intent, code);
