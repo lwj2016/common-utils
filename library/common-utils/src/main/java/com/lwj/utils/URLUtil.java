@@ -39,7 +39,7 @@ public class URLUtil {
         try {
             url = new URL(urlStr);
         } catch (MalformedURLException e) {
-            LogUtil.e("this  "+urlStr+" could not be parsed as a URL");
+            LogUtil.e("this  " + urlStr + " could not be parsed as a URL");
         }
         return url;
     }

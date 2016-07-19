@@ -1,7 +1,5 @@
 package com.lwj.utils;
 
-import com.lwj.utils.log.LogUtil;
-
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -65,13 +63,13 @@ public class StringUtil {
     public static byte[] str2Bytes(String str, String charSetName) {
         byte[] result;
         if (isEmpty(str)) {
-            result =  new byte[]{};
-        }else {
+            result = new byte[]{};
+        } else {
             try {
-                result  = str.getBytes(charSetName);
-            }catch (UnsupportedEncodingException e){
+                result = str.getBytes(charSetName);
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                result= new byte[]{};
+                result = new byte[]{};
             }
         }
         return result;

@@ -163,7 +163,7 @@ public enum TimeUnit {
      * with arguments that would numerically overflow saturate to
      * {@code Long.MIN_VALUE} if negative or {@code Long.MAX_VALUE}
      * if positive.
-     * <p>
+     * <p/>
      * For example, to convert 10 minutes to milliseconds, use:
      * {@code TimeUnit.MILLISECONDS.convert(10L, TimeUnit.MINUTES)}
      *

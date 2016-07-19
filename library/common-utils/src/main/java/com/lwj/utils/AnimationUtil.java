@@ -21,16 +21,17 @@ public class AnimationUtil {
             int count = animators.size();
             for (int i = 0; i < count - 1; i++) {
 
-                animatorSet.play(animators.get(i)).with(animators.get(i+1));
+                animatorSet.play(animators.get(i)).with(animators.get(i + 1));
             }
         }
         return animatorSet;
     }
 
-    public static AnimatorSet buildSyncAnim( ArrayList<Animator> animators) {
-       return buildSyncAnim(null,animators);
+    public static AnimatorSet buildSyncAnim(ArrayList<Animator> animators) {
+        return buildSyncAnim(null, animators);
     }
-    public static AnimatorSet buildSequentAnim(AnimatorSet animatorSet, ArrayList<Animator> animators){
+
+    public static AnimatorSet buildSequentAnim(AnimatorSet animatorSet, ArrayList<Animator> animators) {
         if (animatorSet == null) {
             animatorSet = new AnimatorSet();
         }
@@ -39,8 +40,8 @@ public class AnimationUtil {
     }
 
 
-    public static AnimatorSet buildSequentAnim( ArrayList<Animator> animators) {
-        return buildSequentAnim(null,animators);
+    public static AnimatorSet buildSequentAnim(ArrayList<Animator> animators) {
+        return buildSequentAnim(null, animators);
     }
 
 

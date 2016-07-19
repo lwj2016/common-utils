@@ -27,6 +27,7 @@ public class PrefUtil {
         }
         return instance;
     }
+
     private PrefUtil(Context context) {
         this.mSharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
