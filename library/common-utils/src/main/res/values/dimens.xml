@@ -8,6 +8,8 @@
     <dimen name="text_size_22">22sp</dimen>
 
     <dimen name="global_margin_1">1dp</dimen>
+    <dimen name="global_margin_1px">1px</dimen>
+    <dimen name="global_margin_3">3dp</dimen>
     <dimen name="global_margin_5">5dp</dimen>
     <dimen name="global_margin_8">8dp</dimen>
     <dimen name="global_margin_10">10dp</dimen>

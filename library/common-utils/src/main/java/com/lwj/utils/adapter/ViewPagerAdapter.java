@@ -1,5 +1,6 @@
 package com.lwj.utils.adapter;
 
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,6 +13,8 @@ import java.util.List;
 /**
  * Created by lwj on 16/8/19.
  * liuwenjie@goumin.com
+ *
+ * @param <T>   android.support.v4.app.Fragment
  */
 public class ViewPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
 
