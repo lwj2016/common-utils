@@ -8,11 +8,12 @@ import android.view.View;
  * lwjfork@gmail.com
  */
 public class ViewUtil {
-
+    @SuppressWarnings("unchecked")
     public static <V extends View> V find(Activity ac, int id) {
         return (V) ac.findViewById(id);
     }
 
+    @SuppressWarnings("unchecked")
     public static <V extends View> V find(View view, int id) {
         return (V) view.findViewById(id);
     }
