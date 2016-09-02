@@ -1,6 +1,4 @@
-package com.lwj.utils;
-
-import java.io.File;
+package com.lwj.utils.log;
 
 /**
  * Created by lwj on 16/6/13.
@@ -8,12 +6,6 @@ import java.io.File;
  */
 public class DebugUtil {
 
-    public static void main(String[] args) {
-        File file = new File("holy shit");
-
-        System.out.println(getTag(file));
-        System.out.println(getTag(File.class));
-    }
 
     public static <T> String getTag(Class<T> tClass) {
         if (tClass == null) {

@@ -78,15 +78,43 @@ public class FileUtil {
         }
     }
 
+    public static String getFilePath(String path, String name) {
+        if (path == null) {
+            LogUtil.e("ERROR ---%s", "file path must not be null");
+            return null;
+        } else if (name == null) {
+            LogUtil.e("ERROR ---%s", "file name must not be null");
+            return null;
+        } else if (name.endsWith(File.separator)) {
+            LogUtil.e("ERROR --file name --" + name + "-- can not be end with %s", File.separator);
+            return null;
+        }
+        StringBuilder filePath = new StringBuilder();
+        if (path.endsWith(File.separator) && name.startsWith(File.separator)) {
+            filePath.append(path);
+            filePath.append(name.substring(1));
+            return filePath.toString();
+        } else if (path.endsWith(File.separator)) {
+            filePath.append(path).append(name);
+            return filePath.toString();
+        } else {
+            filePath.append(path).append(File.separator).append(name);
+            return filePath.toString();
+        }
+    }
 
     public synchronized static void saveObject(Object object, String path, String name) {
+        String filePath = getFilePath(path, name);
+        if (filePath == null) {
+            return;
+        }
         FileOutputStream f_out = null;
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
         }
         try {
-            f_out = new FileOutputStream(path + File.separator + name);
+            f_out = new FileOutputStream(filePath);
             ObjectOutputStream s = new ObjectOutputStream(f_out);
             s.writeObject(object);
             s.flush();

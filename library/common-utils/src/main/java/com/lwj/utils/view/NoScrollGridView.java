@@ -9,21 +9,21 @@ import android.widget.GridView;
  * Created by lwj on 16/8/30.
  * liuwenjie@goumin.com
  */
-public class NoSrollGridView extends GridView {
-    public NoSrollGridView(Context context) {
+public class NoScrollGridView extends GridView {
+    public NoScrollGridView(Context context) {
         super(context);
     }
 
-    public NoSrollGridView(Context context, AttributeSet attrs) {
+    public NoScrollGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NoSrollGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NoScrollGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(21)
-    public NoSrollGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public NoScrollGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
     @Override
