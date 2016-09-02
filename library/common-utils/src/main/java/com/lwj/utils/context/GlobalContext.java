@@ -20,7 +20,7 @@ public class GlobalContext {
     /**
      * 获得全局的context
      *
-     * @return
+     * @return    全局的context   由 application
      */
     public static Context getContext() {
         if (sApplication == null) {

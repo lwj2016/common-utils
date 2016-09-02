@@ -31,7 +31,7 @@ public class AdapterViewUtil {
      * 判断 listview  是否滑动到顶部了
      *
      * @param listView
-     * @return
+     * @return   true  滑动顶部
      */
     public static boolean isAdapterViewAttach(AbsListView listView) {
 
