@@ -15,6 +15,7 @@ public abstract class BaseViewHolder<T> {
 
     public BaseViewHolder(View rootView) {
         this.rootView = rootView;
+        this.rootView.setTag(this);
     }
 
     public abstract void initView();
