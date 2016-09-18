@@ -13,7 +13,9 @@
        }
 ###MultipeTypeListAdapter  
 > MultipeTypeListAdapter 针对ListView 含有多种 item的 adapter 
+> 
 > AdapterDelegate  与 每种 item 一一对应
+> 
 > AdapterDelegateManager 含有多种 AdapterDelegate 对每种类型进行分离
 
   TestAdapterDelegate
