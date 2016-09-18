@@ -25,6 +25,6 @@ dependencies {
 
 }
 //  下面三行为 上传到 jcenter 的代码   使用module 时请删除
-apply from: rootProject.getRootDir().getAbsolutePath()+"/utils.gradle"
-loadProperties(rootProject.getRootDir().getAbsolutePath()+"/local.properties")
-apply from: rootProject.getRootDir().getAbsolutePath()+"/bintray.gradle"
+//apply from: rootProject.getRootDir().getAbsolutePath()+"/utils.gradle"
+//loadProperties(rootProject.getRootDir().getAbsolutePath()+"/local.properties")
+//apply from: rootProject.getRootDir().getAbsolutePath()+"/bintray.gradle"
