@@ -11,14 +11,15 @@ import java.util.ArrayList;
  * liuwenjie@goumin.com
  */
 public abstract class MultipeTypeListAdapter<T> extends ArrayListAdapter<T> {
-    AdapterDelegateManager<T> delegateManager = new AdapterDelegateManager<>();
+    protected AdapterDelegateManager<T> delegateManager;
 
     public MultipeTypeListAdapter(Context context) {
-        super(context);
+        this(context, new ArrayList<T>());
     }
 
     public MultipeTypeListAdapter(Context context, ArrayList<T> _list) {
         super(context, _list);
+        this.delegateManager = new AdapterDelegateManager<>();
     }
 
     @Override

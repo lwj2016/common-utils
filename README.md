@@ -9,9 +9,12 @@
 ## gradle 导入
 
      dependencies {
-           compile 'com.lwj.fork:common-utils:2.0.4'
+           compile 'com.lwj.fork:common-utils:2.0.5'
        }
-###MultipeTypeListAdapter  
+###MultipeTypeListAdapter 
+参考 [逃离adapter的地狱－针对多个View type的组合实现方案](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0810/3282.html) 
+
+附RecycleView 的解决方案 [AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)
 > MultipeTypeListAdapter 针对ListView 含有多种 item的 adapter 
 > 
 > AdapterDelegate  与 每种 item 一一对应
