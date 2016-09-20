@@ -3,6 +3,8 @@ package com.lwj.utils.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -11,7 +13,16 @@ import android.widget.ListView;
  * Des: AdapterViewUtil
  */
 public class AdapterViewUtil {
-
+    @SuppressWarnings("unchecked")
+    public static <T> T getItemModel(AdapterView adapterView, int i) {
+        if (adapterView instanceof ListView) {
+            return getItemModel((ListView) adapterView, i);
+        } else if (adapterView instanceof GridView) {
+            return getItemModel((GridView)adapterView, i);
+        }
+        return (T)adapterView.getAdapter().getItem(i);
+    }
+    @SuppressWarnings("unchecked")
     public static <T> T getItemModel(ListView listView, int i) {
 
         if (listView == null) {
@@ -25,6 +36,22 @@ public class AdapterViewUtil {
             return (T) listView.getAdapter().getItem(i);
         }
         return null;
+    }
+    @SuppressWarnings("unchecked")
+    public static <T> T getItemModel(GridView listView, int i) {
+
+        if (listView == null) {
+            return null;
+        }
+        if (i < 0) {
+            return null;
+        }
+        int count = listView.getAdapter().getCount();
+        if (i >= count) {
+            return null;
+        }
+        return (T) listView.getAdapter().getItem(i);
+
     }
 
     /**
