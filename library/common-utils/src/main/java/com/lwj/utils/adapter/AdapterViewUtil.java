@@ -1,4 +1,4 @@
-package com.lwj.adapter;
+package com.lwj.utils.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
