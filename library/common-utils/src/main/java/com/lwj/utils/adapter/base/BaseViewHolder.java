@@ -2,8 +2,6 @@ package com.lwj.utils.adapter.base;
 
 import android.view.View;
 
-import com.lwj.utils.ViewUtil;
-
 /**
  * Created by lwj on 16/8/30.
  * liuwenjie@goumin.com
@@ -13,10 +11,7 @@ import com.lwj.utils.ViewUtil;
 public abstract class BaseViewHolder<T> {
     public View rootView;
 
-    public BaseViewHolder(View rootView, int rootViewID) {
-        if (rootView == null) {
-
-        }
+    public BaseViewHolder(View rootView) {
         this.rootView = rootView;
         this.rootView.setTag(this);
     }
@@ -31,9 +26,14 @@ public abstract class BaseViewHolder<T> {
      * @param <V>    must be subClass of View.class
      * @return view
      */
+    @SuppressWarnings("unchecked")
     public <V extends View> V findViewById(View root, int viewId) {
-        return ViewUtil.find(root, viewId);
+        return (V) root.findViewById(viewId);
     }
 
+    /**
+     *  set data for item
+     * @param itemData   data of item
+     */
     public abstract void setItemData(T itemData);
 }

@@ -5,8 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lwj.utils.CollectionUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class ViewPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (CollectionUtil.isListMoreOne(mFragmentList)) {
+        if (mFragmentTitleList != null && mFragmentTitleList.size() > 0) {
             return mFragmentTitleList.get(position);
         } else {
             return super.getPageTitle(position);
