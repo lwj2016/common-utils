@@ -1,4 +1,4 @@
-package com.lwj.utils.adapter;
+package com.lwj.utils.adapter.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;

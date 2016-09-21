@@ -14,7 +14,7 @@ import java.util.List;
  * Created by lwj on 16/8/19.
  * liuwenjie@goumin.com
  *
- * @param <T>   android.support.v4.app.Fragment
+ * @param <T> android.support.v4.app.Fragment
  */
 public class ViewPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
 

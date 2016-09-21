@@ -23,13 +23,14 @@ public class ResUtil {
     public static Resources getResources() {
         return GlobalContext.getContext().getResources();
     }
+
     /**
      * 获得全局的resources
      *
      * @return resources
      */
     public static Resources getResources(Context context) {
-        Preconditions.checkNotNUll(context,"This context is null");
+        Preconditions.checkNotNUll(context, "This context is null");
         return context.getResources();
     }
 
@@ -83,13 +84,14 @@ public class ResUtil {
     public static String[] getStringArray(int resId) {
         return getResources().getStringArray(resId);
     }
+
     /**
      * 从arrays.xml中读取array[]
      *
      * @param resId String array id
      * @return String[]
      */
-    public static String[] getStringArray(Context context,int resId) {
+    public static String[] getStringArray(Context context, int resId) {
         return getResources(context).getStringArray(resId);
     }
 
@@ -109,7 +111,7 @@ public class ResUtil {
      * @param resId dimensid
      * @return dimen
      */
-    public static int getDimen(Context context,int resId) {
+    public static int getDimen(Context context, int resId) {
         return getResources(context).getDimensionPixelSize(resId);
     }
 
@@ -127,13 +129,14 @@ public class ResUtil {
             return getResources().getDrawable(drawableResId);
         }
     }
+
     /**
      * 获取 drawable
      *
      * @param drawableResId drawable id
      * @return drawable
      */
-    public static Drawable getDrawable(Context context,int drawableResId) {
+    public static Drawable getDrawable(Context context, int drawableResId) {
         if (VersionCompatUtils.hasJellyBean()) {
             return getResources(context).getDrawable(drawableResId, null);
         } else {
@@ -151,16 +154,18 @@ public class ResUtil {
 
         return getResources().getIntArray(resId);
     }
+
     /**
      * 获取 int 数组
      *
      * @param resId IntegerArray id
      * @return IntegerArray
      */
-    public static int[] getIntegerArray(Context context,int resId) {
+    public static int[] getIntegerArray(Context context, int resId) {
 
         return getResources(context).getIntArray(resId);
     }
+
     /**
      * 获取  AssetManager
      *
@@ -169,6 +174,7 @@ public class ResUtil {
     public static AssetManager getAssetManager() {
         return getResources().getAssets();
     }
+
     /**
      * 获取  AssetManager
      *
@@ -195,13 +201,14 @@ public class ResUtil {
     public static String getFormatString(int resId, Object... args) {
         return getFormatString(ResUtil.getString(resId), args);
     }
+
     /**
      * @param resId
      * @param args
      * @return
      */
-    public static String getFormatString(Context context,int resId, Object... args) {
-        return getFormatString(ResUtil.getString(context,resId), args);
+    public static String getFormatString(Context context, int resId, Object... args) {
+        return getFormatString(ResUtil.getString(context, resId), args);
     }
 
     /**
@@ -213,13 +220,14 @@ public class ResUtil {
     public static Animation getAnimation(int animationID) {
         return AnimationUtils.loadAnimation(GlobalContext.getContext(), animationID);
     }
+
     /**
      * 获取动画
      *
      * @param animationID
      * @return
      */
-    public static Animation getAnimation(Context context,int animationID) {
+    public static Animation getAnimation(Context context, int animationID) {
         return AnimationUtils.loadAnimation(context, animationID);
     }
 }

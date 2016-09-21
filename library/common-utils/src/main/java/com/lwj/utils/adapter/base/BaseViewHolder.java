@@ -1,4 +1,4 @@
-package com.lwj.utils.adapter;
+package com.lwj.utils.adapter.base;
 
 import android.view.View;
 
@@ -13,7 +13,10 @@ import com.lwj.utils.ViewUtil;
 public abstract class BaseViewHolder<T> {
     public View rootView;
 
-    public BaseViewHolder(View rootView) {
+    public BaseViewHolder(View rootView, int rootViewID) {
+        if (rootView == null) {
+
+        }
         this.rootView = rootView;
         this.rootView.setTag(this);
     }

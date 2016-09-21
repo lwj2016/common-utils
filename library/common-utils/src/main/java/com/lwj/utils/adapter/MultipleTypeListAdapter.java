@@ -1,9 +1,12 @@
 package com.lwj.utils.adapter;
 
 import android.content.Context;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.ViewGroup;
+
+
+import com.lwj.utils.adapter.base.ArrayListAdapter;
+import com.lwj.utils.adapter.delegate.IAdapterDelegateManager;
 
 import java.util.ArrayList;
 
@@ -12,7 +15,9 @@ import java.util.ArrayList;
  * liuwenjie@goumin.com
  */
 public abstract class MultipleTypeListAdapter<T> extends ArrayListAdapter<T> {
-    protected AdapterDelegateManager<T> delegateManager;
+    protected IAdapterDelegateManager<T> delegateManager;
+
+    public abstract IAdapterDelegateManager<T> createDelegateManager();
 
     public MultipleTypeListAdapter(Context context) {
         this(context, new ArrayList<T>());
@@ -20,7 +25,7 @@ public abstract class MultipleTypeListAdapter<T> extends ArrayListAdapter<T> {
 
     public MultipleTypeListAdapter(Context context, ArrayList<T> _list) {
         super(context, _list);
-        this.delegateManager = new AdapterDelegateManager<>();
+        this.delegateManager = createDelegateManager();
     }
 
     @Override

@@ -1,41 +1,48 @@
-package com.lwj.utils.adapter;
+package com.lwj.utils.adapter.delegate;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.util.ArrayList;
 
+
 /**
  * Created by lwj on 16/9/18.
  * liuwenjie@goumin.com
  */
-public class AdapterDelegateManager<T> {
+public class DefaultAdapterDelegateManager<T> implements IAdapterDelegateManager<T> {
 
-    ArrayList<AdapterDelegate<T>> delegates;
+    ArrayList<IAdapterDelegate<T>> delegates;
 
-    public AdapterDelegateManager() {
+    public DefaultAdapterDelegateManager() {
         this.delegates = new ArrayList<>();
     }
 
-    public void addDelegate(@NonNull AdapterDelegate<T> delegate) {
+    @Override
+    public void addDelegate(@NonNull IAdapterDelegate<T> delegate) {
         this.delegates.add(delegate);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public int getItemViewType(@NonNull ArrayList<T> items, int position) {
-        for (AdapterDelegate delegate : delegates) {
+        for (IAdapterDelegate delegate : delegates) {
             if (delegate.isForViewType(items, position)) {
                 return delegate.getItemViewType();
             }
         }
         throw new IllegalArgumentException("No delegate found. This type of adapter is not support");
     }
+
+    @Override
     public int getViewTypeCount() {
         return delegates.size();
     }
+
+    @Override
     @SuppressWarnings("unchecked")
     public View getView(int position, View convertView, @NonNull ArrayList<T> items) {
-        for (AdapterDelegate delegate : delegates) {
+        for (IAdapterDelegate delegate : delegates) {
             if (delegate.isForViewType(items, position)) {
                 return delegate.getView(position, convertView, items);
             }

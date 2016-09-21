@@ -1,4 +1,4 @@
-package com.lwj.utils.adapter;
+package com.lwj.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +18,11 @@ public class AdapterViewUtil {
         if (adapterView instanceof ListView) {
             return getItemModel((ListView) adapterView, i);
         } else if (adapterView instanceof GridView) {
-            return getItemModel((GridView)adapterView, i);
+            return getItemModel((GridView) adapterView, i);
         }
-        return (T)adapterView.getAdapter().getItem(i);
+        return (T) adapterView.getAdapter().getItem(i);
     }
+
     @SuppressWarnings("unchecked")
     public static <T> T getItemModel(ListView listView, int i) {
 
@@ -37,6 +38,7 @@ public class AdapterViewUtil {
         }
         return null;
     }
+
     @SuppressWarnings("unchecked")
     public static <T> T getItemModel(GridView listView, int i) {
 
@@ -58,7 +60,7 @@ public class AdapterViewUtil {
      * 判断 listview  是否滑动到顶部了
      *
      * @param listView
-     * @return   true  滑动顶部
+     * @return true  滑动顶部
      */
     public static boolean isAdapterViewAttach(AbsListView listView) {
 
