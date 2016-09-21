@@ -29,6 +29,7 @@ public class ResUtil {
      * @return resources
      */
     public static Resources getResources(Context context) {
+        Preconditions.checkNotNUll(context,"This context is null");
         return context.getResources();
     }
 
