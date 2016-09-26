@@ -87,6 +87,7 @@ public class MaxLengthTextWatcher implements TextWatcher {
         public int selectionStart = 0;
         public int selectionEnd = 0;
         private CharSequence temp = null;
+        private OnTextCountListener onTextCountListener;
 
         public Builder(EditText editText) {
             this.editText = Preconditions.checkNotNUll(editText, "this EditText must not be null");
@@ -102,9 +103,20 @@ public class MaxLengthTextWatcher implements TextWatcher {
             return this;
         }
 
+        public Builder setOnTextCountListener(OnTextCountListener onTextCountListener) {
+            this.onTextCountListener = onTextCountListener;
+            return this;
+        }
+
         public MaxLengthTextWatcher build() {
 
             MaxLengthTextWatcher watcher = new MaxLengthTextWatcher(maxLen, editText, limitHint);
+            if (editText != null) {
+                editText.addTextChangedListener(watcher);
+            }
+            if (onTextCountListener != null) {
+                watcher.setOnTextCountListener(onTextCountListener);
+            }
             return watcher;
         }
     }

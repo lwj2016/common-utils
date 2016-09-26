@@ -20,6 +20,9 @@ public class ActivityUtil {
      */
     public static long INNER_INTERVAL = 1000L;
 
+    public static void setActivityInterval(long intervalTime){
+        INNER_INTERVAL = intervalTime;
+    }
     /**
      * 检测是否可以打开界面
      *
