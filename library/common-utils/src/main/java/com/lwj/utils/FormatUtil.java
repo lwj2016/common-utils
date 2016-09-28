@@ -7,6 +7,24 @@ import com.lwj.utils.log.LogUtil;
  * Des:
  */
 public class FormatUtil {
+    /**
+     *  求 地板运算
+     * @param f    float
+     * @return  long
+     */
+    public static long floor(double f) {
+        return (long) Math.floor(f);
+    }
+
+    /**
+     *  求 天棚 运算
+     * @param f  float
+     * @return  long
+     */
+    public static long ceil(double f) {
+        return (long) Math.ceil(f);
+    }
+
     public static int strToInteger(String str) {
         int l = 0;
         try {
