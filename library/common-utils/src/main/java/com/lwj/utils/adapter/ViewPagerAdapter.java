@@ -33,7 +33,23 @@ public class ViewPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
         super(manager);
         this.mFragmentList = mFragmentList;
     }
+    public void addFrag(T fragment, String title) {
+        mFragmentList.add(fragment);
+        mFragmentTitleList.add(title);
+    }
 
+    public void addFrag(T fragment, String title, int index) {
+        mFragmentList.add(index, fragment);
+        mFragmentTitleList.add(index, title);
+    }
+
+    public void addFrag(T fragment) {
+        mFragmentList.add(fragment);
+    }
+
+    public void addFrag(T fragment, int index) {
+        mFragmentList.add(index, fragment);
+    }
     @Override
     public T getItem(int position) {
         return mFragmentList.get(position);
@@ -44,14 +60,7 @@ public class ViewPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFrag(T fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
-    }
 
-    public void addFrag(T fragment) {
-        mFragmentList.add(fragment);
-    }
 
     @Override
     public CharSequence getPageTitle(int position) {
