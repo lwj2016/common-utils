@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.lwj.bottomdialog.R;
+import com.common_utils.R;
 
 
 /**
@@ -20,7 +20,7 @@ public abstract class BaseBottomUpDialog extends Dialog {
     protected View contentView;
 
     public BaseBottomUpDialog(Activity context) {
-        this(context, R.style.bottom_out_dialog);
+        this(context, R.style.bottom_up_dialog);
     }
 
     public BaseBottomUpDialog(Activity context, int theme) {

@@ -13,21 +13,27 @@ import java.util.ArrayList;
  */
 public interface IAdapterDelegateManager<T> {
 
+
+    /**
+     * 添加 IAdapterDelegate
+     *
+     * @param delegate itemDelegate
+     */
     void addDelegate(@NonNull IAdapterDelegate<T> delegate);
 
     /**
-     * 获取 itemview 的类型type
+     * 获取 itemView 的类型type
      *
-     * @param items
-     * @param position
-     * @return
+     * @param items    data source
+     * @param position index of item
+     * @return itemType
      */
     int getItemViewType(@NonNull ArrayList<T> items, int position);
 
     /**
      * 获取 item 的 typeCount
      *
-     * @return
+     * @return typeCount
      */
     int getViewTypeCount();
 
@@ -35,9 +41,9 @@ public interface IAdapterDelegateManager<T> {
      * 获取 item View
      *
      * @param position    index of item
-     * @param convertView
-     * @param items
-     * @return
+     * @param convertView cache view of item
+     * @param items       data source
+     * @return itemView
      */
     View getView(int position, View convertView, @NonNull ArrayList<T> items);
 }

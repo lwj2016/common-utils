@@ -24,9 +24,8 @@ public class DefaultAdapterDelegateManager<T> implements IAdapterDelegateManager
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public int getItemViewType(@NonNull ArrayList<T> items, int position) {
-        for (IAdapterDelegate delegate : delegates) {
+        for (IAdapterDelegate<T> delegate : delegates) {
             if (delegate.isForViewType(items, position)) {
                 return delegate.getItemViewType();
             }
@@ -40,9 +39,8 @@ public class DefaultAdapterDelegateManager<T> implements IAdapterDelegateManager
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public View getView(int position, View convertView, @NonNull ArrayList<T> items) {
-        for (IAdapterDelegate delegate : delegates) {
+        for (IAdapterDelegate<T> delegate : delegates) {
             if (delegate.isForViewType(items, position)) {
                 return delegate.getView(position, convertView, items);
             }
