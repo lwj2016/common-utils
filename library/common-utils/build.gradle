@@ -22,10 +22,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     provided 'com.android.support:appcompat-v7:22.0.0'
-
 }
-//  下面三行为 上传到 jcenter 的代码   使用module 时请删除
-//apply from: rootProject.getRootDir().getAbsolutePath() + "/utils.gradle"
-//loadProperties(rootProject.getRootDir().getAbsolutePath() + "/local.properties")
-//rootProject.ext.PROJ_VERSION = '2.0.7'
-apply from: rootProject.getRootDir().getAbsolutePath() + "/bintray.gradle"
