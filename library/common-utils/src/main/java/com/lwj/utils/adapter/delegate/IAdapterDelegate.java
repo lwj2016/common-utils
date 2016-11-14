@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public interface IAdapterDelegate<T> {
 
-    int getItemViewType();
 
     boolean isForViewType(@NonNull ArrayList<T> items, int position);
 

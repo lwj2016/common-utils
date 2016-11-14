@@ -25,11 +25,14 @@ public class DefaultAdapterDelegateManager<T> implements IAdapterDelegateManager
 
     @Override
     public int getItemViewType(@NonNull ArrayList<T> items, int position) {
-        for (IAdapterDelegate<T> delegate : delegates) {
+        int count = delegates.size();
+        for (int i = 0; i < count; i++) {
+            IAdapterDelegate<T> delegate = delegates.get(i);
             if (delegate.isForViewType(items, position)) {
-                return delegate.getItemViewType();
+                return i;
             }
         }
+
         throw new IllegalArgumentException("No delegate found. This type of adapter is not support");
     }
 
