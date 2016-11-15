@@ -1,15 +1,23 @@
 package com.lwj.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import com.lwj.utils.context.GlobalContext;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +25,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static android.R.attr.radius;
+
 
 /**
  * Created by lwj on 16/3/9.
@@ -81,6 +92,47 @@ public class BitmapUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * drawable 转 bitmap
+     *
+     * @param drawable srcDrawable
+     * @return bitmap
+     */
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bd = (BitmapDrawable) drawable;
+            return bd.getBitmap();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * bitmap 转 drawable
+     *
+     * @param bitmap srcbitmap
+     * @return drawable
+     */
+    public static Drawable bitmap2Drawable(Bitmap bitmap) {
+        return bitmap2Drawable(GlobalContext.getContext(), bitmap);
+    }
+
+    /**
+     * bitmap 转 drawable
+     *
+     * @param bitmap srcbitmap
+     * @return drawable
+     */
+    public static Drawable bitmap2Drawable(Context mContext, Bitmap bitmap) {
+        return new BitmapDrawable(mContext.getResources(), bitmap);
     }
 
     /**
@@ -167,47 +219,6 @@ public class BitmapUtil {
         return newBitmap;
     }
 
-    /**
-     * 将给定图片维持宽高比缩放后，截取正中间的正方形部分。
-     *
-     * @param bitmap     原图
-     * @param edgeLength 希望得到的正方形部分的边长
-     * @return 缩放截取正中部分后的位图。
-     */
-    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
-        if (null == bitmap || edgeLength <= 0) {
-            return null;
-        }
-        Bitmap result = bitmap;
-        int widthOrg = bitmap.getWidth();
-        int heightOrg = bitmap.getHeight();
-        if (widthOrg > edgeLength && heightOrg > edgeLength) {
-            // 压缩到一个最小长度是edgeLength的bitmap
-            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math
-                    .min(widthOrg, heightOrg));
-            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
-            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
-            Bitmap scaledBitmap;
-            try {
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth,
-                        scaledHeight, true);
-            } catch (Exception e) {
-                return null;
-            }
-            // 从图中截取正中间的正方形部分。
-            int xTopLeft = (scaledWidth - edgeLength) / 2;
-            int yTopLeft = (scaledHeight - edgeLength) / 2;
-            try {
-                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft,
-                        edgeLength, edgeLength);
-                scaledBitmap.recycle();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return result;
-    }
-
     public static Bitmap scaleBitmapH(Bitmap bitmap, int newHeight) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -225,91 +236,6 @@ public class BitmapUtil {
         return newBitmap;
     }
 
-    public static Bitmap toRoundCorner(Bitmap bitmap, int pixels)
-            throws Throwable {
-        Bitmap output = null;
-        try {
-            output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
-                    Bitmap.Config.ARGB_8888);
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-            System.gc();
-        }
-        if (output == null)
-            return null;
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        // final float roundPx = pixels;
-        float roundPx = pixels;
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        int scale = 5;
-        float tmp;
-        if (bitmap.getWidth() < bitmap.getHeight()) {
-            tmp = bitmap.getWidth() / scale;
-        } else {
-            tmp = bitmap.getHeight() / scale;
-        }
-        if (tmp > pixels) {
-            roundPx = tmp;
-        }
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return output;
-    }
-
-    /**
-     * 可以自由设置圆角的半径 而不是像toRoundCorner函数 圆角半径至少为width或者高较小者的1/5
-     *
-     * @param bitmap
-     * @param pixels
-     * @return
-     * @throws Throwable
-     */
-    public static Bitmap toRoundCornerFree(Bitmap bitmap, int pixels)
-            throws Throwable {
-        Bitmap output = null;
-        try {
-            output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
-                    Bitmap.Config.ARGB_8888);
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-            System.gc();
-        }
-        if (output == null)
-            return null;
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        // final float roundPx = pixels;
-        float roundPx = pixels;
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        // int scale = 5;
-        // float tmp;
-        // if (bitmap.getWidth() < bitmap.getHeight()) {
-        // tmp = bitmap.getWidth() / scale;
-        // } else {
-        // tmp = bitmap.getHeight() / scale;
-        // }
-        // if (tmp > pixels) {
-        // roundPx = tmp;
-        // }
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return output;
-    }
 
     public static Bitmap getLocalBitmap(String imgPath) {
         return getLocalBitmap(new File(imgPath));
@@ -566,4 +492,160 @@ public class BitmapUtil {
             return upperBound;
         }
     }
+
+
+    /**
+     * 获取圆角图片
+     *
+     * @param srcBitmap
+     * @param mContext
+     * @param radius    圆角图的
+     * @return Drawable
+     */
+    public static Drawable toRoundCornerDrawable(Context mContext, Bitmap srcBitmap, int radius) {
+        //创建RoundedBitmapDrawable对象
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), srcBitmap);
+        roundedBitmapDrawable.setCornerRadius(radius); //设置圆角半径（根据实际需求）
+        roundedBitmapDrawable.setAntiAlias(true); //设置反走样
+        return roundedBitmapDrawable;
+    }
+
+    /**
+     * 获取圆角图片
+     *
+     * @param srcBitmap
+     * @param radius    圆角图的
+     * @return Drawable
+     */
+    public static Drawable toRoundCornerDrawable(Bitmap srcBitmap, int radius) {
+        return toRoundCornerDrawable(GlobalContext.getContext(), srcBitmap, radius);
+    }
+
+    /**
+     * 获取圆角图片
+     *
+     * @param srcBitmap
+     * @param mContext
+     * @param radius    圆角图
+     * @return Bitmap
+     */
+    public static Bitmap toRoundCornerBitmap(Context mContext, Bitmap srcBitmap, int radius) {
+        //创建RoundedBitmapDrawable对象
+        Drawable drawable = toRoundCornerDrawable(mContext, srcBitmap, radius);
+        return drawable2Bitmap(drawable);
+    }
+
+    /**
+     * 获取圆角图片
+     *
+     * @param srcBitmap
+     * @param radius    圆角图的
+     * @return Bitmap
+     */
+    public static Bitmap toRoundCornerBitmap(Bitmap srcBitmap, int radius) {
+        return toRoundCornerBitmap(GlobalContext.getContext(), srcBitmap, radius);
+    }
+
+    /**
+     * 获取圆形图片
+     *
+     * @param srcBitmap
+     * @return Drawable
+     */
+    public static Drawable toCircleDrawable(Bitmap srcBitmap) {
+        return toCircleDrawable(GlobalContext.getContext(), srcBitmap);
+    }
+
+    /**
+     * 获取圆形图片
+     *
+     * @param srcBitmap
+     * @return Drawable
+     */
+    public static Drawable toCircleDrawable(Context mContext, Bitmap srcBitmap) {
+        // 获取正方形图
+        Bitmap bitmap = cropSquareBitmap(srcBitmap);
+        //  获取半径
+        int radius = bitmap.getWidth();
+        //创建RoundedBitmapDrawable对象
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), srcBitmap);
+        roundedBitmapDrawable.setCornerRadius(radius); //设置圆角半径（根据实际需求）
+        roundedBitmapDrawable.setAntiAlias(true); //设置反走样
+
+        return roundedBitmapDrawable;
+    }
+
+    /**
+     * 获取圆形图片
+     *
+     * @param srcBitmap
+     * @return Drawable
+     */
+    public static Bitmap toCircleBitmap(Context mContext, Bitmap srcBitmap) {
+        // 获取正方形图
+        Bitmap bitmap = cropSquareBitmap(srcBitmap);
+        //  获取半径
+        int radius = bitmap.getWidth();
+        //创建RoundedBitmapDrawable对象
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), srcBitmap);
+        roundedBitmapDrawable.setCornerRadius(radius); //设置圆角半径（根据实际需求）
+        roundedBitmapDrawable.setAntiAlias(true); //设置反走样
+        return drawable2Bitmap(roundedBitmapDrawable);
+    }
+
+    /**
+     * 剪切图片 以宽高的最小值为基准剪切
+     *
+     * @param bitmap
+     * @return bitmap
+     */
+    public static Bitmap cropSquareBitmap(Bitmap bitmap) {
+        int srcW = bitmap.getWidth();
+        int srcH = bitmap.getHeight();
+        int w = srcW > srcH ? srcH : srcW;
+        return centerSquareScaleBitmap(bitmap, w);
+    }
+
+    /**
+     * 将给定图片维持宽高比缩放后，截取正中间的正方形部分。
+     *
+     * @param bitmap     原图
+     * @param edgeLength 希望得到的正方形部分的边长
+     * @return 缩放截取正中部分后的位图。
+     */
+    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
+        if (null == bitmap || edgeLength <= 0) {
+            return null;
+        }
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+        if (widthOrg > edgeLength && heightOrg > edgeLength) {
+            // 压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math
+                    .min(widthOrg, heightOrg));
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+            try {
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth,
+                        scaledHeight, true);
+            } catch (Exception e) {
+                return null;
+            }
+            // 从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+            try {
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft,
+                        edgeLength, edgeLength);
+                scaledBitmap.recycle();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return result;
+    }
+
 }
+
