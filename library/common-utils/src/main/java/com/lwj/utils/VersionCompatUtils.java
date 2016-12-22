@@ -73,4 +73,31 @@ public class VersionCompatUtils {
     public static boolean hasLollipop_MR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
+
+    /**
+     * api 23
+     *
+     * @return 6.0
+     */
+    public static boolean hasM() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    /**
+     * api 24
+     *
+     * @return 7.0
+     */
+    public static boolean hasN() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
+    /**
+     * api 25
+     *
+     * @return 7.1.1
+     */
+    public static boolean hasN_MR1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+    }
 }
