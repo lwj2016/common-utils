@@ -10,6 +10,7 @@ import android.net.Uri;
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -129,5 +130,19 @@ public class AppUtil {
             }
         }
         return isRunning;
+    }
+
+    /**
+     * 更新  手机相册 显示最新图片
+     *
+     * @param context context
+     * @param file    this file update
+     */
+    public static void updateGallery(Context context, File file) {
+        Intent intent = new Intent();
+        Uri uri = Uri.fromFile(file);
+        intent.setAction("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        intent.setData(uri);
+        context.sendBroadcast(intent);
     }
 }
