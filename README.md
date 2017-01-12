@@ -26,16 +26,10 @@
   ```
     public class TestAdapterDelegate implements AdapterDelegate<String> {
     Context context;
-    int type;
+   
 
-    public TestAdapterDelegate(Context context, int type) {
+    public TestAdapterDelegate(Context context) {
         this.context = context;
-        this.type = type;
-    }
-
-    @Override
-    public int getItemViewType() {
-        return type;
     }
 
     @Override
@@ -70,16 +64,11 @@ TestAdapterDelegate1
 ```
  public class TestAdapterDelegate1  implements AdapterDelegate<String> {
     Context context;
-    int type;
+  
 
-    public TestAdapterDelegate1(Context context, int type) {
+    public TestAdapterDelegate1(Context context) {
         this.context = context;
-        this.type = type;
-    }
-
-    @Override
-    public int getItemViewType() {
-        return type;
+      
     }
 
     @Override
@@ -115,13 +104,11 @@ TestAdapter
 ```
 public class TestAdapter extends MultipeTypeListAdapter<String> {
 
-    public static final int TYPE_STR_E = 1;
-    public static final int TYPE_STR_F = 2;
 
     public TestAdapter(Context context) {
         super(context);
-        delegateManager.addDelegate(new TestAdapterDelegate(context,TYPE_STR_E));
-        delegateManager.addDelegate(new TestAdapterDelegate(context,TYPE_STR_F));
+        delegateManager.addDelegate(new TestAdapterDelegate(context));
+        delegateManager.addDelegate(new TestAdapterDelegate(context));
     }
 
 }
