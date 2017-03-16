@@ -4,7 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.lwj.utils.Preconditions;
 import com.lwj.utils.StringUtil;
 import com.lwj.utils.ToastUtil;
 
@@ -80,44 +79,4 @@ public class MaxLengthTextWatcher implements TextWatcher {
         this.onTextCountListener = onTextCountListener;
     }
 
-    public static class Builder {
-        private int maxLen = 200;
-        private String limitHint;
-        private EditText editText = null;
-        public int selectionStart = 0;
-        public int selectionEnd = 0;
-        private CharSequence temp = null;
-        private OnTextCountListener onTextCountListener;
-
-        public Builder(EditText editText) {
-            this.editText = Preconditions.checkNotNUll(editText, "this EditText must not be null");
-        }
-
-        public Builder setMaxLength(int maxCount) {
-            int maxLen = maxCount;
-            return this;
-        }
-
-        public Builder setLimitPrompt(String limitHint) {
-            this.limitHint = limitHint;
-            return this;
-        }
-
-        public Builder setOnTextCountListener(OnTextCountListener onTextCountListener) {
-            this.onTextCountListener = onTextCountListener;
-            return this;
-        }
-
-        public MaxLengthTextWatcher build() {
-
-            MaxLengthTextWatcher watcher = new MaxLengthTextWatcher(maxLen, editText, limitHint);
-            if (editText != null) {
-                editText.addTextChangedListener(watcher);
-            }
-            if (onTextCountListener != null) {
-                watcher.setOnTextCountListener(onTextCountListener);
-            }
-            return watcher;
-        }
-    }
 }

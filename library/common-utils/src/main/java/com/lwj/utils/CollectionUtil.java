@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class CollectionUtil {
 
+
     public static boolean isListMoreOne(List mArrayList) {
         return mArrayList != null && mArrayList.size() > 0;
     }
