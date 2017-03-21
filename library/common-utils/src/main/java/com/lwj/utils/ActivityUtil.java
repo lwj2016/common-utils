@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.lwj.utils.log.DebugUtil;
 import com.lwj.utils.log.LogUtil;
 
 /**
@@ -20,9 +21,10 @@ public class ActivityUtil {
      */
     public static long INNER_INTERVAL = 1000L;
 
-    public static void setActivityInterval(long intervalTime){
+    public static void setActivityInterval(long intervalTime) {
         INNER_INTERVAL = intervalTime;
     }
+
     /**
      * 检测是否可以打开界面
      *
@@ -52,7 +54,11 @@ public class ActivityUtil {
         }
         context.startActivity(intent);
         if (isFinish) {
-            ((Activity) context).finish();
+            if (context instanceof Activity) {
+                ((Activity) context).finish();
+            } else {
+                LogUtil.w("this %s can't convert to activity", DebugUtil.getTag(context));
+            }
         }
     }
 
