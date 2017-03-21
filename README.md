@@ -9,7 +9,7 @@
 ## gradle 导入
 
      dependencies {
-           compile 'com.lwj.fork:common-utils:2.2.1'
+           compile 'com.lwj.fork:common-utils:2.2.2'
        }
 ###<center>MultipeTypeListAdapter 
 参考 [逃离adapter的地狱－针对多个View type的组合实现方案](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0810/3282.html) 
