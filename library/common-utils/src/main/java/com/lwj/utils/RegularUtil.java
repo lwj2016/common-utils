@@ -43,8 +43,8 @@ public class RegularUtil {
      * @return
      */
     public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        return pattern.matcher(str).matches();
+         String regularStr = "[0-9]*";
+        return isValid(str,regularStr);
     }
 
     /**
@@ -66,10 +66,7 @@ public class RegularUtil {
      * @return
      */
     public static boolean isPhone(String str, String regularStr) {
-        Pattern p = Pattern
-                .compile(regularStr);
-        Matcher m = p.matcher(str);
-        return m.matches();
+        return isValid(str,regularStr);
     }
 
     /**
@@ -87,5 +84,20 @@ public class RegularUtil {
             return true;
         }
         return false;
+    }
+
+     /**
+     * @param str
+     * @return 是否仅仅包含数字和字母
+     */
+    public static boolean isNumericAndLetter(String str){
+       String regularStr = "^(?=[0-9]*[a-zA-Z])(?=[a-zA-Z]*[0-9])[a-zA-Z0-9]+$";
+       return isValid(str,regularStr);
+    }
+
+    public static boolean isValid(String str,String regularStr){
+        Pattern pattern = Pattern.compile(regularStr);
+       Matcher matcher = pattern.matcher(str);
+       return matcher.matches();
     }
 }

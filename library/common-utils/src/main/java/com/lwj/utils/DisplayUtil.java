@@ -22,14 +22,14 @@ public class DisplayUtil {
     }
 
 
-    static public DisplayMetrics getDisplayMetrics(Context context) {
+    public  static DisplayMetrics getDisplayMetrics(Context context) {
         if (dm == null) {
             dm = context.getResources().getDisplayMetrics();
         }
         return dm;
     }
 
-    static public int px2dp(Context context, int px) {
+    public  static int px2dp(Context context, int px) {
         if (context == null) {
             return px;
         }
@@ -38,7 +38,7 @@ public class DisplayUtil {
         return (int) (px / density + 0.5f);
     }
 
-    static public int dp2px(Context context, float dp) {
+    public  static int dp2px(Context context, float dp) {
         if (context == null) {
             return (int) dp;
         }
@@ -47,7 +47,7 @@ public class DisplayUtil {
         return (int) (dp * density + 0.5f);
     }
 
-    static public int px2sp(Context context, float px) {
+    public  static int px2sp(Context context, float px) {
         if (context == null) {
             return (int) px;
         }
@@ -55,7 +55,7 @@ public class DisplayUtil {
         return (int) (px / dm.scaledDensity + 0.5f);
     }
 
-    static public int sp2px(Context context, float sp) {
+    public  static int sp2px(Context context, float sp) {
         if (context == null) {
             return (int) sp;
         }
@@ -63,28 +63,28 @@ public class DisplayUtil {
         return (int) (sp * dm.scaledDensity + 0.5f);
     }
 
-    static public int getScreenWidthInPx(Context context) {
+    public  static int getScreenWidthInPx(Context context) {
         getDisplayMetrics(context);
         return dm.widthPixels;
     }
 
-    static public int getScreenHeightInPx(Context context) {
+    public  static int getScreenHeightInPx(Context context) {
         getDisplayMetrics(context);
         return dm.heightPixels;
     }
 
-    static public int getScreenWidthInDp(Context context) {
+    public  static int getScreenWidthInDp(Context context) {
         getDisplayMetrics(context);
         return (int) ((float) dm.widthPixels * (160 / dm.xdpi));
     }
 
-    static public int getScreenHeightInDp(Context context) {
+    public  static int getScreenHeightInDp(Context context) {
         getDisplayMetrics(context);
         int screenHeight = dm.heightPixels;
         return (int) ((float) screenHeight / dm.density);
     }
 
-    static public float getDensity(Context context) {
+    public  static float getDensity(Context context) {
         getDisplayMetrics(context);
         return dm.density;
     }
