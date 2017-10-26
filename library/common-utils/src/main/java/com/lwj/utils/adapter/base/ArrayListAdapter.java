@@ -192,7 +192,7 @@ public abstract class ArrayListAdapter<T> extends BaseAdapter {
      * @return optimize for findviewbyid
      */
     public <T extends View> T v(View v, int id) {
-        return ViewUtil.find(v, id);
+        return ViewUtil.findViewById(v, id);
     }
 
     public SimpleViewHolder getViewHolder(int layoutId, View convertView) {

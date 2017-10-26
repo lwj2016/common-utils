@@ -45,7 +45,7 @@ public class SimpleViewHolder {
     public <T extends View> T findViewById(int id) {
         View childView = views.get(id);
         if (childView == null) {
-            childView = ViewUtil.find(rootView, id);
+            childView = ViewUtil.findViewById(rootView, id);
             views.put(id, childView);
         }
         return (T) childView;
