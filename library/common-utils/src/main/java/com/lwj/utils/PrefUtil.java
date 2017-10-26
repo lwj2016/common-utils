@@ -15,15 +15,12 @@ public class PrefUtil {
     private SharedPreferences mSharedPreferences;
 
     public static PrefUtil getInstance() {
-        if (instance == null) {
-            instance = new PrefUtil(GlobalContext.getContext());
-        }
-        return instance;
+        return getInstance(GlobalContext.getContext());
     }
 
     public static PrefUtil getInstance(Context context) {
         if (instance == null) {
-            instance = new PrefUtil(GlobalContext.getContext());
+            instance = new PrefUtil(context);
         }
         return instance;
     }

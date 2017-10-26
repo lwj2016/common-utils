@@ -68,9 +68,7 @@ public abstract class ArrayListAdapter<T> extends BaseAdapter {
 
     public void setList(T[] list) {
         ArrayList<T> arrayList = new ArrayList<T>(list.length);
-        for (T t : list) {
-            arrayList.add(t);
-        }
+        Collections.addAll(arrayList, list);
         setList(arrayList);
     }
 
@@ -196,4 +194,10 @@ public abstract class ArrayListAdapter<T> extends BaseAdapter {
     public <T extends View> T v(View v, int id) {
         return ViewUtil.find(v, id);
     }
+
+    public SimpleViewHolder getViewHolder(int layoutId, View convertView) {
+        return SimpleViewHolder.getViewHolder(mContext, layoutId, convertView);
+    }
+
+
 }

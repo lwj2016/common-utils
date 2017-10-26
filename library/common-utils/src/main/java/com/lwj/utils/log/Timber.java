@@ -260,7 +260,7 @@ public class Timber {
 
         protected void log(int priority, String tag, String message, Throwable t) {
             if (message.length() < 4000) {
-                if (priority == 7) {
+                if (priority == Log.ASSERT) {
                     Log.wtf(tag, message);
                 } else {
                     Log.println(priority, tag, message);
@@ -277,7 +277,7 @@ public class Timber {
                     do {
                         end = Math.min(newline, i + 4000);
                         String part = message.substring(i, end);
-                        if (priority == 7) {
+                        if (priority == Log.ASSERT) {
                             Log.wtf(tag, part);
                         } else {
                             Log.println(priority, tag, part);
@@ -307,51 +307,51 @@ public class Timber {
         }
 
         public void v(String message, Object... args) {
-            this.prepareLog(2, (Throwable) null, message, args);
+            this.prepareLog(Log.VERBOSE, null, message, args);
         }
 
         public void v(Throwable t, String message, Object... args) {
-            this.prepareLog(2, t, message, args);
+            this.prepareLog(Log.VERBOSE, t, message, args);
         }
 
         public void d(String message, Object... args) {
-            this.prepareLog(3, (Throwable) null, message, args);
+            this.prepareLog(Log.DEBUG, null, message, args);
         }
 
         public void d(Throwable t, String message, Object... args) {
-            this.prepareLog(3, t, message, args);
+            this.prepareLog(Log.DEBUG, t, message, args);
         }
 
         public void i(String message, Object... args) {
-            this.prepareLog(4, (Throwable) null, message, args);
+            this.prepareLog(Log.INFO, null, message, args);
         }
 
         public void i(Throwable t, String message, Object... args) {
-            this.prepareLog(4, t, message, args);
+            this.prepareLog(Log.INFO, t, message, args);
         }
 
         public void w(String message, Object... args) {
-            this.prepareLog(5, (Throwable) null, message, args);
+            this.prepareLog(Log.WARN, null, message, args);
         }
 
         public void w(Throwable t, String message, Object... args) {
-            this.prepareLog(5, t, message, args);
+            this.prepareLog(Log.WARN, t, message, args);
         }
 
         public void e(String message, Object... args) {
-            this.prepareLog(6, (Throwable) null, message, args);
+            this.prepareLog(Log.ERROR, null, message, args);
         }
 
         public void e(Throwable t, String message, Object... args) {
-            this.prepareLog(6, t, message, args);
+            this.prepareLog(Log.ERROR, t, message, args);
         }
 
         public void wtf(String message, Object... args) {
-            this.prepareLog(7, (Throwable) null, message, args);
+            this.prepareLog(Log.ASSERT, null, message, args);
         }
 
         public void wtf(Throwable t, String message, Object... args) {
-            this.prepareLog(7, t, message, args);
+            this.prepareLog(Log.ASSERT, t, message, args);
         }
 
         private void prepareLog(int priority, Throwable t, String message, Object... args) {

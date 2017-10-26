@@ -4,9 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.lwj.utils.adapter.base.ArrayListAdapter;
-import com.lwj.utils.adapter.base.BaseViewHolder;
 import com.lwj.utils.adapter.delegate.IAdapterDelegateManager;
 
 import java.util.ArrayList;

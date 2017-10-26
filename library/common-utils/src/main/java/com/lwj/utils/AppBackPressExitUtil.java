@@ -7,18 +7,18 @@ import android.view.KeyEvent;
  * lwjfork@gmail.com
  */
 
-public abstract class AppExitUtil {
+public abstract class AppBackPressExitUtil {
 
 
     private long exitTime = 0;
 
     private long interval = 2000L;
 
-    public AppExitUtil(long interval) {
+    public AppBackPressExitUtil(long interval) {
         this.interval = interval;
     }
 
-    public AppExitUtil() {
+    public AppBackPressExitUtil() {
         this(2000L);
     }
 
