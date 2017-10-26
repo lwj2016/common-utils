@@ -1,5 +1,7 @@
 package com.lwj.utils.log;
 
+import android.util.Log;
+
 /**
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
@@ -19,9 +21,9 @@ public class LogUtil extends Timber {
         }
 
         protected void log(int priority, String tag, String message, Throwable t) {
-            if (priority != 2 && priority != 3) {
-                if (t != null && priority != 6 && priority == 5) {
-                    ;
+            if (priority != Log.VERBOSE && priority != Log.DEBUG) {
+                if (t != null && priority != Log.ERROR && priority == Log.WARN) {
+
                 }
 
             }

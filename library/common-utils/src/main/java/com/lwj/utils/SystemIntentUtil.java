@@ -106,6 +106,10 @@ public class SystemIntentUtil {
         context.startActivity(intent);
     }
 
+    /**
+     * 打开联系人界面
+     * @param context
+     */
     public static void openContacts(Context context) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);

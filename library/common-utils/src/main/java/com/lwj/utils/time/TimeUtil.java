@@ -22,6 +22,15 @@ public class TimeUtil {
     public static String dateFormatMS = "mm:ss";
 
 
+    public static String dateFormatCYMDHMS = "yyyy年MM月dd日 HH时mm分ss秒";
+    public static String dateFormatCYMD = "yyyy年MM月dd日";
+    public static String dateFormatCYM = "yyyy年MM月";
+    public static String dateFormatCYMDHM = "yyyy年MM月dd日 HH时mm分";
+    public static String dateFormatCMD = "MM/dd";
+    public static String dateFormatCHMS = "HH时mm分秒";
+    public static String dateFormatCHM = "HH时mm分";
+    public static String dateFormatCMS = "mm分ss秒";
+
     /**
      * @param strDate 时间字符串
      * @param format  格式

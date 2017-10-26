@@ -78,8 +78,6 @@ public class AppUtil {
     }
 
     public static boolean isInstall(Context context, String _packageName) {
-        boolean isInstall = false;
-
         PackageInfo packageInfo;
 
         try {
@@ -87,17 +85,7 @@ public class AppUtil {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
-        if (packageInfo == null)
-
-        {
-            isInstall = false;
-        } else
-
-        {
-            isInstall = true;
-        }
-
-        return isInstall;
+        return packageInfo != null;
     }
 
     public static boolean isInstall(String _packageName) {

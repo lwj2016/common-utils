@@ -139,6 +139,34 @@ public class ActivityUtil {
      * @param cls
      * @param Code
      */
+    public static void startActivityForResult(Context act, Class cls, int Code) {
+        Intent intent = new Intent(act, cls);
+        startActivityForResult(act, intent, Code);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
+     *
+     * @param act
+     * @param cls
+     * @param bundle
+     * @param Code
+     */
+    public static void startActivityForResult(Context act, Class cls, Bundle bundle, int Code) {
+        Intent intent = new Intent(act, cls);
+        intent.putExtras(bundle);
+        startActivityForResult(act, intent, Code);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
+     *
+     * @param act
+     * @param cls
+     * @param Code
+     */
     public static void startActivityForResult(Activity act, Class cls, int Code) {
         Intent intent = new Intent(act, cls);
         startActivityForResult(act, intent, Code);
@@ -159,5 +187,19 @@ public class ActivityUtil {
         startActivityForResult(act, intent, Code);
     }
 
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
+     *
+     * @param act
+     * @param intent
+     * @param Code
+     */
+    public static void startActivityForResult(Context act, Intent intent, int Code) {
+        if (act instanceof Activity) {
+            Activity activity = (Activity) act;
+            startActivityForResult(activity, intent, Code);
+        }
+    }
 
 }

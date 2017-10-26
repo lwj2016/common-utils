@@ -9,17 +9,17 @@ import java.util.ArrayList;
 
 public interface IJsonConverter {
 
-    public <T> T jsonStr2Model(String jsonStr, Class<T> tClass);
+    public <T> T jsonStr2Obj(String jsonStr, Class<T> tClass);
 
 
-    public <T> String model2JsonStr(T model);
+    public <T> String obj2JsonStr(T model);
 
-    public <T> ArrayList<T> jsonStr2ModelList(String jsonStr, Class<T> tClass);
+    public <T> ArrayList<T> jsonStr2ObjList(String jsonStr, Class<T> tClass);
 
-    public <T> T[] jsonStr2ModelArray(String jsonStr, Class<T> tClass);
+    public <T> T[] jsonStr2ObjArray(String jsonStr, Class<T> tClass);
 
-    public <T> String models2JsonStr(ArrayList<T> list);
+    public <T> String objArray2JsonStr(ArrayList<T> list);
 
-    public <T> String models2JsonStr(T... modelArray);
+    public <T> String objList2JsonStr(T... modelArray);
 
 }

@@ -33,26 +33,29 @@ public class AdapterViewUtil {
             return null;
         }
         int headerCount = listView.getHeaderViewsCount();
-        if (i >= headerCount) {
+        int footerCount = listView.getFooterViewsCount();
+        ListAdapter adapter = listView.getAdapter();
+        int count = adapter.getCount();
+        if (i >= headerCount && i < count - footerCount) {
             return (T) listView.getAdapter().getItem(i);
         }
         return null;
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getItemModel(GridView listView, int i) {
+    public static <T> T getItemModel(GridView gridView, int i) {
 
-        if (listView == null) {
+        if (gridView == null) {
             return null;
         }
         if (i < 0) {
             return null;
         }
-        int count = listView.getAdapter().getCount();
+        int count = gridView.getAdapter().getCount();
         if (i >= count) {
             return null;
         }
-        return (T) listView.getAdapter().getItem(i);
+        return (T) gridView.getAdapter().getItem(i);
 
     }
 

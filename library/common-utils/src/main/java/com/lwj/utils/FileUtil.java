@@ -368,15 +368,16 @@ public class FileUtil {
         return file.lastModified();
     }
 
+
     /**
      * 解压文件
      *
      * @param zipFile
      * @param folderPath
-     * @throws ZipException
+     * @throws IOException
      * @throws IOException
      */
-    public static void unZip(String zipFile, String folderPath, boolean isDeleteZip) throws IOException {
+    public static boolean unZip(String zipFile, String folderPath) throws IOException {
         ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(zipFile));
         String subDirName = "";
         ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -406,9 +407,23 @@ public class FileUtil {
         }
 
         zipInputStream.close();
-        if (isDeleteZip) {
+        return true;
+    }
+
+
+    /**
+     * 解压文件
+     *
+     * @param zipFile
+     * @param folderPath
+     * @throws IOException
+     */
+    public static boolean unZip(String zipFile, String folderPath, boolean isDeleteZip) throws IOException {
+        boolean isSuccess = unZip(zipFile, folderPath);
+        if (isDeleteZip && isSuccess) {
             new File(zipFile).deleteOnExit();
         }
+        return isSuccess;
     }
 
 
@@ -444,7 +459,7 @@ public class FileUtil {
         zipOut.close();
     }
 
-    
+
     /**
      * 压缩 目录
      */
