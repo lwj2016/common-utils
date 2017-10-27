@@ -1,10 +1,1 @@
-*.iml
-.gradle
-.idea
-/local.properties
-.DS_Store
 /build
-/gradle
-/captures
-utils.gradle
-bintray.gradle

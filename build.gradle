@@ -1,0 +1,36 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    def gradleVersion = "$DEFAULT_GRADLE_VERSION";
+    File propertiesFile = file('local.properties');
+    if (propertiesFile.exists()) {
+        Properties localProperties = new Properties()
+        def stream = project.rootProject.file('local.properties').newDataInputStream()
+        localProperties.load(stream)
+        def localGradleVersion = localProperties.getProperty('LOCAL_GRADLE_VERSION')
+        if (localGradleVersion != null) {
+            gradleVersion = localGradleVersion;
+        }
+
+        stream.close();
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.1"
+    minSdkVersion = 14
+    targetSdkVersion = 25
+    supportLibVersion = "25.0.1"
+}
