@@ -47,15 +47,27 @@ public abstract class JsonConverter implements IJsonConverter {
     }
 
     @Override
-    public <T> String objArray2JsonStr(ArrayList<T> list) {
+    public <T> String objList2JsonStr(ArrayList<T> list) {
         checkNotNull();
-        return converter.objArray2JsonStr(list);
+        return converter.objList2JsonStr(list);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> String objList2JsonStr(T... modelArray) {
+    public <T> String objArray2JsonStr(T... modelArray) {
         checkNotNull();
-        return converter.objList2JsonStr(modelArray);
+        return converter.objArray2JsonStr(modelArray);
+    }
+
+    @Override
+    public void setPrettyFormat(boolean isPretty) {
+        checkNotNull();
+        converter.setPrettyFormat(isPretty);
+    }
+
+    @Override
+    public String formatJson(String json) {
+        checkNotNull();
+        return converter.formatJson(json);
     }
 }

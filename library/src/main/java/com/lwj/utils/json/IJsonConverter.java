@@ -18,8 +18,11 @@ public interface IJsonConverter {
 
     public <T> T[] jsonStr2ObjArray(String jsonStr, Class<T> tClass);
 
-    public <T> String objArray2JsonStr(ArrayList<T> list);
+    public <T> String objArray2JsonStr(T... modelArray);
 
-    public <T> String objList2JsonStr(T... modelArray);
+    public <T> String objList2JsonStr(ArrayList<T> list);
 
+    public void setPrettyFormat(boolean isPretty);
+
+    public String formatJson(String json);
 }
