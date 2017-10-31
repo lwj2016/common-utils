@@ -3,6 +3,7 @@ package com.lwj.utils.log;
 /**
  * Created by lwj on 2016/3/8.
  * liuwenjie@goumin.com
+ * Copy from https://github.com/JakeWharton/timber
  */
 
 import android.util.Log;
@@ -13,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Timber {
-    private static final List<Tree> FOREST = new CopyOnWriteArrayList();
+    private static final List<Tree> FOREST = new CopyOnWriteArrayList<>();
     private static final Timber.Tree TREE_OF_SOULS = new Timber.Tree() {
         public void v(String message, Object... args) {
             List forest = Timber.FOREST;
@@ -240,8 +241,7 @@ public class Timber {
             if (m.find()) {
                 tag = m.replaceAll("");
             }
-
-            return tag.substring(tag.lastIndexOf(46) + 1);
+            return tag.substring(tag.lastIndexOf(".") + 1);
         }
 
         final String getTag() {
@@ -250,16 +250,16 @@ public class Timber {
                 return tag;
             } else {
                 StackTraceElement[] stackTrace = (new Throwable()).getStackTrace();
-                if (stackTrace.length <= 5) {
+                if (stackTrace.length <= CALL_STACK_INDEX) {
                     throw new IllegalStateException("Synthetic stacktrace didn\'t have enough elements: are you using proguard?");
                 } else {
-                    return this.createStackElementTag(stackTrace[5]);
+                    return this.createStackElementTag(stackTrace[CALL_STACK_INDEX]);
                 }
             }
         }
 
         protected void log(int priority, String tag, String message, Throwable t) {
-            if (message.length() < 4000) {
+            if (message.length() < MAX_LOG_LENGTH) {
                 if (priority == Log.ASSERT) {
                     Log.wtf(tag, message);
                 } else {
@@ -275,7 +275,7 @@ public class Timber {
                     newline = newline != -1 ? newline : length;
 
                     do {
-                        end = Math.min(newline, i + 4000);
+                        end = Math.min(newline, i + MAX_LOG_LENGTH);
                         String part = message.substring(i, end);
                         if (priority == Log.ASSERT) {
                             Log.wtf(tag, part);
@@ -292,7 +292,7 @@ public class Timber {
     }
 
     public abstract static class Tree {
-        private final ThreadLocal<String> explicitTag = new ThreadLocal();
+        private final ThreadLocal<String> explicitTag = new ThreadLocal<>();
 
         public Tree() {
         }
