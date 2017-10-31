@@ -1,98 +1,124 @@
 package com.lwj.utils;
 
-import java.io.UnsupportedEncodingException;
+import android.util.Base64;
+
+import java.nio.charset.Charset;
 
 /**
  * Created by lwj on 16/6/28.
  * Des:
  */
 public class Base64Util {
-    private static char[] base64EncodeChars = new char[]{
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-            'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-            'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-            'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-            'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-            'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-            'w', 'x', 'y', 'z', '0', '1', '2', '3',
-            '4', '5', '6', '7', '8', '9', '+', '/'};
-    private static byte[] base64DecodeChars = new byte[]{
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
-            52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1,
-            -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-            15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
-            -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-            41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1};
 
-    public static String encode(byte[] data) {
-        StringBuffer sb = new StringBuffer();
-        int len = data.length;
-        int i = 0;
-        int b1, b2, b3;
-        while (i < len) {
-            b1 = data[i++] & 0xff;
-            if (i == len) {
-                sb.append(base64EncodeChars[b1 >>> 2]);
-                sb.append(base64EncodeChars[(b1 & 0x3) << 4]);
-                sb.append("==");
-                break;
-            }
-            b2 = data[i++] & 0xff;
-            if (i == len) {
-                sb.append(base64EncodeChars[b1 >>> 2]);
-                sb.append(base64EncodeChars[((b1 & 0x03) << 4) | ((b2 & 0xf0) >>> 4)]);
-                sb.append(base64EncodeChars[(b2 & 0x0f) << 2]);
-                sb.append("=");
-                break;
-            }
-            b3 = data[i++] & 0xff;
-            sb.append(base64EncodeChars[b1 >>> 2]);
-            sb.append(base64EncodeChars[((b1 & 0x03) << 4) | ((b2 & 0xf0) >>> 4)]);
-            sb.append(base64EncodeChars[((b2 & 0x0f) << 2) | ((b3 & 0xc0) >>> 6)]);
-            sb.append(base64EncodeChars[b3 & 0x3f]);
-        }
-        return sb.toString();
+
+    /**
+     * @param src     the data to encode
+     * @param charset convert data to  byte
+     * @param flag
+     * @return result by encode
+     * @see android.util.Base64
+     */
+    public static String encodeToString(String src, Charset charset, int flag) {
+
+        byte[] data = src.getBytes(charset);
+
+        return encodeToString(data, flag);
     }
 
-    public static byte[] decode(String str) throws UnsupportedEncodingException {
-        StringBuffer sb = new StringBuffer();
-        byte[] data = str.getBytes("US-ASCII");
-        int len = data.length;
-        int i = 0;
-        int b1, b2, b3, b4;
-        while (i < len) {
 
-            do {
-                b1 = base64DecodeChars[data[i++]];
-            } while (i < len && b1 == -1);
-            if (b1 == -1) break;
+    public static String encodeToString(String src, int flag) {
 
-            do {
-                b2 = base64DecodeChars
-                        [data[i++]];
-            } while (i < len && b2 == -1);
-            if (b2 == -1) break;
-            sb.append((char) ((b1 << 2) | ((b2 & 0x30) >>> 4)));
+        byte[] data = src.getBytes();
 
-            do {
-                b3 = data[i++];
-                if (b3 == 61) return sb.toString().getBytes("iso8859-1");
-                b3 = base64DecodeChars[b3];
-            } while (i < len && b3 == -1);
-            if (b3 == -1) break;
-            sb.append((char) (((b2 & 0x0f) << 4) | ((b3 & 0x3c) >>> 2)));
-
-            do {
-                b4 = data[i++];
-                if (b4 == 61) return sb.toString().getBytes("iso8859-1");
-                b4 = base64DecodeChars[b4];
-            } while (i < len && b4 == -1);
-            if (b4 == -1) break;
-            sb.append((char) (((b3 & 0x03) << 6) | b4));
-        }
-        return sb.toString().getBytes("iso8859-1");
+        return encodeToString(src, Charset.defaultCharset(), flag);
     }
+
+
+    public static String encodeToString(String src) {
+
+        return encodeToString(src, Base64.DEFAULT);
+    }
+
+
+    public static String encodeToString(byte[] data, int flag) {
+        return Base64.encodeToString(data, flag);
+    }
+
+    public static String encodeToString(byte[] data) {
+        return encodeToString(data, Base64.DEFAULT);
+    }
+
+
+    /**
+     * @param src     the data to encode
+     * @param charset convert data to  byte
+     * @param flag
+     * @return result by encode
+     * @see android.util.Base64
+     */
+    public static byte[] encodeToByte(String src, Charset charset, int flag) {
+
+        byte[] data = src.getBytes(charset);
+
+        return encodeToByte(data, flag);
+    }
+
+
+    public static byte[] encodeToByte(String src, int flag) {
+
+        byte[] data = src.getBytes();
+
+        return encodeToByte(src, Charset.defaultCharset(), flag);
+    }
+
+
+    public static byte[] encodeToByte(String src) {
+
+        return encodeToByte(src, Base64.DEFAULT);
+    }
+
+    public static byte[] encodeToByte(byte[] data) {
+        return encodeToByte(data, Base64.DEFAULT);
+    }
+
+    public static byte[] encodeToByte(byte[] data, int flag) {
+        return Base64.encode(data, flag);
+    }
+
+
+    /**
+     * @param src     the data to encode
+     * @param charset convert data to  byte
+     * @param flag
+     * @return result by encode
+     * @see android.util.Base64
+     */
+    public static String decodeToString(String src, Charset charset, int flag) {
+        byte[] data = decodeToByte(src, flag);
+        return new String(data, charset);
+    }
+
+
+    public static String decodeToString(String src, int flag) {
+
+        return decodeToString(src, Charset.defaultCharset(), flag);
+    }
+
+    public static String decodeToString(String src) {
+
+        return decodeToString(src, Base64.DEFAULT);
+    }
+
+
+    public static byte[] decodeToByte(String src, int flag) {
+        return Base64.decode(src, flag);
+    }
+
+
+    public static byte[] decodeToByte(String src) {
+
+        return decodeToByte(src, Base64.DEFAULT);
+    }
+
 
 }

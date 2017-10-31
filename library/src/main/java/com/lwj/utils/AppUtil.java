@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -92,6 +93,18 @@ public class AppUtil {
         return isInstall(GlobalContext.getContext(), _packageName);
     }
 
+    public static List<ApplicationInfo> getAllApps(Context context) {
+        PackageManager pm = context.getPackageManager();
+        List<ApplicationInfo> infos = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        return infos;
+    }
+
+    public static List<ApplicationInfo> getAllApps() {
+        return getAllApps(GlobalContext.getContext());
+    }
+
+
+
     public static void gotoMarket(Context context, String packageName) throws Exception {
         String strUrl = "market://details?id=" + packageName;
         Uri uri = Uri.parse(strUrl);
@@ -132,5 +145,14 @@ public class AppUtil {
         intent.setAction("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
         intent.setData(uri);
         context.sendBroadcast(intent);
+    }
+
+    public static void updateGallery(Context context, String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            updateGallery(context, file);
+            return;
+        }
+        LogUtil.w("%s isn't exist");
     }
 }

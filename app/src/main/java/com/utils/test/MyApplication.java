@@ -2,7 +2,7 @@ package com.utils.test;
 
 import android.app.Application;
 
-import com.lwj.utils.log.DebugUtil;
+import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
 /**
@@ -18,6 +18,7 @@ public class MyApplication extends Application {
 
         LogUtil.setLog(BuildConfig.DEBUG);
 
+        GlobalContext.setApplication(this);
 
     }
 }
