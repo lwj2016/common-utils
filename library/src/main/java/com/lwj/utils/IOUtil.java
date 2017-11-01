@@ -17,7 +17,7 @@ public class IOUtil {
      * @param is
      * @return
      */
-    public static String streamToString(InputStream is) {
+    public static String stream2String(InputStream is) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();

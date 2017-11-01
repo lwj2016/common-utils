@@ -25,6 +25,15 @@ public class ViewUtil {
         return (V) view.findViewById(id);
     }
 
+
+    public static boolean isVisible(View _view) {
+        return _view.getVisibility() == View.VISIBLE;
+    }
+
+    public static boolean isGone(View view) {
+        return view.getVisibility() == View.GONE;
+    }
+
     public static void viewGone(View _view) {
         if (_view != null && _view.getVisibility() != View.GONE) {
             _view.setVisibility(View.GONE);
