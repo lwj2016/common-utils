@@ -152,13 +152,6 @@ public class BitmapUtil {
         } else {// 取最小值
             scale = scaleWidth > scaleHeight ? scaleHeight : scaleWidth;
         }
-        /*
-         * else if ((scaleWidth > 1 && scaleHeight > 1) || (scaleWidth < 1 &&
-		 * scaleHeight < 1)) {// 等比例同时放大或缩小,取最小值 scale = scaleWidth >
-		 * scaleHeight ? scaleHeight : scaleWidth; } else {//
-		 * 一个放大，一个缩小，取缩小的值(小于1，即取小值) scale = scaleWidth > scaleHeight ?
-		 * scaleHeight : scaleWidth; }
-		 */
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
         Bitmap newBitmap = null;
