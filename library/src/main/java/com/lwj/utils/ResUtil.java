@@ -10,6 +10,10 @@ import android.view.animation.AnimationUtils;
 
 import com.lwj.utils.context.GlobalContext;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
 /**
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
@@ -239,5 +243,65 @@ public class ResUtil {
      */
     public static Animation getAnimation(Context context, int animationID) {
         return AnimationUtils.loadAnimation(context, animationID);
+    }
+
+    public static String readRawStrById(Context context, int id) {
+        return readRawStrById(context, id, "UTF-8");
+    }
+
+    public static String readRawStrById(int id) {
+        return readRawStrById(GlobalContext.getContext(), id, "UTF-8");
+    }
+
+    public static String readRawStrById(int id, Charset charset) {
+        return readRawStrById(GlobalContext.getContext(), id, charset);
+    }
+
+
+    public static String readRawStrById(int id, String encoding) {
+        Charset charset = Charset.forName(encoding);
+        return readRawStrById(id, charset);
+    }
+
+
+    public static String readRawStrById(Context context, int id, String encoding) {
+        Charset charset = Charset.forName(encoding);
+        return readRawStrById(context, id, charset);
+    }
+
+    public static String readRawStrById(Context context, int id, Charset charset) {
+        String text = null;
+        InputStreamReader inputReader = null;
+        BufferedReader bufReader = null;
+
+        try {
+            inputReader = new InputStreamReader(context.getResources().openRawResource(id));
+            bufReader = new BufferedReader(inputReader);
+            String line = null;
+            StringBuffer buffer = new StringBuffer();
+
+            while ((line = bufReader.readLine()) != null) {
+                buffer.append(line);
+            }
+
+            text = new String(buffer.toString().getBytes(), charset);
+        } catch (Exception var16) {
+            var16.printStackTrace();
+        } finally {
+            try {
+                if (bufReader != null) {
+                    bufReader.close();
+                }
+
+                if (inputReader != null) {
+                    inputReader.close();
+                }
+            } catch (Exception var15) {
+                var15.printStackTrace();
+            }
+
+        }
+
+        return text;
     }
 }
