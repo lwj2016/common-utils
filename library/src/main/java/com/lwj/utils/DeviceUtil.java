@@ -2,9 +2,11 @@ package com.lwj.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
+import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
 import java.io.BufferedReader;
@@ -17,6 +19,15 @@ import java.io.IOException;
  * lwjfork@gmail.com
  */
 public class DeviceUtil {
+
+
+    public static String getPhoneModel() {
+        return Build.MODEL;
+    }
+
+    public static String getPhoneBrand() {
+        return Build.BRAND;
+    }
 
     /**
      * SD 卡是否准备好
@@ -43,6 +54,13 @@ public class DeviceUtil {
         return device_id;
     }
 
+
+    @SuppressWarnings("MissingPermission")
+    public static String getDeviceId() {
+        return getDeviceId(GlobalContext.getContext());
+    }
+
+
     // 获得可用的内存
     public static long getUseableMemory(Context mContext) {
         long MEM_UNUSED;
@@ -57,6 +75,11 @@ public class DeviceUtil {
 
         MEM_UNUSED = mi.availMem / 1024;
         return MEM_UNUSED;
+    }
+
+    // 获得可用的内存
+    public static long getUseableMemory() {
+        return getUseableMemory(GlobalContext.getContext());
     }
 
     public static long getTotalMemory() {
