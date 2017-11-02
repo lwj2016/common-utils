@@ -65,12 +65,16 @@ public class NetUtil {
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
-            return networkInfo != null
-                    && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
-                    && networkInfo.isAvailable();
+            return isConnect(networkInfo)
+                    && networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
         }
         return false;
     }
+
+    public static boolean isConnect(NetworkInfo networkInfo) {
+        return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+    }
+
 
     public static int getAPNType() {
         return getAPNType(GlobalContext.getContext());
@@ -82,7 +86,7 @@ public class NetUtil {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-            if (networkInfo != null && networkInfo.isAvailable()) {
+            if (isConnect(networkInfo)) {
                 int netType = networkInfo.getType();
                 if (netType == ConnectivityManager.TYPE_WIFI) {
                     type = TYPE_WIFI;
