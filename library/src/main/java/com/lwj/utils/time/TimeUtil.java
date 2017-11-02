@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lwj on 16/5/13.
@@ -32,6 +33,67 @@ public class TimeUtil {
     public static String dateFormatCHM = "HH时mm分";
     public static String dateFormatCMS = "mm分ss秒";
 
+
+    public static long getNanos(long time) {
+        return getNanos(time, TimeUnit.SECONDS);
+    }
+
+    public static long getMicros(long time) {
+        return getMicros(time, TimeUnit.SECONDS);
+    }
+
+
+    public static long getMills(long time) {
+        return getMills(time, TimeUnit.SECONDS);
+    }
+
+    public static long getSeconds(long time) {
+        return getSeconds(time, TimeUnit.SECONDS);
+    }
+
+    public static long getMinutes(long time) {
+        return getMinutes(time, TimeUnit.SECONDS);
+    }
+
+    public static long getHours(long time) {
+        return getHours(time, TimeUnit.SECONDS);
+    }
+
+    public static long getDays(long time) {
+        return getDays(time, TimeUnit.SECONDS);
+    }
+
+
+    public static long getNanos(long time, TimeUnit timeUnit) {
+        return timeUnit.toNanos(time);
+    }
+
+    public static long getMicros(long time, TimeUnit timeUnit) {
+        return timeUnit.toMicros(time);
+    }
+
+
+    public static long getMills(long time, TimeUnit timeUnit) {
+        return timeUnit.toMillis(time);
+    }
+
+    public static long getSeconds(long time, TimeUnit timeUnit) {
+        return timeUnit.toSeconds(time);
+    }
+
+    public static long getMinutes(long time, TimeUnit timeUnit) {
+        return timeUnit.toMinutes(time);
+    }
+
+    public static long getHours(long time, TimeUnit timeUnit) {
+        return timeUnit.toHours(time);
+    }
+
+    public static long getDays(long time, TimeUnit timeUnit) {
+        return timeUnit.toDays(time);
+    }
+
+
     /**
      * @param strDate 时间字符串
      * @param format  格式
@@ -50,6 +112,43 @@ public class TimeUtil {
         return date;
     }
 
+    public static long getNanosByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getNanos(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+    public static long getMicrosByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getMicros(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+
+    public static long getMillsByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getMills(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+    public static long getSecondsByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getSeconds(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+    public static long getMinutesByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getMinutes(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+    public static long getHoursByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getHours(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+    public static long getDaysByFormat(String strDate, String format) {
+        Date date = getDateByFormat(strDate, format);
+        return getDays(date.getTime(), TimeUnit.MILLISECONDS);
+    }
+
+
     /**
      * @param time     时间
      * @param format   格式
@@ -62,53 +161,14 @@ public class TimeUtil {
     }
 
     /**
-     * @param strDate 时间字符串
-     * @param format  格式
-     * @return 日期的毫秒值
+     * @param time   时间  seconds
+     * @param format 格式
+     * @return 日期字符串
      */
-    public static long getMilliSecondsByFormat(String strDate, String format) {
-        long l = 0L;
-        l = getDateByFormat(strDate, format).getTime();
-
-        return TimeUnit.MILLISECONDS.toMillis(l);
+    public static String getFormatByTime(String format, long time) {
+        return getFormatByTime(format, time, TimeUnit.SECONDS);
     }
 
-    /**
-     * @param strDate 时间字符串
-     * @param format  格式
-     * @return 日期的秒值
-     */
-    public static long getSecondsByFormat(String strDate, String format) {
-
-        return TimeUnit.MILLISECONDS.toSeconds(getMilliSecondsByFormat(strDate, format));
-    }
-
-    /**
-     * @param strDate 时间字符串
-     * @param format  格式
-     * @return 日期的分值
-     */
-    public static long getMinutesByFormat(String strDate, String format) {
-        return TimeUnit.MILLISECONDS.toMinutes(getMilliSecondsByFormat(strDate, format));
-    }
-
-    /**
-     * @param strDate 时间字符串
-     * @param format  格式
-     * @return 日期的小时值
-     */
-    public static long getHoursByFormat(String strDate, String format) {
-        return TimeUnit.MILLISECONDS.toHours(getMilliSecondsByFormat(strDate, format));
-    }
-
-    /**
-     * @param strDate 时间字符串
-     * @param format  格式
-     * @return 日期的天数值
-     */
-    public static long getDaysByFormat(String strDate, String format) {
-        return TimeUnit.MILLISECONDS.toDays(getMilliSecondsByFormat(strDate, format));
-    }
 
     /**
      * @param date   时间
@@ -125,7 +185,7 @@ public class TimeUtil {
      * @param format       格式
      * @return 日期字符串
      */
-    public static String getFormatByMilliSeconds(String format, long milliSeconds) {
+    public static String getFormatByMills(String format, long milliSeconds) {
         return getFormatByTime(format, milliSeconds, TimeUnit.MILLISECONDS);
     }
 
@@ -211,20 +271,7 @@ public class TimeUtil {
      * @return
      */
     public static int getOffsetMonths(Date firstDate, Date endDate) {
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        c1.setTime(firstDate);
-        c2.setTime(endDate);
-        if (c1.after(c2)) {
-            c1 = c2;
-            c2.setTime(firstDate);
-        }
-        int offsetYears = c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR);
-        if (offsetYears == 0) {
-            return c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
-        } else {
-            return (c1.getMaximum(Calendar.MONTH) + 1) * (offsetYears - 1) + c1.getMaximum(Calendar.MONTH) - c1.get(Calendar.MONTH) + c2.get(Calendar.MONTH) + 1;
-        }
+        return getOffsetMonths(firstDate, endDate, true);
     }
 
     public static int getOffsetDays(Date firstDate, Date endDate) {
@@ -295,21 +342,6 @@ public class TimeUtil {
 
 
     /**
-     * 获取 月偏移  忽略 年
-     *
-     * @param firstDate
-     * @param secondDate
-     * @return
-     */
-    public static int getOffsetMonthIngoreY(Date firstDate, Date secondDate) {
-        Calendar c1 = Calendar.getInstance();
-        c1.setTime(firstDate);
-        Calendar c2 = Calendar.getInstance();
-        c2.setTime(secondDate);
-        return c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
-    }
-
-    /**
      * 获取 天数偏移  忽略 年 月
      *
      * @param firstDate
@@ -331,7 +363,7 @@ public class TimeUtil {
      * @param date
      * @return
      */
-    public static int[] getBirth(Date date) {
+    public static int[] getAge(Date date) {
         Date today = new Date();
         Calendar c1 = Calendar.getInstance();
         c1.setTime(date);
@@ -364,10 +396,7 @@ public class TimeUtil {
     }
 
     private static boolean isSameMonth(Date date, Date date1, boolean isIgnoreY) {
-        if (isIgnoreY) {
-            return getOffsetMonthIngoreY(date, date1) == 0;
-        }
-        return getOffsetMonths(date, date1) == 0;
+        return getOffsetMonths(date, date1, isIgnoreY) == 0;
     }
 
     /**
@@ -382,17 +411,6 @@ public class TimeUtil {
         return isSameMonth(date, date1, false);
     }
 
-    /**
-     * 是否是同一月
-     *
-     * @param date
-     * @param date1
-     * @return
-     */
-    public static boolean isSameMonthIgnoreY(Date date, Date date1) {
-
-        return isSameMonth(date, date1, true);
-    }
 
     /**
      * 是否是同一月
@@ -402,7 +420,7 @@ public class TimeUtil {
      */
     public static boolean isSameMonth(Date date) {
 
-        return isSameMonth(date, new Date(), false);
+        return isSameMonth(date, false);
     }
 
     /**
@@ -411,7 +429,7 @@ public class TimeUtil {
      * @param date
      * @return
      */
-    public static boolean isSameMonthIngoreY(Date date) {
-        return isSameMonth(date, new Date(), true);
+    public static boolean isSameMonth(Date date, boolean isIngoreYear) {
+        return isSameMonth(date, new Date(), isIngoreYear);
     }
 }

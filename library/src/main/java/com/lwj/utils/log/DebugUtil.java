@@ -14,7 +14,7 @@ public class DebugUtil {
         return tClass.getSimpleName();
     }
 
-    public static <T> String getSimpleTag(Object object) {
+    public static  String getSimpleTag(Object object) {
         if (object == null) {
             return "null";
         }
@@ -29,7 +29,7 @@ public class DebugUtil {
         return tClass.getName();
     }
 
-    public static <T> String getTag(Object object) {
+    public static  String getTag(Object object) {
         if (object == null) {
             return "null";
         }
