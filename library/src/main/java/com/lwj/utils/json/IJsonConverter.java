@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public interface IJsonConverter {
 
+
     public <T> T jsonStr2Obj(String jsonStr, Class<T> tClass);
 
 
@@ -18,6 +19,7 @@ public interface IJsonConverter {
 
     public <T> T[] jsonStr2ObjArray(String jsonStr, Class<T> tClass);
 
+    @SuppressWarnings("unchecked")
     public <T> String objArray2JsonStr(T... modelArray);
 
     public <T> String objList2JsonStr(ArrayList<T> list);
