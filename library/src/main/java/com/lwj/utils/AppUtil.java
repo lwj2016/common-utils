@@ -105,13 +105,6 @@ public class AppUtil {
 
 
 
-    public static void gotoMarket(Context context, String packageName) throws Exception {
-        String strUrl = "market://details?id=" + packageName;
-        Uri uri = Uri.parse(strUrl);
-        Intent it = new Intent("android.intent.action.VIEW", uri);
-        context.startActivity(it);
-    }
-
     public static void openApp(Context context, String packageName) throws Exception {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         context.startActivity(intent);

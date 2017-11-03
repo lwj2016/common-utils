@@ -123,9 +123,9 @@ public class NetUtil {
                         } else if (subType == TelephonyManager.NETWORK_TYPE_LTE) {
                             type = TYPE_4G;
                         } else if (subType > TelephonyManager.NETWORK_TYPE_LTE) { // 默认是4G
-                            type = TYPE_4G;// 默认是 2G
+                            type = TYPE_4G;
                         } else {
-                            type = TYPE_2G;
+                            type = TYPE_2G; // 默认是 2G
                         }
                     }
                 }

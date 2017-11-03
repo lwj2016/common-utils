@@ -182,4 +182,12 @@ public class URLUtil {
         return mapRequest;
     }
 
+    public static boolean isValidUrl(String url) {
+        String reg = "((ht|f)tps?):\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])?";
+        return isValidUrl(url, reg);
+    }
+
+    public static boolean isValidUrl(String url, String reg) {
+        return RegularUtil.isValid(url, reg);
+    }
 }

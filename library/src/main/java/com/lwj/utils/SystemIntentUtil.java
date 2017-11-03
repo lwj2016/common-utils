@@ -194,4 +194,20 @@ public class SystemIntentUtil {
         homeIntent.addCategory(Intent.CATEGORY_HOME);
         context.startActivity(homeIntent);
     }
+
+
+    /**
+     * 打开应用市场的app
+     *
+     * @param context
+     * @param packageName 所要打开的app简介
+     * @throws Exception
+     */
+    public static void gotoMarket(Context context, String packageName) throws Exception {
+        String strUrl = "market://details?id=" + packageName;
+        Uri uri = Uri.parse(strUrl);
+        Intent it = new Intent("android.intent.action.VIEW", uri);
+        context.startActivity(it);
+    }
+
 }

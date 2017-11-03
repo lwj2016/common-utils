@@ -98,6 +98,18 @@ public class ViewUtil {
         return findViewById(activity, id);
     }
 
+    public static TextView setTvText(Activity activity, int id, String text) {
+        TextView textView = findTextViewById(activity, id);
+        textView.setText(text);
+        return textView;
+    }
+
+    public static Button setBtnText(Activity activity, int id, String text) {
+        Button button = findButtonById(activity, id);
+        button.setText(text);
+        return button;
+    }
+
     public static Button findButtonById(Activity activity, int id) {
 
         return findViewById(activity, id);

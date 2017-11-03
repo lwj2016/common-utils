@@ -69,11 +69,11 @@ public class PrefUtil {
         this.mSharedPreferences.edit().putLong(key, value).apply();
     }
 
-    public Long getLong(String key) {
+    public long getLong(String key) {
         return this.mSharedPreferences.getLong(key, 0L);
     }
 
-    public Long getLong(String key, long defaultValue) {
+    public long getLong(String key, long defaultValue) {
         long value;
         try {
             value = this.mSharedPreferences.getLong(key, defaultValue);
@@ -89,11 +89,11 @@ public class PrefUtil {
         this.mSharedPreferences.edit().putFloat(key, value).apply();
     }
 
-    public Float getFloat(String key) {
+    public float getFloat(String key) {
         return this.mSharedPreferences.getFloat(key, 0.0F);
     }
 
-    public Float getFloat(String key, float defaultValue) {
+    public float getFloat(String key, float defaultValue) {
         return this.mSharedPreferences.getFloat(key, defaultValue);
     }
 
