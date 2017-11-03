@@ -40,6 +40,15 @@ public class NetUtil {
         return false;
     }
 
+    public static boolean isNetConnected() {
+        return isNetConnected(GlobalContext.getContext());
+    }
+
+    public static boolean isNetConnected(Context context) {
+        return getAPNType(context) != TYPE_UNKNOWN;
+    }
+
+
     /**
      * 检查网络连接状态
      *
@@ -94,23 +103,33 @@ public class NetUtil {
                     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null && !telephonyManager.isNetworkRoaming()) {
                         int subType = networkInfo.getSubtype();
-                        if (subType == TelephonyManager.NETWORK_TYPE_LTE) {
-                            type = TYPE_4G;
-                        } else if (subType == TelephonyManager.NETWORK_TYPE_UMTS
-                                || subType == TelephonyManager.NETWORK_TYPE_HSDPA
-                                || subType == TelephonyManager.NETWORK_TYPE_EVDO_0) {
-                            type = TYPE_3G;
-                        } else if (subType == TelephonyManager.NETWORK_TYPE_GPRS
+                        if ((subType == TelephonyManager.NETWORK_TYPE_GPRS
                                 || subType == TelephonyManager.NETWORK_TYPE_EDGE
-                                || subType == TelephonyManager.NETWORK_TYPE_CDMA) {
+                                || subType == TelephonyManager.NETWORK_TYPE_CDMA
+                                || subType == TelephonyManager.NETWORK_TYPE_1xRTT
+                                || subType == TelephonyManager.NETWORK_TYPE_IDEN)) {
                             type = TYPE_2G;
+                        } else if (subType == TelephonyManager.NETWORK_TYPE_UMTS
+                                || subType == TelephonyManager.NETWORK_TYPE_EVDO_0
+                                || subType == TelephonyManager.NETWORK_TYPE_EVDO_A
+                                || subType == TelephonyManager.NETWORK_TYPE_HSDPA
+                                || subType == TelephonyManager.NETWORK_TYPE_HSUPA
+                                || subType == TelephonyManager.NETWORK_TYPE_HSPA
+                                || subType == TelephonyManager.NETWORK_TYPE_EVDO_B
+                                || subType == TelephonyManager.NETWORK_TYPE_EHRPD
+                                || subType == TelephonyManager.NETWORK_TYPE_HSPAP
+                                ) {
+                            type = TYPE_3G;
+                        } else if (subType == TelephonyManager.NETWORK_TYPE_LTE) {
+                            type = TYPE_4G;
+                        } else if (subType > TelephonyManager.NETWORK_TYPE_LTE) { // 默认是4G
+                            type = TYPE_4G;// 默认是 2G
                         } else {
-                            type = TYPE_2G;// 默认是 2G
+                            type = TYPE_2G;
                         }
                     }
                 }
             }
-
         }
         return type;
     }
