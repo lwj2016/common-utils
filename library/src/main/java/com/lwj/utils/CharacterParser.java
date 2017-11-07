@@ -117,7 +117,7 @@ public class CharacterParser {
     /**
      * 词组解析 * * @param chs * @return
      */
-    public String getSelling(String chs) {
+    public String getSpelling(String chs) {
         String key, value;
         buffer = new StringBuilder();
         for (int i = 0; i < chs.length(); i++) {
@@ -136,7 +136,12 @@ public class CharacterParser {
     }
 
     public String getSpelling() {
-        return this.getSelling(this.getResource());
+        return this.getSpelling(this.getResource());
+    }
+
+
+    public static String getSpellStr(String name) {
+        return CharacterParser.getInstance().getSpelling(name);
     }
 
 }

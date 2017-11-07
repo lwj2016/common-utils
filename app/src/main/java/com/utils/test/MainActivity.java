@@ -3,7 +3,9 @@ package com.utils.test;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.lwj.utils.AppBackPressExitUtil;
 import com.lwj.utils.NetUtil;
@@ -55,7 +57,16 @@ public class MainActivity extends Activity {
 
         @Override
         public void onInterval() {
-            ToastUtil.showToast("再按一次退出程序");
+//            ToastUtil.get()
+//                    .setView(R.layout.toast)
+//                    .setMsgViewID(R.id.tv_msg)
+//                    .setGravity(Gravity.CENTER)
+//                    .setMsg("再按一次退出程序")
+//                    .setDuration(Toast.LENGTH_SHORT).show();
+
+
+            ToastUtil.show("再按一次退出程序");
+
         }
     };
 
