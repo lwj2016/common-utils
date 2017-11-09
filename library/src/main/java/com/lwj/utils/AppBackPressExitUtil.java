@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.app.Activity;
 import android.view.KeyEvent;
 
 /**
@@ -13,18 +14,19 @@ public abstract class AppBackPressExitUtil {
     private long exitTime = 0;
 
     private long interval = 2000L;
+    private Activity activity;
 
-    public AppBackPressExitUtil(long interval) {
+    public AppBackPressExitUtil(Activity activity, long interval) {
         this.interval = interval;
+        this.activity = activity;
     }
 
-    public AppBackPressExitUtil() {
-        this(2000L);
+    public AppBackPressExitUtil(Activity activity) {
+        this(activity, 2000L);
     }
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > interval) {
@@ -34,11 +36,15 @@ public abstract class AppBackPressExitUtil {
                 onFinish();
             }
             return true;
+        } else {
+            return activity.onKeyDown(keyCode, event);
         }
-        return false;
     }
 
-    public abstract void onFinish();
+
+    public void onFinish() {
+        activity.finish();
+    }
 
     public abstract void onInterval();
 }

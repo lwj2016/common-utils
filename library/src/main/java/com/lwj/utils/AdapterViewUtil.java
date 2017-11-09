@@ -24,7 +24,7 @@ public class AdapterViewUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getItemModel(ListView listView, int i) {
+    private static <T> T getItemModel(ListView listView, int i) {
 
         if (listView == null) {
             return null;
@@ -43,7 +43,7 @@ public class AdapterViewUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getItemModel(GridView gridView, int i) {
+    private static <T> T getItemModel(GridView gridView, int i) {
 
         if (gridView == null) {
             return null;

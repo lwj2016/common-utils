@@ -51,30 +51,21 @@ public class MainActivity extends Activity {
     }
 
 
-    AppBackPressExitUtil exitUtil = new AppBackPressExitUtil(2000L) {
-        @Override
-        public void onFinish() {
-            finish();
-        }
-
+    AppBackPressExitUtil exitUtil = new AppBackPressExitUtil(this) {
         @Override
         public void onInterval() {
-
-//            View view = ViewUtil.inflate(R.layout.toast);
-//            ViewUtil.setTvText(view, R.id.tv_msg, "再按一次退出程序");
-//            ToastUtil.get()
-//                    .setView(view)
-//                    .setGravity(Gravity.CENTER)
-//                    .setDuration(Toast.LENGTH_SHORT).show();
-
-
-            ToastUtil.get().setMsg("再按一次退出程序").setGravity(Gravity.CENTER).show();
+            View view = ViewUtil.inflate(R.layout.toast);
+            ViewUtil.setTvText(view, R.id.tv_msg, "再按一次退出程序");
+            ToastUtil.get()
+                    .setView(view)
+                    .setGravity(Gravity.CENTER)
+                    .setDuration(Toast.LENGTH_SHORT).show();
 
         }
     };
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return exitUtil.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+        return exitUtil.onKeyDown(keyCode, event);
     }
 }

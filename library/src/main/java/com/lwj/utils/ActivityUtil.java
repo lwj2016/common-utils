@@ -14,12 +14,12 @@ import com.lwj.utils.log.LogUtil;
  */
 public class ActivityUtil {
 
-    public static long innerTime = 0L;
+    private static long innerTime = 0L;
 
     /**
      * 每次打开同一个界面的时间间隔
      */
-    public static long INNER_INTERVAL = 1000L;
+    private static long INNER_INTERVAL = 1000L;
 
     public static void setActivityInterval(long intervalTime) {
         INNER_INTERVAL = intervalTime;
@@ -30,7 +30,7 @@ public class ActivityUtil {
      *
      * @return
      */
-    public static boolean checkValid() {
+    private static boolean checkValid() {
 
         long nowTime = System.currentTimeMillis();
         if (nowTime - innerTime > INNER_INTERVAL) {
