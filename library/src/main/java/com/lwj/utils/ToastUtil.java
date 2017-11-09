@@ -16,12 +16,16 @@ import com.lwj.utils.context.GlobalContext;
 public class ToastUtil {
 
 
+    public static final int DEFAULT_GRAVITY = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+    public static final int X_OFFSET_DP = 0;
+    public static final int Y_OFFSET_DP = 64;
+
     public static class ToastBuilder {
         public Context context;
         int duration = Toast.LENGTH_LONG;
         String message;
         int msgId;
-        int gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        int gravity = DEFAULT_GRAVITY;
         int xOffset = 0;
         int yOffset = 0;
 
@@ -32,17 +36,29 @@ public class ToastUtil {
 
         public ToastBuilder(Context context) {
             this.context = context;
-            yOffset = DisplayUtil.dp2px(context, 64);
+            yOffset = DisplayUtil.dp2px(context, Y_OFFSET_DP);
+            xOffset = DisplayUtil.dp2px(context, X_OFFSET_DP);
         }
 
         public ToastBuilder setView(int layoutID, int tvID) {
             view = View.inflate(context, layoutID, null);
+            return setMsgViewID(tvID);
+        }
+
+        public ToastBuilder setView(View view, int tvID) {
+            this.view = view;
             tv = (TextView) view.findViewById(tvID);
             return this;
         }
 
+
         public ToastBuilder setView(int layoutID) {
             view = View.inflate(context, layoutID, null);
+            return this;
+        }
+
+        public ToastBuilder setView(View view) {
+            this.view = view;
             return this;
         }
 
@@ -114,13 +130,17 @@ public class ToastUtil {
         public void show() {
 
             if (view == null) {
-                Toast.makeText(context, getMsg(), duration).show();
+                Toast toast = Toast.makeText(context, getMsg(), duration);
+                toast.setGravity(gravity, xOffset, yOffset);
+                toast.show();
             } else {
                 Toast toast = new Toast(context);
                 toast.setGravity(gravity, xOffset, yOffset);
                 toast.setDuration(duration);
                 toast.setView(view);
-                tv.setText(message);
+                if (tv != null) {
+                    tv.setText(message);
+                }
                 toast.show();
             }
 
@@ -139,11 +159,17 @@ public class ToastUtil {
     }
 
     public static void show(Context context, String msg) {
-        show(context, msg, Toast.LENGTH_SHORT);
+        show(context, msg, Toast.LENGTH_SHORT, DEFAULT_GRAVITY, DisplayUtil.dp2px(context, X_OFFSET_DP), DisplayUtil.dp2px(context, Y_OFFSET_DP));
     }
 
-    public static void show(Context context, String msg, int duration) {
-        Toast.makeText(context, msg, duration).show();
+    public static void show(Context context, String msg, int duration, int gravity, int xOffset, int yOffset) {
+        Toast toast = Toast.makeText(context, msg, duration);
+        toast.setGravity(gravity, xOffset, yOffset);
+        toast.show();
+    }
+
+    public static void show(String msg, int duration, int gravity, int xOffset, int yOffset) {
+        show(GlobalContext.getContext(), msg, duration, gravity, xOffset, yOffset);
     }
 
 

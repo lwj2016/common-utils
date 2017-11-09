@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.lwj.utils.AppBackPressExitUtil;
 import com.lwj.utils.NetUtil;
 import com.lwj.utils.ToastUtil;
+import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
 
 /**
@@ -57,15 +59,16 @@ public class MainActivity extends Activity {
 
         @Override
         public void onInterval() {
+
+//            View view = ViewUtil.inflate(R.layout.toast);
+//            ViewUtil.setTvText(view, R.id.tv_msg, "再按一次退出程序");
 //            ToastUtil.get()
-//                    .setView(R.layout.toast)
-//                    .setMsgViewID(R.id.tv_msg)
+//                    .setView(view)
 //                    .setGravity(Gravity.CENTER)
-//                    .setMsg("再按一次退出程序")
 //                    .setDuration(Toast.LENGTH_SHORT).show();
 
 
-            ToastUtil.show("再按一次退出程序");
+            ToastUtil.get().setMsg("再按一次退出程序").setGravity(Gravity.CENTER).show();
 
         }
     };

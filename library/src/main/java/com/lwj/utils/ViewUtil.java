@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lwj.utils.context.GlobalContext;
 
 /**
  * Created by lwj on 2016/3/8.
@@ -48,6 +51,14 @@ public class ViewUtil {
 
     }
 
+
+    public static View inflate(Context context, int layoutId) {
+        return View.inflate(context, layoutId, null);
+    }
+
+    public static View inflate(int layoutId) {
+        return inflate(GlobalContext.getContext(), layoutId);
+    }
 
     public static LinearLayout findLinearLayoutById(View view, int id) {
         return findViewById(view, id);
@@ -100,6 +111,13 @@ public class ViewUtil {
 
     public static TextView setTvText(Activity activity, int id, String text) {
         TextView textView = findTextViewById(activity, id);
+        textView.setText(text);
+        return textView;
+    }
+
+
+    public static TextView setTvText(View view, int id, String text) {
+        TextView textView = findTextViewById(view, id);
         textView.setText(text);
         return textView;
     }
