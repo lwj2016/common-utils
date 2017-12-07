@@ -36,9 +36,14 @@ public abstract class AppBackPressExitUtil {
                 onFinish();
             }
             return true;
-        } else {
-            return activity.onKeyDown(keyCode, event);
         }
+        return false;
+    }
+
+
+    public boolean onExitKeyDown(int keyCode, KeyEvent event) {
+
+        return onKeyDown(keyCode, event) || activity.onKeyDown(keyCode, event);
     }
 
 

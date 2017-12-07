@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,14 +26,13 @@ public class CollectionUtil {
 
     public static String[] strlistToArray(ArrayList<String> list) {
 
-        return listToArray(list);
+        return listToArray(list, String.class);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T[] listToArray(ArrayList<T> list) {
 
-        Object[] objs = list.toArray();
-        return (T[]) objs;
+    @SuppressWarnings("unchecked")
+    public static <T> T[] listToArray(List<T> list, Class<T> clazz) {
+        return list.toArray((T[]) Array.newInstance(clazz, list.size()));
     }
 
 }

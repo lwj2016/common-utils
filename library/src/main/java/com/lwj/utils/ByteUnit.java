@@ -132,9 +132,9 @@ public enum ByteUnit {
         throw new AbstractMethodError();
     }
 
-    private static final double COMMON_SPACE = 1024f;
-    private static final double Kb = COMMON_SPACE;
-    private static final double Mb = COMMON_SPACE * Kb;
-    private static final double Gb = COMMON_SPACE * Mb;
-    private static final double Tb = COMMON_SPACE * Gb;
+    public static final double COMMON_SPACE = 1024f;
+    public static final double Kb = COMMON_SPACE;
+    public static final double Mb = COMMON_SPACE * Kb;
+    public static final double Gb = COMMON_SPACE * Mb;
+    public static final double Tb = COMMON_SPACE * Gb;
 }

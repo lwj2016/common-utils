@@ -19,18 +19,26 @@ public class URLUtil {
     public static void main(String[] args) {
         String url1 = "http://www.runoob.com/java/java-url-processing.html";
         String url2 = "http://www.runoob.com/java/java-url-processing.html?a=3&a&a=4&a=5&b=4#hh";
-        System.out.println(getProtocol(url1));
-        System.out.println(getHost(url1));
-        System.out.println(getPath(url1));
-        System.out.println(getQuery(url1));
-        System.out.println(getQueryMap(url1));
-        System.out.println(getRef(url1));
-        System.out.println(getProtocol(url2));
-        System.out.println(getHost(url2));
-        System.out.println(getPath(url2));
-        System.out.println(getQuery(url2));
-        System.out.println(getQueryMap(url2));
-        System.out.println(getRef(url2));
+        String url3 = "http://www.baidu.com/index.html?title=我是包含and符号&&的标题&&&12121212&id=024";
+//        System.out.println(getProtocol(url1));
+//        System.out.println(getHost(url1));
+//        System.out.println(getPath(url1));
+//        System.out.println(getQuery(url1));
+//        System.out.println(getQueryMap(url1));
+//        System.out.println(getRef(url1));
+//        System.out.println(getProtocol(url2));
+//        System.out.println(getHost(url2));
+//        System.out.println(getPath(url2));
+//        System.out.println(getQuery(url2));
+//        System.out.println(getQueryMap(url2));
+//        System.out.println(getRef(url2));
+//
+//        System.out.println(getProtocol(url3));
+//        System.out.println(getHost(url3));
+//        System.out.println(getPath(url3));
+        System.out.println(getQuery(url3));
+        System.out.println(getQueryMap(url3));
+        System.out.println(getRef(url3));
     }
 
     public static URL getUrlFromStr(String urlStr) {

@@ -157,6 +157,10 @@ public class ResUtil {
         return getResources(context).getDrawable(drawableResId, theme);
     }
 
+    public static Drawable getDrawable(int drawableResId, Resources.Theme theme) {
+        return getDrawable(GlobalContext.getContext(), drawableResId, theme);
+    }
+
 
     /**
      * 获取 int 数组

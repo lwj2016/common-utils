@@ -95,14 +95,12 @@ public class AppUtil {
 
     public static List<ApplicationInfo> getAllApps(Context context) {
         PackageManager pm = context.getPackageManager();
-        List<ApplicationInfo> infos = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
-        return infos;
+        return pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
     }
 
     public static List<ApplicationInfo> getAllApps() {
         return getAllApps(GlobalContext.getContext());
     }
-
 
 
     public static void openApp(Context context, String packageName) throws Exception {
@@ -115,6 +113,9 @@ public class AppUtil {
 
         boolean isRunning = false;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) {
+            return false;
+        }
         List<ActivityManager.RunningTaskInfo> runningTasks = am.getRunningTasks(100);
         for (ActivityManager.RunningTaskInfo runningTaskInfo : runningTasks) {
 
@@ -146,6 +147,6 @@ public class AppUtil {
             updateGallery(context, file);
             return;
         }
-        LogUtil.w("%s isn't exist");
+        LogUtil.w("%s isn't exist", filePath);
     }
 }

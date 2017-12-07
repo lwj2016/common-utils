@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.lwj.utils.log.DebugUtil;
@@ -202,4 +203,19 @@ public class ActivityUtil {
         }
     }
 
+    public static boolean isRunning(Context context) {
+        if (context != null && context instanceof Activity) {
+
+            Activity activity = (Activity) context;
+            if (activity.isFinishing()) {
+                return false;
+            }
+            if (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed()) {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
 }
