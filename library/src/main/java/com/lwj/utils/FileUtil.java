@@ -50,6 +50,34 @@ public class FileUtil {
         }
     }
 
+
+    /**
+     * @param path directory path
+     * @param name file name
+     * @return really path for this file
+     */
+    public static File getFile(String path, String name) throws IOException {
+        String resultPath = getFilePath(path, name);
+        if (resultPath != null && createNewFile(resultPath)) {
+            return new File(resultPath);
+        }
+        return null;
+    }
+
+
+    /**
+     * @param path directory path
+     * @param name file name
+     * @return really path for this file
+     */
+    public static File getFolder(String path, String name) {
+        String resultPath = getFilePath(path, name);
+        if (resultPath != null && createNewFolder(resultPath)) {
+            return new File(resultPath);
+        }
+        return null;
+    }
+
     /**
      * @param object obj
      * @param path   directory
@@ -227,18 +255,30 @@ public class FileUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (file.isDirectory()) {
+            return true;
+        } else {
+            if (file.delete()) {
+                return file.mkdirs();
+            }
         }
         return false;
     }
 
-    public static boolean createNewFile(String path) {
+    public static boolean createNewFile(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
             try {
                 return file.createNewFile();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (file.isDirectory()) {
+            if (file.delete()) {
+                return file.createNewFile();
+            }
+        } else {
+            return true;
         }
         return false;
     }
@@ -269,6 +309,33 @@ public class FileUtil {
             br.close();
         }
         return res;
+    }
+
+    /**
+     * 保存数据到文件中
+     *
+     * @param content
+     * @param file
+     * @return
+     * @throws java.io.IOException
+     */
+    public static void writeStr2File(File file, String content) throws IOException {
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(content.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static long getLastModified(String fileName) {

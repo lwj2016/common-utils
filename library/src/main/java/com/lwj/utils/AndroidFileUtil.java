@@ -6,7 +6,6 @@ import android.os.Environment;
 import android.os.StatFs;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -16,74 +15,155 @@ import java.io.IOException;
 
 public class AndroidFileUtil extends FileUtil {
 
-    private static final String FILEPATH = "file";
 
-    public static File getFileDiskCacheDir(Context context, String fileName) throws IOException {
-        return getFileDiskCacheDir(context, fileName, true);
-    }
-
-    public static File getFileDiskCacheDir(Context context, String fileName, boolean isCreate) throws IOException {
-        File folder = getDiskCacheDir(context, FILEPATH);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-        File file = new File(folder, fileName);
-        if (!file.exists() && isCreate) {
-            file.createNewFile();
+    public synchronized static File getCustomFolderPath(Context context, String folderName) throws IOException {
+        File file;
+        if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
+            file = getExternalCacheDirFolder(context, folderName);
+        } else {
+            file = getCacheDir(context, folderName);
         }
         return file;
+
+    }
+
+    public synchronized static File getCustomFile(Context context, String folderName) throws IOException {
+        File file;
+        if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
+            file = getExternalCacheDirFile(context, folderName);
+        } else {
+            file = getCacheFile(context, folderName);
+        }
+        return file;
+
+    }
+
+
+    /**
+     * 文件存到sd卡
+     *
+     * @param name
+     * @param content
+     */
+    public static void saveStr2FilePriorSD(Context context, String name, String content) throws IOException {
+
+        File file = getExternalCacheDirFile(context, name);
+        if (file == null) {
+            file = getCacheFile(context, name);
+        }
+        writeStr2File(file, content);
+    }
+
+
+    /**
+     * @param context
+     * @return /data/data/{packageName}/cache/
+     */
+    public synchronized static String getCacheDirPath(Context context) {
+
+        return context.getCacheDir().getPath();
     }
 
     /**
-     * Get a usable cache directory (external if available, internal otherwise).
-     *
-     * @param context    The context to use
-     * @param uniqueName A unique directory name to append to the cache dir
-     * @return The cache dir
+     * @param context
+     * @param uniqueName
+     * @return /data/data/{packageName}/cache/xxx
      */
-    public synchronized static File getDiskCacheDir(Context context, String uniqueName) {
-        // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-        // otherwise use internal cache dir
-        String cachePath = null;
-        if (isSDCardMounted()) { // sd 卡
-            cachePath = getExternalCacheDir(context).getPath();
-        } else if (isExternalStorageRemovable()) {  // 其他扩展存储
-            cachePath = getExternalCacheDir(context).getPath();
-        } else {
-            cachePath = context.getCacheDir().getPath();// 默认放入缓存中了
-        }
-        FileUtil.createNewFolder(cachePath + File.separator + uniqueName);
-
-        return new File(cachePath + File.separator + uniqueName);
-    }
-
-
-    public synchronized static String getCustomFolderPath(Context context, String folerName) {
-        String cachePath = null;
-        if (isSDCardMounted()) { // sd 卡
-            cachePath = getExternalCacheDir(context).getPath();
-        } else if (isExternalStorageRemovable()) {  // 其他扩展存储
-            cachePath = getExternalCacheDir(context).getPath();
-        } else {
-            cachePath = context.getCacheDir().getPath();// 默认放入缓存中了
-        }
-        cachePath = cachePath + File.separator + folerName;
-        FileUtil.createNewFolder(cachePath);
-        return cachePath;
+    public synchronized static File getCacheDir(Context context, String uniqueName) {
+        return getFolder(getCacheDirPath(context), uniqueName);
     }
 
 
     /**
      * @param context
      * @param uniqueName
-     * @return 获取内部存储。/data/data 下的
+     * @return /data/data/{packageName}/cache/xxx
      */
-    public synchronized static File getInterCacheDir(Context context, String uniqueName) {
-        // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-        // otherwise use internal cache dir
-        return new File(context.getCacheDir().getPath() + File.separator + uniqueName);
+    public synchronized static File getCacheFile(Context context, String uniqueName) throws IOException {
+        return getFile(getCacheDirPath(context), uniqueName);
     }
 
+
+    /**
+     * @param context
+     * @return /data/data/{packageName}/files/
+     */
+    public synchronized static String getFilesDirPath(Context context) {
+        return context.getFilesDir().getPath();
+    }
+
+    /**
+     * @param context
+     * @param uniqueName
+     * @return /data/data/{packageName}/files/xxx
+     */
+    public synchronized static File getFilesDir(Context context, String uniqueName) {
+        return getFolder(getFilesDirPath(context), uniqueName);
+    }
+
+    /**
+     * @param context
+     * @param uniqueName
+     * @return /data/data/{packageName}/files/xxx
+     */
+    public synchronized static File getFilesFile(Context context, String uniqueName) throws IOException {
+        return getFile(getFilesDirPath(context), uniqueName);
+    }
+
+
+    /**
+     * 判断SD卡是否被挂载
+     *
+     * @return
+     */
+    public static boolean isSDCardMounted() {
+        return Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED);
+    }
+
+
+    public static File getExternalCacheDirFile(Context context, String file) throws IOException {
+        return getFile(getExternalCacheDir(context).getAbsolutePath(), file);
+    }
+
+    public static File getExternalCacheDirFolder(Context context, String file) throws IOException {
+        return getFolder(getExternalCacheDir(context).getAbsolutePath(), file);
+    }
+
+
+    public static File getExternalCacheDir(Context context) {
+        File file = null;
+        if (OSUtils.hasFroyo()) {
+            file = context.getExternalCacheDir();
+        }
+        if (file == null) {
+            file = createExternalCacheDirPath(context);
+        }
+        return file;
+    }
+
+    public static String getExternalCacheDirPath(Context context) {
+        File file = getExternalCacheDir(context);
+        if (file != null) {
+            return file.getAbsolutePath();
+        }
+        return "";
+    }
+
+
+    /**
+     * 有则返回，无则自己创建
+     *
+     * @param context
+     * @return
+     */
+    public static File createExternalCacheDirPath(Context context) {
+        StringBuilder path = new StringBuilder();
+        path.append(Environment.getExternalStorageDirectory().getPath());
+        path.append("/Android/data").append(context.getPackageName());
+        path.append("/cache").append(File.separator);
+        return new File(path.toString());
+    }
 
     /**
      * Check if external storage is built-in or removable.
@@ -97,67 +177,6 @@ public class AndroidFileUtil extends FileUtil {
             return Environment.isExternalStorageRemovable();
         }
         return true;
-    }
-
-    @TargetApi(8)
-    public static File getExternalCacheDir(Context context) {
-        if (OSUtils.hasFroyo()) {
-            return context.getExternalCacheDir() == null ? getExCacheFile(context) : context.getExternalCacheDir();
-        }
-        return getExCacheFile(context);
-    }
-
-    private static File getExCacheFile(Context context) {
-        final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
-        return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
-    }
-
-    /**
-     * 文件存到sd卡
-     *
-     * @param name
-     * @param content
-     */
-    public static void saveStr2SD(String name, String content) {
-
-        FileOutputStream fos = null;
-        try {
-            File file = new File(Environment.getExternalStorageDirectory(), name);
-            fos = new FileOutputStream(file);
-            fos.write(content.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 判断SD卡是否被挂载
-     *
-     * @return
-     */
-    public static boolean isSDCardMounted() {
-        return Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED);
-    }
-
-    /**
-     * 获取SD卡的根目录
-     *
-     * @return
-     */
-    public static String getSDCardBaseDir() {
-        if (isSDCardMounted()) {
-            return Environment.getExternalStorageDirectory().getAbsolutePath();
-        }
-        return null;
     }
 
     /**
@@ -197,5 +216,4 @@ public class AndroidFileUtil extends FileUtil {
         }
         return 0;
     }
-
 }
