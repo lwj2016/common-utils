@@ -1,10 +1,8 @@
 package com.utils.test.json.gson;
 
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.lwj.utils.log.LogUtil;
 
 import java.lang.reflect.Type;
 
@@ -13,7 +11,7 @@ import java.lang.reflect.Type;
  * lwjfork@gmail.com
  */
 
-public class LongAdapter implements JsonDeserializer<Long> {
+public class LongAdapter extends LogAdapter<Long> {
 
     @Override
     public Long deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -24,7 +22,7 @@ public class LongAdapter implements JsonDeserializer<Long> {
                 Number number = json.getAsNumber();
                 return number.longValue();
             } catch (Exception formatE) {
-                LogUtil.e("Can't cast to be %s", "Long");
+                errorLog(json);
                 return 0L;
             }
         }

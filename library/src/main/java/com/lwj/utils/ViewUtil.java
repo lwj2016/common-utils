@@ -2,7 +2,11 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -52,8 +56,21 @@ public class ViewUtil {
     }
 
 
+    public static LayoutInflater newInflate(Context context) {
+        Preconditions.checkNotNUll(context, "This context is null");
+        return LayoutInflater.from(context);
+    }
+
     public static View inflate(Context context, int layoutId) {
-        return View.inflate(context, layoutId, null);
+        return inflate(context, layoutId, null, false);
+    }
+
+    public static View inflate(Context context, @LayoutRes int resource, @Nullable ViewGroup root, boolean attachToRoot) {
+        return newInflate(context).inflate(resource, root, attachToRoot);
+    }
+
+    public static View inflate(Context context, @LayoutRes int resource, @Nullable ViewGroup root) {
+        return newInflate(context).inflate(resource, root, root != null);
     }
 
     public static View inflate(int layoutId) {

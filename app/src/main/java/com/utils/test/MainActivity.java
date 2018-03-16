@@ -14,6 +14,9 @@ import com.lwj.utils.NetUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
+import com.utils.test.json.TestJsonConverter;
+
+import java.io.Serializable;
 
 /**
  * Created by lwj on 2017/10/27.
@@ -51,39 +54,38 @@ public class MainActivity extends Activity {
 
         double d = 100;
 
-        LogUtil.d("100kb is %sKb", ByteUnit.KB.toKbs(100)+"");
-        LogUtil.d("100kb is %sMb", ByteUnit.KB.toMbs(100)+"");
-        LogUtil.d("100kb is %sGb", ByteUnit.KB.toGbs(100)+"");
-        LogUtil.d("100kb is %sTb", ByteUnit.KB.toTbs(100)+"");
+        LogUtil.d("100kb is %sKb", ByteUnit.KB.toKbs(100) + "");
+        LogUtil.d("100kb is %sMb", ByteUnit.KB.toMbs(100) + "");
+        LogUtil.d("100kb is %sGb", ByteUnit.KB.toGbs(100) + "");
+        LogUtil.d("100kb is %sTb", ByteUnit.KB.toTbs(100) + "");
 
 
+        LogUtil.d("100Mb is %sKb", ByteUnit.MB.toKbs(100) + "");
+        LogUtil.d("100Mb is %sMb", ByteUnit.MB.toMbs(100) + "");
+        LogUtil.d("100Mb is %sGb", ByteUnit.MB.toGbs(100) + "");
+        LogUtil.d("100Mb is %sTb", ByteUnit.MB.toTbs(100) + "");
 
 
-
-        LogUtil.d("100Mb is %sKb", ByteUnit.MB.toKbs(100)+"");
-        LogUtil.d("100Mb is %sMb", ByteUnit.MB.toMbs(100)+"");
-        LogUtil.d("100Mb is %sGb", ByteUnit.MB.toGbs(100)+"");
-        LogUtil.d("100Mb is %sTb", ByteUnit.MB.toTbs(100)+"");
-
-
-        LogUtil.d("100Gb is %sKb", ByteUnit.GB.toKbs(100)+"");
-        LogUtil.d("100Gb is %sMb", ByteUnit.GB.toMbs(100)+"");
-        LogUtil.d("100Gb is %sGb", ByteUnit.GB.toGbs(100)+"");
-        LogUtil.d("100Gb is %sTb", ByteUnit.GB.toTbs(100)+"");
+        LogUtil.d("100Gb is %sKb", ByteUnit.GB.toKbs(100) + "");
+        LogUtil.d("100Gb is %sMb", ByteUnit.GB.toMbs(100) + "");
+        LogUtil.d("100Gb is %sGb", ByteUnit.GB.toGbs(100) + "");
+        LogUtil.d("100Gb is %sTb", ByteUnit.GB.toTbs(100) + "");
 
 
+        LogUtil.d("100Tb is %sKb", ByteUnit.TB.toKbs(100) + "");
+        LogUtil.d("100Tb is %sMb", ByteUnit.TB.toMbs(100) + "");
+        LogUtil.d("100Tb is %sGb", ByteUnit.TB.toGbs(100) + "");
+        LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100) + "");
 
-        LogUtil.d("100Tb is %sKb", ByteUnit.TB.toKbs(100)+"");
-        LogUtil.d("100Tb is %sMb", ByteUnit.TB.toMbs(100)+"");
-        LogUtil.d("100Tb is %sGb", ByteUnit.TB.toGbs(100)+"");
-        LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100)+"");
+        String string = "#5";
 
+        TestModel testModel = new TestModel();
 
+        LogUtil.d("json %s", TestJsonConverter.getInstance().obj2JsonStr(testModel));
 
+        TestModel result = TestJsonConverter.getInstance().jsonStr2Obj("{\"d\":\"k\"}", TestModel.class);
 
-
-
-
+        LogUtil.d("result %s", result.toString() + "");
 
 
     }
@@ -104,6 +106,19 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return exitUtil.onKeyDown(keyCode,event) || super.onKeyDown(keyCode,event);
+        return exitUtil.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+    }
+
+    public class TestModel implements Serializable {
+
+        public double d = 5d;
+
+
+        @Override
+        public String toString() {
+            return "TestModel{" +
+                    "d=" + d +
+                    '}';
+        }
     }
 }

@@ -22,7 +22,7 @@ public class SystemIntentUtil {
      */
     public static void openNetSetting(Context context) {
         Intent intent = null;
-        if (VersionCompatUtils.hasHoneycomb()) {
+        if (OSUtils.hasHoneycomb()) {
             // 3.0 以上
             intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
         } else {

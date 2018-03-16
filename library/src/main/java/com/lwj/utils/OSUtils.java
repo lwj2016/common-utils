@@ -3,11 +3,10 @@ package com.lwj.utils;
 import android.os.Build;
 
 /**
- * 版本匹配的问题
- *
- * @author Cyning
+ * Created by lwj on 16/6/7.
+ * Des:
  */
-public class VersionCompatUtils {
+public class OSUtils {
     /**
      * @return 2.2
      */

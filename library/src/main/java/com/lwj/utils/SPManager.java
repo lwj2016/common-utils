@@ -9,24 +9,29 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 16/4/4.
  * Des:
  */
-public class PrefUtil {
-    public static final String PREF_NAME = "PrefUtil";
-    private static PrefUtil instance;
+public class SPManager {
+    public static String PREF_NAME = "sp_manager";
+    private static SPManager instance;
     private SharedPreferences mSharedPreferences;
 
-    public static PrefUtil getInstance() {
-        return getInstance(GlobalContext.getContext());
+    public static SPManager getManager() {
+        return getManager(GlobalContext.getContext());
     }
 
-    public static PrefUtil getInstance(Context context) {
-        if (instance == null) {
-            instance = new PrefUtil(context);
+    public static SPManager getManager(Context context) {
+        return getManager(context, PREF_NAME);
+    }
+
+    public static SPManager getManager(Context context, String preName) {
+        if (instance == null || preName.equals(PREF_NAME)) {
+            instance = new SPManager(context, preName);
         }
         return instance;
     }
 
-    private PrefUtil(Context context) {
-        this.mSharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    private SPManager(Context context, String preName) {
+        this.mSharedPreferences = context.getSharedPreferences(preName, Context.MODE_PRIVATE);
+        PREF_NAME = preName;
     }
 
     public void saveBoolean(String key, boolean bool) {
@@ -54,7 +59,7 @@ public class PrefUtil {
     }
 
     public void saveInt(String key, int value) {
-        this.mSharedPreferences.edit().putInt(key,value).apply();
+        this.mSharedPreferences.edit().putInt(key, value).apply();
     }
 
     public int getInt(String key) {
@@ -96,6 +101,7 @@ public class PrefUtil {
     public float getFloat(String key, float defaultValue) {
         return this.mSharedPreferences.getFloat(key, defaultValue);
     }
+
 
     public SharedPreferences getSharedPreferences() {
         return this.mSharedPreferences;

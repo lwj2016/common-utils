@@ -155,7 +155,7 @@ public class TimeUtil {
      * @param timeUnit 时间单元
      * @return 日期字符串
      */
-    public static String getFormatByTime(String format, long time, TimeUnit timeUnit) {
+    public static String getFormatByTime(long time, TimeUnit timeUnit, String format) {
         Date date = new Date(timeUnit.toMillis(time));
         return getFormatByDate(date, format);
     }
@@ -165,8 +165,8 @@ public class TimeUtil {
      * @param format 格式
      * @return 日期字符串
      */
-    public static String getFormatByTime(String format, long time) {
-        return getFormatByTime(format, time, TimeUnit.SECONDS);
+    public static String getFormatByTime(long time, String format) {
+        return getFormatByTime(time, TimeUnit.SECONDS, format);
     }
 
 
@@ -185,8 +185,8 @@ public class TimeUtil {
      * @param format       格式
      * @return 日期字符串
      */
-    public static String getFormatByMills(String format, long milliSeconds) {
-        return getFormatByTime(format, milliSeconds, TimeUnit.MILLISECONDS);
+    public static String getFormatByMills(long milliSeconds, String format) {
+        return getFormatByTime(milliSeconds, TimeUnit.MILLISECONDS, format);
     }
 
     /**
@@ -194,8 +194,8 @@ public class TimeUtil {
      * @param format  格式
      * @return 日期字符串
      */
-    public static String getFormatBySeconds(String format, long seconds) {
-        return getFormatByTime(format, seconds, TimeUnit.SECONDS);
+    public static String getFormatBySeconds(long seconds, String format) {
+        return getFormatByTime(seconds, TimeUnit.SECONDS, format);
     }
 
     /**
@@ -203,8 +203,8 @@ public class TimeUtil {
      * @param format 格式
      * @return 日期字符串
      */
-    public static String getFormatByHours(String format, long hours) {
-        return getFormatByTime(format, hours, TimeUnit.HOURS);
+    public static String getFormatByHours(long hours, String format) {
+        return getFormatByTime(hours, TimeUnit.HOURS, format);
     }
 
     /**
@@ -212,8 +212,8 @@ public class TimeUtil {
      * @param format  格式
      * @return 日期字符串
      */
-    public static String getFormatByMinutes(String format, long minutes) {
-        return getFormatByTime(format, minutes, TimeUnit.MINUTES);
+    public static String getFormatByMinutes(long minutes, String format) {
+        return getFormatByTime(minutes, TimeUnit.MINUTES, format);
     }
 
     /**
@@ -221,8 +221,8 @@ public class TimeUtil {
      * @param format 格式
      * @return 日期字符串
      */
-    public static String getFormatByDays(String format, long days) {
-        return getFormatByTime(format, days, TimeUnit.DAYS);
+    public static String getFormatByDays(long days, String format) {
+        return getFormatByTime(days, TimeUnit.DAYS, format);
     }
 
 

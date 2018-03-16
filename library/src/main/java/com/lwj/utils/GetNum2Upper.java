@@ -27,7 +27,7 @@ public class GetNum2Upper {
     private static final String TTHMstr = "万亿";
     private static final long TTHMnum = HMnum * 10000L;
 
-
+    private static final String ZERO = "零";
     private static final String ONE = "壹";
     private static final String TWO = "贰";
     private static final String THREE = "叁";
@@ -110,11 +110,13 @@ public class GetNum2Upper {
     }
 
 
-
     private static String GetCH(long input) {
         String sd = "";
         int x = (int) input;
         switch (x) {
+            case 0:
+                sd = ZERO;
+                break;
             case 1:
                 sd = ONE;
                 break;

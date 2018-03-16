@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.lwj.utils.log.DebugUtil;
 import com.lwj.utils.log.LogUtil;
 
 /**
@@ -43,27 +42,7 @@ public class ActivityUtil {
     }
 
 
-    /**
-     * 调用某一个Action
-     *
-     * @param context
-     * @param intent
-     */
-    public static void startActivity(Context context, Intent intent, boolean isFinish) {
-        if (!checkValid()) {
-            return;
-        }
-        context.startActivity(intent);
-        if (isFinish) {
-            if (context instanceof Activity) {
-                ((Activity) context).finish();
-            } else {
-                LogUtil.w("this %s can't convert to activity", DebugUtil.getTag(context));
-            }
-        }
-    }
-
-    public static void startActivityForResult(Activity act, Intent intent, int code) {
+    private static void startActivityForResult(Activity act, Intent intent, int code) {
         if (!checkValid()) {
             return;
         }
@@ -77,7 +56,10 @@ public class ActivityUtil {
      * @param intent
      */
     public static void startActivity(Context context, Intent intent) {
-        startActivity(context, intent, false);
+        if (!checkValid()) {
+            return;
+        }
+        context.startActivity(intent);
     }
 
     /**
@@ -88,35 +70,9 @@ public class ActivityUtil {
      */
     public static void startActivity(Context context, Class cls) {
         Intent intent = new Intent(context, cls);
-        startActivity(context, intent, false);
+        startActivity(context, intent);
     }
 
-
-    /**
-     * 一个Activity 开启 另一个 Activity
-     *
-     * @param context
-     * @param cls
-     */
-    public static void startActivity(Context context, Class cls, boolean isFinish) {
-        Intent intent = new Intent(context, cls);
-        startActivity(context, intent, isFinish);
-    }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，带Bundle
-     *
-     * @param context
-     * @param cls
-     * @param bundle
-     */
-    public static void startActivity(Context context, Class cls, Bundle bundle, boolean isFinish) {
-        Intent intent = new Intent(context, cls);
-        intent.setClass(context, cls);
-        intent.putExtras(bundle);
-        startActivity(context, intent, isFinish);
-    }
 
     /**
      * 一个Activity 开启 另一个 Activity，带Bundle
@@ -129,7 +85,7 @@ public class ActivityUtil {
         Intent intent = new Intent(context, cls);
         intent.setClass(context, cls);
         intent.putExtras(bundle);
-        startActivity(context, intent, false);
+        startActivity(context, intent);
     }
 
 

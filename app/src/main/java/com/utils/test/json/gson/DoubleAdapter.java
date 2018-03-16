@@ -7,23 +7,23 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 /**
- * Created by lwj on 2017/10/11.
+ * Created by lwj on 2018/1/5.
  * lwjfork@gmail.com
  */
 
-public class IntegerAdapter extends LogAdapter<Integer> {
+public class DoubleAdapter extends LogAdapter<Double> {
 
     @Override
-    public Integer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Double deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            return json.getAsInt();
+            return json.getAsDouble();
         } catch (Exception e) { // 转 int 类型错误  尝试转 double 类型
             try {
                 Number number = json.getAsNumber();
-                return number.intValue();
+                return number.doubleValue();
             } catch (Exception formatE) {
                 errorLog(json);
-                return 0;
+                return 0.0d;
             }
         }
     }

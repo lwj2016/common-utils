@@ -1,17 +1,23 @@
 package com.lwj.utils;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.lwj.utils.context.GlobalContext;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
 
 /**
@@ -67,7 +73,7 @@ public class ResUtil {
      * @return color
      */
     public static int getColor(int resId) {
-        return getResources().getColor(resId);
+        return getColor(GlobalContext.getContext(), resId);
     }
 
     /**
@@ -77,7 +83,27 @@ public class ResUtil {
      * @return color
      */
     public static int getColor(Context context, int resId) {
-        return getResources(context).getColor(resId);
+        return ContextCompat.getColor(context, resId);
+    }
+
+    /**
+     * 从colors.xml中读取color
+     *
+     * @param resId color id
+     * @return color
+     */
+    public static ColorStateList getColorStateList(int resId) {
+        return getColorStateList(GlobalContext.getContext(), resId);
+    }
+
+    /**
+     * 从colors.xml中读取color
+     *
+     * @param resId color id
+     * @return color
+     */
+    public static ColorStateList getColorStateList(Context context, int resId) {
+        return ContextCompat.getColorStateList(context, resId);
     }
 
     /**
@@ -87,7 +113,7 @@ public class ResUtil {
      * @return String[]
      */
     public static String[] getStringArray(int resId) {
-        return getResources().getStringArray(resId);
+        return getStringArray(GlobalContext.getContext(), resId);
     }
 
     /**
@@ -127,38 +153,13 @@ public class ResUtil {
      * @param drawableResId drawable id
      * @return drawable
      */
+    public static Drawable getDrawable(Context context, int drawableResId) {
+
+        return ContextCompat.getDrawable(context, drawableResId);
+    }
+
     public static Drawable getDrawable(int drawableResId) {
         return getDrawable(GlobalContext.getContext(), drawableResId);
-    }
-
-    /**
-     * 获取 drawable
-     *
-     * @param drawableResId drawable id
-     * @return drawable
-     */
-    public static Drawable getDrawable(Context context, int drawableResId) {
-        if (VersionCompatUtils.hasLollipop()) {
-            return getDrawable(context, drawableResId, null);
-        } else {
-            return getResources(context).getDrawable(drawableResId);
-        }
-    }
-
-
-    /**
-     * 获取 drawable
-     *
-     * @param drawableResId drawable id
-     * @return drawable
-     */
-    @TargetApi(21)
-    public static Drawable getDrawable(Context context, int drawableResId, Resources.Theme theme) {
-        return getResources(context).getDrawable(drawableResId, theme);
-    }
-
-    public static Drawable getDrawable(int drawableResId, Resources.Theme theme) {
-        return getDrawable(GlobalContext.getContext(), drawableResId, theme);
     }
 
 
@@ -247,6 +248,30 @@ public class ResUtil {
      */
     public static Animation getAnimation(Context context, int animationID) {
         return AnimationUtils.loadAnimation(context, animationID);
+    }
+
+    /**
+     * @param _context
+     * @param filename
+     * @return 从 assets 里读文件
+     */
+    public static String getStrFromAssets(Context _context, String filename) {
+        InputStream is;
+
+        Writer writer = new StringWriter();
+        char[] buffer = new char[8 * 1024];
+        try {
+            is = _context.getResources().getAssets().open(filename);
+            Reader reader = new BufferedReader(new InputStreamReader(is));
+            int n = 0;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return writer.toString();
     }
 
     public static String readRawStrById(Context context, int id) {

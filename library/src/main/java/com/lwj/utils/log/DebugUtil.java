@@ -7,14 +7,14 @@ package com.lwj.utils.log;
 public class DebugUtil {
 
 
-    public static <T> String getSimpleTag(Class<T> tClass) {
+    public static String getSimpleTag(Class<?> tClass) {
         if (tClass == null) {
             return "null";
         }
         return tClass.getSimpleName();
     }
 
-    public static  String getSimpleTag(Object object) {
+    public static String getSimpleTag(Object object) {
         if (object == null) {
             return "null";
         }
@@ -22,14 +22,14 @@ public class DebugUtil {
     }
 
 
-    public static <T> String getTag(Class<T> tClass) {
+    public static String getTag(Class<?> tClass) {
         if (tClass == null) {
             return "null";
         }
         return tClass.getName();
     }
 
-    public static  String getTag(Object object) {
+    public static String getTag(Object object) {
         if (object == null) {
             return "null";
         }

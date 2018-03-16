@@ -41,6 +41,8 @@ public class GsonConverter implements IJsonConverter {
                 .registerTypeAdapter(Integer.TYPE, new IntegerAdapter())  // int
                 .registerTypeAdapter(Float.class, new FloatAdapter())   //  Float
                 .registerTypeAdapter(Float.TYPE, new FloatAdapter()) // float
+                .registerTypeAdapter(Double.class, new DoubleAdapter()) // Double
+                .registerTypeAdapter(Double.TYPE, new DoubleAdapter()) // float
                 .registerTypeAdapter(Long.class, new LongAdapter())// Long
                 .registerTypeAdapter(Long.TYPE, new LongAdapter());// long
     }

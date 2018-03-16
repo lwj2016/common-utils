@@ -1,10 +1,8 @@
 package com.utils.test.json.gson;
 
 import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.lwj.utils.log.LogUtil;
 
 import java.lang.reflect.Type;
 
@@ -13,7 +11,7 @@ import java.lang.reflect.Type;
  * lwjfork@gmail.com
  */
 
-public class FloatAdapter implements JsonDeserializer<Float> {
+public class FloatAdapter extends LogAdapter<Float> {
 
     @Override
     public Float deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -24,7 +22,7 @@ public class FloatAdapter implements JsonDeserializer<Float> {
                 Number number = json.getAsNumber();
                 return number.floatValue();
             } catch (Exception formatE) {
-                LogUtil.e("Can't cast to be %s", "Float");
+                errorLog(json);
                 return 0.0f;
             }
         }

@@ -1,5 +1,7 @@
 package com.lwj.utils;
 
+import android.text.format.Formatter;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by lwj on 16/3/23.
  * Des: 正则工具类
  */
-public class RegularUtil {
+public class RegularUtil extends StringUtil {
     /**
      * 验证输入的邮箱格式是否符合
      *
@@ -15,6 +17,9 @@ public class RegularUtil {
      * @return 是否合法
      */
     public static boolean isEmail(String email) {
+        Pattern pattern;
+        Formatter formatter;
+        Matcher matcher;
         String pattern1 = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
         return isEmail(email, pattern1);
     }
@@ -44,7 +49,7 @@ public class RegularUtil {
      */
     public static boolean isNumeric(String str) {
         String regularStr = "[0-9]*";
-        return isValid(str, regularStr);
+        return isMatch(str, regularStr);
     }
 
     /**
@@ -66,7 +71,7 @@ public class RegularUtil {
      * @return
      */
     public static boolean isPhone(String str, String regularStr) {
-        return isValid(str, regularStr);
+        return isMatch(str, regularStr);
     }
 
     /**
@@ -91,12 +96,11 @@ public class RegularUtil {
      * @return 是否仅仅包含数字和字母
      */
     public static boolean isNumericAndLetter(String str) {
-//       String regularStr = "^(?=[0-9]*[a-zA-Z])(?=[a-zA-Z]*[0-9])[a-zA-Z0-9]+$";
         String regularStr = "([0-9]+[a-zA-Z]+)|([a-zA-Z]+[0-9]+)[0-9a-zA-Z]*";
-        return isValid(str, regularStr);
+        return isMatch(str, regularStr);
     }
 
-    public static boolean isValid(String str, String regularStr) {
+    public static boolean isMatch(String str, String regularStr) {
         Pattern pattern = Pattern.compile(regularStr);
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
