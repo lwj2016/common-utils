@@ -79,6 +79,19 @@ public class FileUtil {
     }
 
     /**
+     * @param path directory path
+     * @param name file name
+     * @return really path for this file
+     */
+    public static String getFolderPath(String path, String name) {
+        String resultPath = getFilePath(path, name);
+        if (resultPath != null && createNewFolder(resultPath)) {
+            return new File(resultPath).getAbsolutePath();
+        }
+        return null;
+    }
+
+    /**
      * @param object obj
      * @param path   directory
      * @param name   file name

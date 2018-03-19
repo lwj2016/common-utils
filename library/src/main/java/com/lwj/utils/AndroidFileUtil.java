@@ -16,7 +16,7 @@ import java.io.IOException;
 public class AndroidFileUtil extends FileUtil {
 
 
-    public synchronized static File getCustomFolderPath(Context context, String folderName) throws IOException {
+    public synchronized static File getCustomDirs(Context context, String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
             file = getExternalCacheDirFolder(context, folderName);
@@ -24,6 +24,20 @@ public class AndroidFileUtil extends FileUtil {
             file = getCacheDir(context, folderName);
         }
         return file;
+
+    }
+
+    public synchronized static String getCustomFolderPath(Context context, String folderName) throws IOException {
+        File file;
+        if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
+            file = getExternalCacheDirFolder(context, folderName);
+        } else {
+            file = getCacheDir(context, folderName);
+        }
+        if (file != null) {
+            return file.getAbsolutePath();
+        }
+        return null;
 
     }
 
@@ -35,6 +49,20 @@ public class AndroidFileUtil extends FileUtil {
             file = getCacheFile(context, folderName);
         }
         return file;
+
+    }
+
+    public synchronized static String getCustomFilePath(Context context, String folderName) throws IOException {
+        File file;
+        if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
+            file = getExternalCacheDirFile(context, folderName);
+        } else {
+            file = getCacheFile(context, folderName);
+        }
+        if (file != null) {
+            return file.getAbsolutePath();
+        }
+        return null;
 
     }
 
@@ -126,8 +154,16 @@ public class AndroidFileUtil extends FileUtil {
         return getFile(getExternalCacheDir(context).getAbsolutePath(), file);
     }
 
+    public static String getExternalCacheDirFilePath(Context context, String file) throws IOException {
+        return getFilePath(getExternalCacheDir(context).getAbsolutePath(), file);
+    }
+
     public static File getExternalCacheDirFolder(Context context, String file) throws IOException {
         return getFolder(getExternalCacheDir(context).getAbsolutePath(), file);
+    }
+
+    public static String getExternalCacheDirFolderPath(Context context, String file) throws IOException {
+        return getFolderPath(getExternalCacheDir(context).getAbsolutePath(), file);
     }
 
 
