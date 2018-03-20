@@ -4,6 +4,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.util.Log;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by lwj on 2018/3/20.
@@ -99,4 +102,59 @@ public class BluetoothUtil {
         }
     }
 
+    /**
+     * 与设备配对 参考源码：platform/packages/apps/Settings.git
+     * /Settings/src/com/android/settings/bluetooth/CachedBluetoothDevice.java
+     */
+    static public boolean createBond(Class btClass, BluetoothDevice btDevice)
+            throws Exception {
+        Method createBondMethod = btClass.getMethod("createBond");
+        Boolean returnValue = (Boolean) createBondMethod.invoke(btDevice);
+        return returnValue.booleanValue();
+    }
+
+    /**
+     * 与设备解除配对 参考源码：platform/packages/apps/Settings.git
+     * /Settings/src/com/android/settings/bluetooth/CachedBluetoothDevice.java
+     */
+    static public boolean removeBond(Class<?> btClass, BluetoothDevice btDevice)
+            throws Exception {
+        Method removeBondMethod = btClass.getMethod("removeBond");
+        Boolean returnValue = (Boolean) removeBondMethod.invoke(btDevice);
+        return returnValue.booleanValue();
+    }
+
+    /**
+     * ping 蓝牙设备
+     *
+     * @param btClass
+     * @param btDevice
+     * @param str
+     * @return
+     * @throws Exception
+     */
+    public static boolean setPin(Class<? extends BluetoothDevice> btClass, BluetoothDevice btDevice,
+                                 String str) throws Exception {
+
+        try {
+            Method removeBondMethod = btClass.getDeclaredMethod("setPin",
+                    new Class[]
+                            {byte[].class});
+            Boolean returnValue = (Boolean) removeBondMethod.invoke(btDevice,
+                    new Object[]
+                            {str.getBytes()});
+            Log.e("returnValue", "" + returnValue);
+        } catch (SecurityException e) {
+            // throw new RuntimeException(e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // throw new RuntimeException(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return true;
+
+    }
 }

@@ -252,4 +252,14 @@ public class AndroidFileUtil extends FileUtil {
         }
         return 0;
     }
+
+    /**
+     * 刷新图库
+     *
+     * @param context
+     * @param file
+     */
+    public static void refreshGallery(Context context, File file) {
+        BroadcasUtil.refreshGallery(context, file);
+    }
 }
