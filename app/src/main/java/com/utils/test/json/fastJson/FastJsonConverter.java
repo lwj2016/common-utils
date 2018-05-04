@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * lwjfork@gmail.com
  */
 
-public class FastJsonConvert implements IJsonConverter {
+public class FastJsonConverter implements IJsonConverter {
 
 
     @Override

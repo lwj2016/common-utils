@@ -7,18 +7,21 @@ import java.util.ArrayList;
  * lwjfork@gmail.com
  */
 
-public abstract class JsonConverter implements IJsonConverter {
+public abstract class BaseJsonConverter implements IJsonConverter {
 
-    IJsonConverter converter;
+    private IJsonConverter converter;
 
-    public void setJsonConverter(IJsonConverter iJsonConverter) {
+    protected void setJsonConverter(IJsonConverter iJsonConverter) {
         this.converter = iJsonConverter;
     }
 
 
-    public void checkNotNull() {
+    /**
+     * @see #setJsonConverter(IJsonConverter)
+     */
+    private void checkNotNull() {
         if (converter == null) {
-            throw new RuntimeException("IJsonConverter must be init");
+            throw new RuntimeException("IJsonConverter must be init,");
         }
     }
 

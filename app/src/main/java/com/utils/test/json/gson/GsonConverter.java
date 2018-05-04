@@ -4,6 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lwj.utils.json.IJsonConverter;
+import com.utils.test.json.gson.adapter.DoubleAdapter;
+import com.utils.test.json.gson.adapter.FloatAdapter;
+import com.utils.test.json.gson.adapter.IntegerAdapter;
+import com.utils.test.json.gson.adapter.LongAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

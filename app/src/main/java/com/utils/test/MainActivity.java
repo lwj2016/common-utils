@@ -3,10 +3,8 @@ package com.utils.test;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lwj.utils.AppBackPressExitUtil;
 import com.lwj.utils.ByteUnit;
@@ -14,7 +12,8 @@ import com.lwj.utils.NetUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
-import com.utils.test.json.TestJsonConverter;
+import com.utils.test.json.JsonConverter;
+import com.utils.test.model.TestModel;
 
 import java.io.Serializable;
 
@@ -77,13 +76,12 @@ public class MainActivity extends Activity {
         LogUtil.d("100Tb is %sGb", ByteUnit.TB.toGbs(100) + "");
         LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100) + "");
 
-        String string = "#5";
 
         TestModel testModel = new TestModel();
 
-        LogUtil.d("json %s", TestJsonConverter.getInstance().obj2JsonStr(testModel));
+        LogUtil.d("json %s", JsonConverter.getInstance().obj2JsonStr(testModel));
 
-        TestModel result = TestJsonConverter.getInstance().jsonStr2Obj("{\"d\":\"k\"}", TestModel.class);
+        TestModel result = JsonConverter.getInstance().jsonStr2Obj("{\"d\":11}", TestModel.class);
 
         LogUtil.d("result %s", result.toString() + "");
 
@@ -96,10 +94,10 @@ public class MainActivity extends Activity {
         public void onInterval() {
             View view = ViewUtil.inflate(R.layout.toast);
             ViewUtil.setTvText(view, R.id.tv_msg, "再按一次退出程序");
-            ToastUtil.get()
-                    .setView(view)
-                    .setGravity(Gravity.CENTER)
-                    .setDuration(Toast.LENGTH_SHORT).show();
+            ToastUtil.get().setMsg("再按一次退出程序").show();
+//                    .setView(view)
+//                    .setGravity(Gravity.BOTTOM,0,200)
+//                    .setDuration(Toast.LENGTH_SHORT).show();
 
         }
     };
@@ -109,16 +107,5 @@ public class MainActivity extends Activity {
         return exitUtil.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
-    public class TestModel implements Serializable {
 
-        public double d = 5d;
-
-
-        @Override
-        public String toString() {
-            return "TestModel{" +
-                    "d=" + d +
-                    '}';
-        }
-    }
 }

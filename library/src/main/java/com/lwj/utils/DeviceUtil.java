@@ -62,7 +62,7 @@ public class DeviceUtil {
 
 
     // 获得可用的内存
-    public static long getUseableMemory(Context mContext) {
+    public static long getUseAbleMemory(Context mContext) {
         long MEM_UNUSED;
         // 得到ActivityManager
         ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
@@ -79,7 +79,7 @@ public class DeviceUtil {
 
     // 获得可用的内存
     public static long getUseableMemory() {
-        return getUseableMemory(GlobalContext.getContext());
+        return getUseAbleMemory(GlobalContext.getContext());
     }
 
     public static long getTotalMemory() {

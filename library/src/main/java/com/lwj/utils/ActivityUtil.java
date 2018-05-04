@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.lwj.utils.log.LogUtil;
 
+import java.security.InvalidParameterException;
+
 /**
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
@@ -42,12 +44,61 @@ public class ActivityUtil {
     }
 
 
-    private static void startActivityForResult(Activity act, Intent intent, int code) {
-        if (!checkValid()) {
-            return;
-        }
-        act.startActivityForResult(intent, code);
+    /**
+     * 一个Activity 开启 另一个 Activity
+     *
+     * @param context
+     * @param cls
+     */
+    public static void startActivity(Context context, Class cls, int flags) {
+        startActivity(context, cls, null, flags);
     }
+
+    /**
+     * 一个Activity 开启 另一个 Activity
+     *
+     * @param context
+     * @param cls
+     */
+    public static void startActivity(Context context, Class cls) {
+        startActivity(context, cls, 0);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle
+     *
+     * @param context
+     * @param cls
+     * @param bundle
+     */
+    public static void startActivity(Context context, Class cls, Bundle bundle) {
+        startActivity(context, cls, bundle, 0);
+    }
+
+
+    /**
+     * 一个Activity 开启 另一个 Activity，带Bundle
+     *
+     * @param context
+     * @param cls
+     * @param bundle
+     */
+    public static void startActivity(Context context, Class cls, Bundle bundle, int flags) {
+        Intent intent = new Intent();
+        if (cls == null) {
+            throw new InvalidParameterException("cls can't be null");
+        }
+        intent.setClass(context, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        if (flags > 0) {
+            intent.setFlags(flags);
+        }
+        startActivity(context, intent);
+    }
+
 
     /**
      * 调用某一个Action
@@ -62,32 +113,6 @@ public class ActivityUtil {
         context.startActivity(intent);
     }
 
-    /**
-     * 一个Activity 开启 另一个 Activity
-     *
-     * @param context
-     * @param cls
-     */
-    public static void startActivity(Context context, Class cls) {
-        Intent intent = new Intent(context, cls);
-        startActivity(context, intent);
-    }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，带Bundle
-     *
-     * @param context
-     * @param cls
-     * @param bundle
-     */
-    public static void startActivity(Context context, Class cls, Bundle bundle) {
-        Intent intent = new Intent(context, cls);
-        intent.setClass(context, cls);
-        intent.putExtras(bundle);
-        startActivity(context, intent);
-    }
-
 
     /**
      * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
@@ -97,10 +122,26 @@ public class ActivityUtil {
      * @param Code
      */
     public static void startActivityForResult(Context act, Class cls, int Code) {
-        Intent intent = new Intent(act, cls);
-        startActivityForResult(act, intent, Code);
+        if (act instanceof Activity) {
+            startActivityForResult(act, cls, null, Code);
+
+        } else {
+            throw new InvalidParameterException("act must be Activity");
+        }
     }
 
+
+    /**
+     * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
+     *
+     * @param act
+     * @param cls
+     * @param code
+     */
+    public static void startActivityForResult(Activity act, Class cls, int code) {
+
+        startActivityForResult(act, cls, null, code);
+    }
 
     /**
      * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
@@ -111,24 +152,14 @@ public class ActivityUtil {
      * @param Code
      */
     public static void startActivityForResult(Context act, Class cls, Bundle bundle, int Code) {
-        Intent intent = new Intent(act, cls);
-        intent.putExtras(bundle);
-        startActivityForResult(act, intent, Code);
+        if (act instanceof Activity) {
+            startActivityForResult((Activity) act, cls, bundle, Code, 0);
+
+        } else {
+            throw new InvalidParameterException("act must be Activity");
+        }
+
     }
-
-
-    /**
-     * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据
-     *
-     * @param act
-     * @param cls
-     * @param Code
-     */
-    public static void startActivityForResult(Activity act, Class cls, int Code) {
-        Intent intent = new Intent(act, cls);
-        startActivityForResult(act, intent, Code);
-    }
-
 
     /**
      * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
@@ -138,26 +169,29 @@ public class ActivityUtil {
      * @param bundle
      * @param Code
      */
-    public static void startActivityForResult(Activity act, Class cls, Bundle bundle, int Code) {
-        Intent intent = new Intent(act, cls);
-        intent.putExtras(bundle);
+    public static void startActivityForResult(Activity act, Class cls, Bundle bundle, int Code, int flags) {
+        Intent intent = new Intent();
+        if (cls == null) {
+            throw new InvalidParameterException("cls can't be null");
+        }
+        intent.setClass(act, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        if (flags > 0) {
+            intent.setFlags(flags);
+        }
         startActivityForResult(act, intent, Code);
     }
 
 
-    /**
-     * 一个Activity 开启 另一个 Activity，带Bundle，并且可以返回处理的数据
-     *
-     * @param act
-     * @param intent
-     * @param Code
-     */
-    public static void startActivityForResult(Context act, Intent intent, int Code) {
-        if (act instanceof Activity) {
-            Activity activity = (Activity) act;
-            startActivityForResult(activity, intent, Code);
+    public static void startActivityForResult(Activity act, Intent intent, int code) {
+        if (!checkValid()) {
+            return;
         }
+        act.startActivityForResult(intent, code);
     }
+
 
     public static boolean isRunning(Context context) {
         if (context != null && context instanceof Activity) {

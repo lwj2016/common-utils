@@ -196,6 +196,6 @@ public class URLUtil {
     }
 
     public static boolean isValidUrl(String url, String reg) {
-        return RegularUtil.isValid(url, reg);
+        return RegularUtil.isMatch(url, reg);
     }
 }

@@ -16,7 +16,7 @@ import java.io.File;
  * Created by lwj on 16/3/23.
  * Des: open the system app or  service
  */
-public class SystemIntentUtil {
+public class SysIntentUtil {
     /**
      * 打开网络设置界面
      */

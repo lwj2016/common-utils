@@ -1,4 +1,4 @@
-package com.utils.test.json.gson;
+package com.utils.test.json.gson.adapter;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
