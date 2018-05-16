@@ -9,6 +9,6 @@
 ## gradle 导入
 
      dependencies {
-           compile 'com.lwj.fork:common-utils:2.2.4'
+           compile 'com.lwj.fork:common-utils:2.2.5'
        }
 
