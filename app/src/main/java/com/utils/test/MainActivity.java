@@ -11,8 +11,7 @@ import com.lwj.utils.NetUtil;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.log.LogUtil;
-import com.utils.test.json.JsonConverter;
-import com.utils.test.model.TestModel;
+
 
 
 /**
@@ -76,13 +75,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100) + "");
 
 
-        TestModel testModel = new TestModel();
 
-        LogUtil.d("json %s", JsonConverter.getInstance().obj2JsonStr(testModel));
-
-        TestModel result = JsonConverter.getInstance().jsonStr2Obj("{\"d\":11}", TestModel.class);
-
-        LogUtil.d("result %s", result.toString() + "");
 
         backPress.setOnBackPressListener(this);
     }
