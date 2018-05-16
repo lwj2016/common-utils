@@ -4,32 +4,31 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
-import android.view.View;
 
-import com.lwj.utils.AppBackPressExitUtil;
+import com.lwj.utils.AppBackPress;
 import com.lwj.utils.ByteUnit;
 import com.lwj.utils.NetUtil;
+import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
-import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
 import com.utils.test.json.JsonConverter;
 import com.utils.test.model.TestModel;
 
-import java.io.Serializable;
 
 /**
  * Created by lwj on 2017/10/27.
  * lwjfork@gmail.com
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AppBackPress.OnBackPressListener {
 
+
+    AppBackPress backPress = new AppBackPress();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (NetUtil.isNetConnected()) {
             LogUtil.d("isNetConnected---> %s", true);
 
@@ -85,26 +84,29 @@ public class MainActivity extends Activity {
 
         LogUtil.d("result %s", result.toString() + "");
 
-
+        backPress.setOnBackPressListener(this);
     }
-
-
-    AppBackPressExitUtil exitUtil = new AppBackPressExitUtil(this) {
-        @Override
-        public void onInterval() {
-            View view = ViewUtil.inflate(R.layout.toast);
-            ViewUtil.setTvText(view, R.id.tv_msg, "再按一次退出程序");
-            ToastUtil.get().setMsg("再按一次退出程序").show();
-//                    .setView(view)
-//                    .setGravity(Gravity.BOTTOM,0,200)
-//                    .setDuration(Toast.LENGTH_SHORT).show();
-
-        }
-    };
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return exitUtil.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+
+        return backPress.onKeyDown(keyCode, event) || super.onKeyDown(keyCode,event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtil.e("onDestroy %s", "onDestroy");
+    }
+
+    @Override
+    public void onBackPressedInterval() {
+        ToastUtil.show("再按一次退出！");
+    }
+
+    @Override
+    public void onBackPressedFinish() {
+        SysIntentUtil.goHome(this);
     }
 
 

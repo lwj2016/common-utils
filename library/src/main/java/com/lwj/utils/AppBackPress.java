@@ -6,9 +6,10 @@ import android.view.KeyEvent;
 /**
  * Created by lwj on 2017/3/21.
  * lwjfork@gmail.com
+ * 双击退出程序
  */
 
-public abstract class AppBackPressExitUtil {
+public class AppBackPress {
 
 
     private long exitTime = 0;
@@ -16,13 +17,13 @@ public abstract class AppBackPressExitUtil {
     private long interval = 2000L;
     private Activity activity;
 
-    public AppBackPressExitUtil(Activity activity, long interval) {
+    public AppBackPress(long interval) {
         this.interval = interval;
         this.activity = activity;
     }
 
-    public AppBackPressExitUtil(Activity activity) {
-        this(activity, 2000L);
+    public AppBackPress() {
+        this(2000L);
     }
 
 
@@ -30,10 +31,14 @@ public abstract class AppBackPressExitUtil {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > interval) {
-                onInterval();
+                if (onBackPressListener != null) {
+                    onBackPressListener.onBackPressedInterval();
+                }
                 exitTime = System.currentTimeMillis();
             } else {
-                onFinish();
+                if (onBackPressListener != null) {
+                    onBackPressListener.onBackPressedFinish();
+                }
             }
             return true;
         }
@@ -41,15 +46,20 @@ public abstract class AppBackPressExitUtil {
     }
 
 
-    public boolean onExitKeyDown(int keyCode, KeyEvent event) {
 
-        return onKeyDown(keyCode, event) || activity.onKeyDown(keyCode, event);
+
+    private OnBackPressListener onBackPressListener;
+
+
+    public void setOnBackPressListener(OnBackPressListener onBackPressListener) {
+        this.onBackPressListener = onBackPressListener;
     }
 
+    public interface OnBackPressListener {
 
-    public void onFinish() {
-        activity.finish();
+        void onBackPressedInterval();
+
+        void onBackPressedFinish();
+
     }
-
-    public abstract void onInterval();
 }

@@ -16,6 +16,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+
         LogUtil.setLog(BuildConfig.DEBUG);
 
         GlobalContext.setApplication(this);
