@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 
+import com.lwj.utils.log.LogUtil;
+
 import java.io.File;
 
 /**
@@ -13,7 +15,7 @@ import java.io.File;
  * lwjfork@gmail.com
  */
 
-public class BroadcasUtil {
+public class BroadcastUtil {
 
 
     /**
@@ -29,6 +31,16 @@ public class BroadcasUtil {
             filter.addAction(s);
         }
         context.registerReceiver(receiver, filter);
+    }
+
+    /**
+     * 反注册广播接受者
+     *
+     * @param context
+     * @param receiver
+     */
+    public static void unregister(Context context, BroadcastReceiver receiver) {
+        context.unregisterReceiver(receiver);
     }
 
 
@@ -54,7 +66,7 @@ public class BroadcasUtil {
      * 发送广播
      */
     public static void sendBroadcast(Context context, Intent intent) {
-        context.sendBroadcast(intent);
+        sendBroadcast(context, intent, null);
     }
 
     /**
@@ -64,11 +76,21 @@ public class BroadcasUtil {
         context.sendBroadcast(intent, receiverPermission);
     }
 
+
     public static void refreshGallery(Context context, File file) {
         Uri uri = Uri.fromFile(file);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(uri);
         sendBroadcast(context, intent);
+    }
+
+    public static void refreshGallery(Context context, String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            refreshGallery(context, file);
+        } else {
+            LogUtil.e("refreshGallery ->> %s not found", filePath);
+        }
     }
 
 }

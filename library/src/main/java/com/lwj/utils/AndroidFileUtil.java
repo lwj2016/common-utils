@@ -260,6 +260,6 @@ public class AndroidFileUtil extends FileUtil {
      * @param file
      */
     public static void refreshGallery(Context context, File file) {
-        BroadcasUtil.refreshGallery(context, file);
+        BroadcastUtil.refreshGallery(context, file);
     }
 }
