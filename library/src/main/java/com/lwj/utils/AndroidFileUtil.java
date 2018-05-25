@@ -85,6 +85,7 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * @param context
+     *
      * @return /data/data/{packageName}/cache/
      */
     public synchronized static String getCacheDirPath(Context context) {
@@ -95,6 +96,7 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * @param context
      * @param uniqueName
+     *
      * @return /data/data/{packageName}/cache/xxx
      */
     public synchronized static File getCacheDir(Context context, String uniqueName) {
@@ -105,6 +107,7 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * @param context
      * @param uniqueName
+     *
      * @return /data/data/{packageName}/cache/xxx
      */
     public synchronized static File getCacheFile(Context context, String uniqueName) throws IOException {
@@ -114,6 +117,7 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * @param context
+     *
      * @return /data/data/{packageName}/files/
      */
     public synchronized static String getFilesDirPath(Context context) {
@@ -123,6 +127,7 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * @param context
      * @param uniqueName
+     *
      * @return /data/data/{packageName}/files/xxx
      */
     public synchronized static File getFilesDir(Context context, String uniqueName) {
@@ -132,6 +137,7 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * @param context
      * @param uniqueName
+     *
      * @return /data/data/{packageName}/files/xxx
      */
     public synchronized static File getFilesFile(Context context, String uniqueName) throws IOException {
@@ -191,6 +197,7 @@ public class AndroidFileUtil extends FileUtil {
      * 有则返回，无则自己创建
      *
      * @param context
+     *
      * @return
      */
     public static File createExternalCacheDirPath(Context context) {
@@ -256,10 +263,20 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * 刷新图库
      *
-     * @param context
-     * @param file
+     * @param context  Activity or Application
+     * @param file  文件
      */
     public static void refreshGallery(Context context, File file) {
         BroadcastUtil.refreshGallery(context, file);
+    }
+
+    /**
+     * 刷新图库
+     *
+     * @param context  Activity or Application
+     * @param filePath 文件路径
+     */
+    public static void refreshGallery(Context context, String filePath) {
+        BroadcastUtil.refreshGallery(context, filePath);
     }
 }

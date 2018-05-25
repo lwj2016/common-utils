@@ -9,11 +9,14 @@ import android.view.KeyEvent;
 import com.lwj.utils.AppBackPress;
 import com.lwj.utils.AppUtil;
 import com.lwj.utils.ByteUnit;
+import com.lwj.utils.CollectionUtil;
 import com.lwj.utils.NetUtil;
 import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.log.LogUtil;
+
+import java.util.ArrayList;
 
 
 /**
@@ -106,7 +109,20 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
 
         String signInfo = AppUtil.getSingInfo();
 
-        LogUtil.d("signInfo %s",signInfo);
+        LogUtil.d("signInfo %s", signInfo);
+
+
+        Integer[] array = new Integer[]{1, 3, 45, 6};
+        ArrayList<Integer> list = CollectionUtil.array2ArrayList(array);
+
+        LogUtil.d("list %s", list.toString());
+
+        Integer[] result = CollectionUtil.list2Array(list,Integer.class);
+
+        for (Integer integer : result) {
+            LogUtil.d("integer %s", integer+"");
+        }
+
     }
 
 

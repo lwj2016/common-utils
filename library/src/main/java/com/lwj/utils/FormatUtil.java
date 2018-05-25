@@ -25,7 +25,7 @@ public class FormatUtil {
         return (long) Math.ceil(f);
     }
 
-    public static int strToInteger(String str) {
+    public static int strToIn(String str) {
         int l = 0;
         try {
             l = Integer.valueOf(str);
