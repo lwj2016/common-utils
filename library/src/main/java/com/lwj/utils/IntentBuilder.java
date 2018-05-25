@@ -1,8 +1,11 @@
 package com.lwj.utils;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.ShareCompat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,8 +28,17 @@ public class IntentBuilder {
     }
 
     public Intent builder() {
-
         return resultIntent;
+    }
+
+    public IntentBuilder setClass(Context packageContext, Class<?> cls){
+        resultIntent.setClass(packageContext,cls);
+        return this;
+    }
+
+    public IntentBuilder setClass(ComponentName component){
+        resultIntent.setComponent(component);
+        return this;
     }
 
 

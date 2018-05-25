@@ -2,17 +2,28 @@ package com.lwj.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Base64;
 
 import com.lwj.utils.context.GlobalContext;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedHashMap;
 
 /**
  * Created by lwj on 16/4/4.
  * Des:
  */
 public class SPManager {
-    public static String PREF_NAME = "sp_manager";
-    private static SPManager instance;
+    private static String PREF_NAME = "sp_manager";
+
     private SharedPreferences mSharedPreferences;
+
+
+    private static final LinkedHashMap<String, SPManager> managers = new LinkedHashMap<>(3, 0.75F, true);
 
     public static SPManager getManager() {
         return getManager(GlobalContext.getContext());
@@ -23,16 +34,65 @@ public class SPManager {
     }
 
     public static SPManager getManager(Context context, String preName) {
-        if (instance == null || preName.equals(PREF_NAME)) {
-            instance = new SPManager(context, preName);
+        SPManager manager = managers.get(preName);
+        if (manager == null) {
+            manager = new SPManager(context, preName);
+            managers.put(preName, manager);
         }
-        return instance;
+        return manager;
     }
 
     private SPManager(Context context, String preName) {
         this.mSharedPreferences = context.getSharedPreferences(preName, Context.MODE_PRIVATE);
         PREF_NAME = preName;
     }
+
+
+    public void save(String key, Object value) {
+        if (value instanceof String) {
+            saveString(key, (String) value);
+        } else if (value instanceof Boolean) {
+            saveBoolean(key, (boolean) value);
+        } else if (value instanceof Float) {
+            saveFloat(key, (float) value);
+        } else if (value instanceof Integer) {
+            saveInt(key, (int) value);
+        } else if (value instanceof Long) {
+            saveLong(key, (Long) value);
+        }else {
+            saveObject(key, value);
+        }
+    }
+
+    public Object get(String key,Object defValue){
+
+        if (defValue instanceof String) {
+            return getString(key, (String) defValue);
+        } else if (defValue instanceof Boolean) {
+            return getBoolean(key, (boolean) defValue);
+        } else if (defValue instanceof Float) {
+            return getFloat(key, (float) defValue);
+        } else if (defValue instanceof Integer) {
+            return getInt(key, (int) defValue);
+        } else if (defValue instanceof Long) {
+            return getLong(key, (long) defValue);
+        } else {
+            Object obj = null;
+            try {
+                String productString = getString(key, "");
+                byte[] base64Product = Base64.decode(productString, Base64.DEFAULT);
+                ByteArrayInputStream bais = new ByteArrayInputStream(base64Product);
+                ObjectInputStream ois = new ObjectInputStream(bais);
+                obj = ois.readObject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return obj;
+        }
+//        //找不到的话会返回默认的数值
+//        return defValue;
+    }
+
 
     public void saveBoolean(String key, boolean bool) {
         this.mSharedPreferences.edit().putBoolean(key, bool).apply();
@@ -93,6 +153,29 @@ public class SPManager {
     public void saveFloat(String key, float value) {
         this.mSharedPreferences.edit().putFloat(key, value).apply();
     }
+
+
+    public void saveObject(String key, Object value) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(value);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                baos.close();
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String base64Product = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        saveString(key, base64Product);
+
+    }
+
 
     public float getFloat(String key) {
         return this.mSharedPreferences.getFloat(key, 0.0F);

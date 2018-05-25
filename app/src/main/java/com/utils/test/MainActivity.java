@@ -3,15 +3,18 @@ package com.utils.test;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 
 import com.lwj.utils.AppBackPress;
 import com.lwj.utils.ByteUnit;
 import com.lwj.utils.NetUtil;
+import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.log.LogUtil;
 
+import java.io.Serializable;
 
 
 /**
@@ -75,15 +78,26 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100) + "");
 
 
-
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
 
         backPress.setOnBackPressListener(this);
+
+
+        SPManager.getManager().save("TEST",new TestData("334"));
+
+        TestData data = (TestData) SPManager.getManager().get("TEST",new TestData("554"));
+
+
+        LogUtil.d("data %s", data.toString());
     }
+
+
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        return backPress.onKeyDown(keyCode, event) || super.onKeyDown(keyCode,event);
+        return backPress.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
     @Override
