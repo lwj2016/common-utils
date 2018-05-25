@@ -22,7 +22,7 @@ public class SPManager {
 
     private SharedPreferences mSharedPreferences;
 
-
+    private SharedPreferences.Editor editor;
     private static final LinkedHashMap<String, SPManager> managers = new LinkedHashMap<>(3, 0.75F, true);
 
     public static SPManager getManager() {
@@ -32,6 +32,12 @@ public class SPManager {
     public static SPManager getManager(Context context) {
         return getManager(context, PREF_NAME);
     }
+
+
+    public static SPManager getManager(String preName) {
+        return getManager(GlobalContext.getContext(), preName);
+    }
+
 
     public static SPManager getManager(Context context, String preName) {
         SPManager manager = managers.get(preName);
@@ -44,11 +50,11 @@ public class SPManager {
 
     private SPManager(Context context, String preName) {
         this.mSharedPreferences = context.getSharedPreferences(preName, Context.MODE_PRIVATE);
-        PREF_NAME = preName;
+        editor = this.mSharedPreferences.edit();
     }
 
 
-    public void save(String key, Object value) {
+    public SPManager save(String key, Object value) {
         if (value instanceof String) {
             saveString(key, (String) value);
         } else if (value instanceof Boolean) {
@@ -59,12 +65,49 @@ public class SPManager {
             saveInt(key, (int) value);
         } else if (value instanceof Long) {
             saveLong(key, (Long) value);
-        }else {
+        } else {
             saveObject(key, value);
+        }
+
+        return this;
+    }
+
+
+    public void apply(String key, Object value) {
+        if (value instanceof String) {
+            applyString(key, (String) value);
+        } else if (value instanceof Boolean) {
+            applyBoolean(key, (boolean) value);
+        } else if (value instanceof Float) {
+            applyFloat(key, (float) value);
+        } else if (value instanceof Integer) {
+            applyInt(key, (int) value);
+        } else if (value instanceof Long) {
+            applyLong(key, (Long) value);
+        } else {
+            applyObject(key, value);
         }
     }
 
-    public Object get(String key,Object defValue){
+
+    public boolean commit(String key, Object value) {
+        if (value instanceof String) {
+            return commitString(key, (String) value);
+        } else if (value instanceof Boolean) {
+            return commitBoolean(key, (boolean) value);
+        } else if (value instanceof Float) {
+            return commitFloat(key, (float) value);
+        } else if (value instanceof Integer) {
+            return commitInt(key, (int) value);
+        } else if (value instanceof Long) {
+            return commitLong(key, (Long) value);
+        } else {
+            return commitObject(key, value);
+        }
+    }
+
+
+    public Object get(String key, Object defValue) {
 
         if (defValue instanceof String) {
             return getString(key, (String) defValue);
@@ -77,25 +120,25 @@ public class SPManager {
         } else if (defValue instanceof Long) {
             return getLong(key, (long) defValue);
         } else {
-            Object obj = null;
-            try {
-                String productString = getString(key, "");
-                byte[] base64Product = Base64.decode(productString, Base64.DEFAULT);
-                ByteArrayInputStream bais = new ByteArrayInputStream(base64Product);
-                ObjectInputStream ois = new ObjectInputStream(bais);
-                obj = ois.readObject();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return obj;
+
+            return getObject(key, defValue);
         }
 //        //找不到的话会返回默认的数值
 //        return defValue;
     }
 
 
-    public void saveBoolean(String key, boolean bool) {
-        this.mSharedPreferences.edit().putBoolean(key, bool).apply();
+    public SPManager saveBoolean(String key, boolean bool) {
+        editor.putBoolean(key, bool);
+        return this;
+    }
+
+    public boolean commitBoolean(String key, boolean bool) {
+        return saveBoolean(key, bool).commit();
+    }
+
+    public void applyBoolean(String key, boolean bool) {
+        saveBoolean(key, bool).apply();
     }
 
     public boolean getBoolean(String key) {
@@ -106,9 +149,19 @@ public class SPManager {
         return this.mSharedPreferences.getBoolean(key, bool);
     }
 
-    public void saveString(String key, String value) {
-        this.mSharedPreferences.edit().putString(key, value).apply();
+    public SPManager saveString(String key, String value) {
+        editor.putString(key, value);
+        return this;
     }
+
+    public boolean commitString(String key, String bool) {
+        return saveString(key, bool).commit();
+    }
+
+    public void applyString(String key, String bool) {
+        saveString(key, bool).apply();
+    }
+
 
     public String getString(String key) {
         return this.mSharedPreferences.getString(key, "");
@@ -118,8 +171,18 @@ public class SPManager {
         return this.mSharedPreferences.getString(key, defaultValue);
     }
 
-    public void saveInt(String key, int value) {
-        this.mSharedPreferences.edit().putInt(key, value).apply();
+    public SPManager saveInt(String key, int value) {
+        editor.putInt(key, value);
+        return this;
+    }
+
+
+    public boolean commitInt(String key, int value) {
+        return saveInt(key, value).commit();
+    }
+
+    public void applyInt(String key, int value) {
+        saveInt(key, value).apply();
     }
 
     public int getInt(String key) {
@@ -130,9 +193,20 @@ public class SPManager {
         return this.mSharedPreferences.getInt(key, defaultValue);
     }
 
-    public void saveLong(String key, long value) {
-        this.mSharedPreferences.edit().putLong(key, value).apply();
+    public SPManager saveLong(String key, long value) {
+        editor.putLong(key, value);
+        return this;
     }
+
+
+    public boolean commitLong(String key, long value) {
+        return saveLong(key, value).commit();
+    }
+
+    public void applyLong(String key, long value) {
+        saveLong(key, value).apply();
+    }
+
 
     public long getLong(String key) {
         return this.mSharedPreferences.getLong(key, 0L);
@@ -150,12 +224,31 @@ public class SPManager {
         return value;
     }
 
-    public void saveFloat(String key, float value) {
-        this.mSharedPreferences.edit().putFloat(key, value).apply();
+    public SPManager saveFloat(String key, float value) {
+        editor.putFloat(key, value);
+        return this;
     }
 
 
-    public void saveObject(String key, Object value) {
+    public void applyFloat(String key, float value) {
+        saveFloat(key, value).apply();
+    }
+
+    public boolean commitFloat(String key, float value) {
+        return saveFloat(key, value).commit();
+    }
+
+
+    public float getFloat(String key) {
+        return this.mSharedPreferences.getFloat(key, 0.0F);
+    }
+
+    public float getFloat(String key, float defaultValue) {
+        return this.mSharedPreferences.getFloat(key, defaultValue);
+    }
+
+
+    public SPManager saveObject(String key, Object value) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;
         try {
@@ -173,16 +266,30 @@ public class SPManager {
         }
         String base64Product = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
         saveString(key, base64Product);
-
+        return this;
     }
 
 
-    public float getFloat(String key) {
-        return this.mSharedPreferences.getFloat(key, 0.0F);
+    public void applyObject(String key, Object value) {
+        saveObject(key, value).apply();
     }
 
-    public float getFloat(String key, float defaultValue) {
-        return this.mSharedPreferences.getFloat(key, defaultValue);
+    public boolean commitObject(String key, Object value) {
+        return saveObject(key, value).commit();
+    }
+
+    public Object getObject(String key, Object defValue) {
+        Object obj = null;
+        try {
+            String productString = getString(key, "");
+            byte[] base64Product = Base64.decode(productString, Base64.DEFAULT);
+            ByteArrayInputStream bais = new ByteArrayInputStream(base64Product);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            obj = ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
 
@@ -191,6 +298,15 @@ public class SPManager {
     }
 
     public void clear() {
-        this.mSharedPreferences.edit().clear().apply();
+        editor.clear();
+    }
+
+
+    public boolean commit() {
+        return editor.commit();
+    }
+
+    public void apply() {
+        editor.apply();
     }
 }

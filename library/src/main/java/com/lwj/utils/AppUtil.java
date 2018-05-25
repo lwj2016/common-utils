@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -149,4 +152,132 @@ public class AppUtil {
         }
         LogUtil.w("%s isn't exist", filePath);
     }
+
+
+    /**
+     * 返回对应包的签名信息
+     *
+     * @param context
+     * @param packageName
+     *
+     * @return
+     */
+    public static Signature[] getSignatures(Context context, String packageName) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            return packageInfo.signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static Signature[] getSignatures(Context context) {
+        return getSignatures(context, getPackageName(context));
+    }
+
+    public static Signature[] getSignatures(String packageName) {
+        return getSignatures(GlobalContext.getContext(), packageName);
+    }
+
+
+    public static Signature[] getSignatures() {
+        return getSignatures(GlobalContext.getContext(), getPackageName(GlobalContext.getContext()));
+    }
+
+    public final static String SHA1 = "SHA1";
+
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @param context
+     * @param packageName
+     * @param type
+     *
+     * @return
+     */
+    public static String getSingInfo(Context context, String packageName, String type) {
+        String tmp = null;
+        Signature[] signs = getSignatures(context, packageName);
+        for (Signature sig : signs) {
+            if (SHA1.equals(type)) {
+                tmp = getSignatureString(sig, SHA1);
+                break;
+            }
+        }
+        return tmp;
+    }
+
+
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @param type
+     *
+     * @return
+     */
+    public static String getSingInfo(String type) {
+        return getSingInfo(GlobalContext.getContext(), getPackageName(), type);
+    }
+
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @return
+     */
+    public static String getSingInfo() {
+        return getSingInfo(GlobalContext.getContext(), getPackageName(), SHA1);
+    }
+
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @return
+     */
+    public static String getSingInfo(Context context, String type) {
+        return getSingInfo(context, getPackageName(context), type);
+    }
+
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @param type
+     * @param packageName
+     *
+     * @return
+     */
+    public static String getSingInfo(String packageName, String type) {
+        return getSingInfo(GlobalContext.getContext(), packageName, type);
+    }
+
+
+    /**
+     * 获取相应的类型的字符串（把签名的byte[]信息转换成16进制）
+     *
+     * @param sig
+     * @param type
+     *
+     * @return
+     */
+    public static String getSignatureString(Signature sig, String type) {
+        byte[] hexBytes = sig.toByteArray();
+        String fingerprint = "error!";
+        try {
+            MessageDigest digest = MessageDigest.getInstance(type);
+            if (digest != null) {
+                byte[] digestBytes = digest.digest(hexBytes);
+                StringBuilder sb = new StringBuilder();
+                for (byte digestByte : digestBytes) {
+                    sb.append((Integer.toHexString((digestByte & 0xFF) | 0x100)).substring(1, 3));
+                }
+                fingerprint = sb.toString();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return fingerprint;
+    }
 }
+
