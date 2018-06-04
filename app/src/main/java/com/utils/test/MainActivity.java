@@ -97,14 +97,14 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         TestData data1 = (TestData) SPManager.getManager("TEST").get("TEST", new TestData("444"));
 
 
-        LogUtil.d("data %s", data1.toString());
+        LogUtil.d("data1 %s", data1.toString());
 
         TestData data4 = (TestData) SPManager.getManager().get("TEST", new TestData("554"));
         TestData data5 = (TestData) SPManager.getManager().get("test", new TestData("554"));
 
 
-        LogUtil.d("data %s", data4.toString());
-        LogUtil.d("data %s", data5.toString());
+        LogUtil.d("data4 %s", data4.toString());
+        LogUtil.d("data5 %s", data5.toString());
 
         String signInfo = AppUtil.getSingInfo();
 

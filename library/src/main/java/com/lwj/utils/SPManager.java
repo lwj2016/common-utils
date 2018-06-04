@@ -282,6 +282,9 @@ public class SPManager {
         Object obj = null;
         try {
             String productString = getString(key, "");
+            if (StringUtil.isEmpty(productString)) {
+                return defValue;
+            }
             byte[] base64Product = Base64.decode(productString, Base64.DEFAULT);
             ByteArrayInputStream bais = new ByteArrayInputStream(base64Product);
             ObjectInputStream ois = new ObjectInputStream(bais);
@@ -289,7 +292,14 @@ public class SPManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (obj == null) {
+            obj = defValue;
+        }
         return obj;
+    }
+
+    public Object getObject(String key) {
+        return getObject(key, null);
     }
 
 
