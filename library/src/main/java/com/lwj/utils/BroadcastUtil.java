@@ -1,10 +1,13 @@
 package com.lwj.utils;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 
 import com.lwj.utils.log.LogUtil;
 
@@ -91,6 +94,11 @@ public class BroadcastUtil {
         } else {
             LogUtil.e("refreshGallery ->> %s not found", filePath);
         }
+    }
+
+
+    public static void refreshInsertImage(ContentResolver cr, Bitmap source, String title, String description) {
+        MediaStore.Images.Media.insertImage(cr, source, title, description);
     }
 
 }

@@ -1,9 +1,7 @@
 package com.lwj.utils;
 
-import com.lwj.utils.log.LogUtil;
-
+import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,7 +11,7 @@ import java.util.List;
  * Created by lwj on 16/3/23.
  * Des: 集合工具类
  */
-public class CollectionUtil {
+public class CollectionUtil implements Serializable{
 
 
     public static boolean isListMoreOne(Collection mArrayList) {
@@ -48,6 +46,9 @@ public class CollectionUtil {
 //        }
 //
 //    }
+
+
+
 
 
 

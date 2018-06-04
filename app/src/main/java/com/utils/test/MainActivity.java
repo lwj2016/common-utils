@@ -80,7 +80,6 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         LogUtil.d("100Tb is %sTb", ByteUnit.TB.toTbs(100) + "");
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
 
         backPress.setOnBackPressListener(this);
 

@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import android.app.Activity;
 import android.view.KeyEvent;
 
 /**
@@ -15,11 +14,9 @@ public class AppBackPress {
     private long exitTime = 0;
 
     private long interval = 2000L;
-    private Activity activity;
 
     public AppBackPress(long interval) {
         this.interval = interval;
-        this.activity = activity;
     }
 
     public AppBackPress() {
@@ -44,8 +41,6 @@ public class AppBackPress {
         }
         return false;
     }
-
-
 
 
     private OnBackPressListener onBackPressListener;
