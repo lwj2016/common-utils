@@ -11,7 +11,7 @@ import java.util.List;
  * Created by lwj on 16/3/23.
  * Des: 集合工具类
  */
-public class CollectionUtil implements Serializable{
+public class CollectionUtil implements Serializable {
 
 
     public static boolean isListMoreOne(Collection mArrayList) {
@@ -23,7 +23,9 @@ public class CollectionUtil implements Serializable{
     }
 
     public static <T> ArrayList<T> array2ArrayList(T... objects) {
-        return new ArrayList<>(Arrays.asList(objects));
+        ArrayList<T> result = new ArrayList<>();
+        result.addAll(Arrays.asList(objects));
+        return result;
     }
 
     public static String[] strlist2Array(ArrayList<String> list) {
@@ -46,10 +48,6 @@ public class CollectionUtil implements Serializable{
 //        }
 //
 //    }
-
-
-
-
 
 
 }

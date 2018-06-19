@@ -1,12 +1,14 @@
 package com.lwj.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -30,6 +32,16 @@ public class ViewUtil {
     @SuppressWarnings("unchecked")
     public static <V extends View> V findViewById(View view, int id) {
         return (V) view.findViewById(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <V extends View> V findViewById(Dialog view, int id) {
+        return (V) view.findViewById(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <V extends View> V findViewById(Window window, int id) {
+        return (V) window.findViewById(id);
     }
 
 

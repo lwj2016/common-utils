@@ -17,12 +17,13 @@ import java.io.Serializable;
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
-public class FileUtil {
+public class FileUtil extends ZipUtil {
 
 
     /**
      * @param path directory path
      * @param name file name
+     *
      * @return really path for this file
      */
     public static String getFilePath(String path, String name) {
@@ -54,6 +55,7 @@ public class FileUtil {
     /**
      * @param path directory path
      * @param name file name
+     *
      * @return really path for this file
      */
     public static File getFile(String path, String name) throws IOException {
@@ -68,6 +70,7 @@ public class FileUtil {
     /**
      * @param path directory path
      * @param name file name
+     *
      * @return really path for this file
      */
     public static File getFolder(String path, String name) {
@@ -81,6 +84,7 @@ public class FileUtil {
     /**
      * @param path directory path
      * @param name file name
+     *
      * @return really path for this file
      */
     public static String getFolderPath(String path, String name) {
@@ -176,6 +180,7 @@ public class FileUtil {
      *
      * @param srcFileName 源文件完整路径
      * @param destDirName 目的目录完整路径
+     *
      * @return 文件移动成功返回true，否则返回false
      */
     public static boolean moveFile(String srcFileName, String destDirName) {
@@ -240,6 +245,7 @@ public class FileUtil {
 
     /**
      * @param path
+     *
      * @return true if file is exits,otherwise false
      */
     public static boolean isFileExists(String path) {
@@ -301,7 +307,9 @@ public class FileUtil {
      * 从文件中读取数据
      *
      * @param fileName
+     *
      * @return
+     *
      * @throws java.io.IOException
      */
     public static String readStrFromFile(String fileName) throws IOException {
@@ -329,7 +337,9 @@ public class FileUtil {
      *
      * @param content
      * @param file
+     *
      * @return
+     *
      * @throws java.io.IOException
      */
     public static void writeStr2File(File file, String content) throws IOException {

@@ -15,12 +15,13 @@ import java.util.zip.ZipOutputStream;
  * 文件解压缩工具类
  */
 
-public class ZipUtil extends FileUtil {
+public class ZipUtil {
     /**
      * 解压文件
      *
      * @param zipFile
      * @param folderPath
+     *
      * @throws IOException
      * @throws IOException
      */
@@ -63,6 +64,7 @@ public class ZipUtil extends FileUtil {
      *
      * @param zipFile
      * @param folderPath
+     *
      * @throws IOException
      */
     public static boolean unZip(String zipFile, String folderPath, boolean isDeleteZip) throws IOException {
@@ -79,6 +81,7 @@ public class ZipUtil extends FileUtil {
      *
      * @param filepath 源文件路径
      * @param zipPath  压缩后路径
+     *
      * @throws IOException 异常
      */
     public static void zipFile(String filepath, String zipPath) throws IOException {
