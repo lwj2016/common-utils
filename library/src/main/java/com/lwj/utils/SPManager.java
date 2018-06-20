@@ -26,23 +26,13 @@ public class SPManager {
     private static final LinkedHashMap<String, SPManager> managers = new LinkedHashMap<>(3, 0.75F, true);
 
     public static SPManager getManager() {
-        return getManager(GlobalContext.getContext());
+        return getManager(PREF_NAME);
     }
-
-    public static SPManager getManager(Context context) {
-        return getManager(context, PREF_NAME);
-    }
-
 
     public static SPManager getManager(String preName) {
-        return getManager(GlobalContext.getContext(), preName);
-    }
-
-
-    public static SPManager getManager(Context context, String preName) {
         SPManager manager = managers.get(preName);
         if (manager == null) {
-            manager = new SPManager(context, preName);
+            manager = new SPManager(GlobalContext.getContext(), preName);
             managers.put(preName, manager);
         }
         return manager;

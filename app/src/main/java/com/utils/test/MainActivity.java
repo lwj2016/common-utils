@@ -33,25 +33,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (NetUtil.isNetConnected()) {
-            LogUtil.d("isNetConnected---> %s", true);
 
-            if (NetUtil.is2GConnected()) {
-                LogUtil.d("is2GConnected---> %s", true);
-            }
-
-            if (NetUtil.is3GConnected()) {
-                LogUtil.d("is3GConnected---> %s", true);
-            }
-
-            if (NetUtil.is4GConnected()) {
-                LogUtil.d("is4GConnected---> %s", true);
-            }
-
-            if (NetUtil.isWifiConnected()) {
-                LogUtil.d("isWifiConnected---> %s", true);
-            }
-        }
 
 
         double d = 100;

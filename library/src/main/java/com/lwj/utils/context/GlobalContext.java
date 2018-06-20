@@ -8,29 +8,66 @@ package com.lwj.utils.context;
 import android.app.Application;
 import android.content.Context;
 
+import com.lwj.utils.log.LogUtil;
+
+import java.lang.reflect.Method;
+
 /**
- * GlobalContext.getContext() 获取全局实例
- *
- * @author CX
+ * Created by lwj on 2018/4/10.
+ * lwjfork@gmail.com
+ * 全局 Context
  */
 public class GlobalContext {
 
     private static Application sApplication;
+
+
+    public static void setApplication(Application _application) {
+        sApplication = _application;
+    }
 
     /**
      * 获得全局的context
      *
      * @return 全局的context   由 application
      */
-    public static Context getContext() {
+    @SuppressWarnings("all")
+    public synchronized static Context getContext() {
         if (sApplication == null) {
-            throw new NullPointerException("GlobalContext == null. Please init first");
-        }
-        //这么搞是为了方便切换context
-        return sApplication;
-    }
+            try {
+                Class aClass = Class.forName("android.app.ActivityThread");
+                Method method = aClass.getMethod("currentApplication");
+                Application application = (Application) method.invoke(null, (Object[]) null);
+                if (application != null) {
+                    sApplication = application;
+                    LogUtil.d("Get global Context %s from %s.%s",
+                            sApplication.getClass().getSimpleName(),
+                            aClass.getName(),
+                            method.getName());
+                    return application;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-    public static void setApplication(Application _application) {
-        sApplication = _application;
+            try {
+                Class aClass = Class.forName("android.app.AppGlobals");
+                Method method = aClass.getMethod("getInitialApplication");
+                Application application = (Application) method.invoke(null, (Object[]) null);
+                if (application != null) {
+                    sApplication = application;
+                    LogUtil.d("invoke %s from %s.%s",
+                            sApplication.getClass().getSimpleName(),
+                            aClass.getName(),
+                            method.getName());
+                    return application;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            throw new IllegalStateException("ContextHolder is not initialed, it is recommend to init with application context.");
+        }
+        return sApplication;
     }
 }

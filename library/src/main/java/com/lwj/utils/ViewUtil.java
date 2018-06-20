@@ -2,7 +2,6 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -68,25 +67,20 @@ public class ViewUtil {
     }
 
 
-    public static LayoutInflater newInflate(Context context) {
-        Preconditions.checkNotNUll(context, "This context is null");
-        return LayoutInflater.from(context);
-    }
-
-    public static View inflate(Context context, int layoutId) {
-        return inflate(context, layoutId, null, false);
-    }
-
-    public static View inflate(Context context, @LayoutRes int resource, @Nullable ViewGroup root, boolean attachToRoot) {
-        return newInflate(context).inflate(resource, root, attachToRoot);
-    }
-
-    public static View inflate(Context context, @LayoutRes int resource, @Nullable ViewGroup root) {
-        return newInflate(context).inflate(resource, root, root != null);
+    public static LayoutInflater newInflate() {
+        return LayoutInflater.from(GlobalContext.getContext());
     }
 
     public static View inflate(int layoutId) {
-        return inflate(GlobalContext.getContext(), layoutId);
+        return inflate(layoutId, null, false);
+    }
+
+    public static View inflate(@LayoutRes int resource, @Nullable ViewGroup root, boolean attachToRoot) {
+        return newInflate().inflate(resource, root, attachToRoot);
+    }
+
+    public static View inflate(@LayoutRes int resource, @Nullable ViewGroup root) {
+        return newInflate().inflate(resource, root, root != null);
     }
 
     public static LinearLayout findLinearLayoutById(View view, int id) {

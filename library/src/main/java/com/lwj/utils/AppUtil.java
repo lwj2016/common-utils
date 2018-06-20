@@ -25,89 +25,85 @@ import java.util.List;
 
 public class AppUtil {
 
-    public static String getVersionName(Context context) {
+    public static PackageInfo getPackageInfo() {
         try {
-            PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return e.versionName;
+            return GlobalContext.getContext().getPackageManager().getPackageInfo(GlobalContext.getContext().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException var2) {
             var2.printStackTrace();
             return null;
         }
     }
 
-    public static String getVersionName() {
-        return getVersionName(GlobalContext.getContext());
-    }
-
-    public static int getVersionCode(Context context) {
+    public static PackageInfo getPackageInfo(String _packageName) {
         try {
-            PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return e.versionCode;
+            return GlobalContext.getContext().getPackageManager().getPackageInfo(_packageName, 0);
         } catch (PackageManager.NameNotFoundException var2) {
             var2.printStackTrace();
-            return -1;
+            return null;
         }
+    }
+
+    public static PackageManager getPackageManager() {
+        return GlobalContext.getContext().getPackageManager();
+    }
+
+    public static String getVersionName() {
+
+        PackageInfo packageInfo = getPackageInfo();
+        if (packageInfo != null) {
+            return packageInfo.versionName;
+        }
+        return null;
     }
 
     public static int getVersionCode() {
-        return getVersionCode(GlobalContext.getContext());
-    }
-
-    public static String getPackageName(Context context) {
-        try {
-            PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return e.packageName;
-        } catch (PackageManager.NameNotFoundException var2) {
-            LogUtil.e("getPackageName %s", new Object[]{var2.toString()});
-            return "";
+        PackageInfo packageInfo = getPackageInfo();
+        if (packageInfo != null) {
+            return packageInfo.versionCode;
         }
+        return -1;
     }
 
     public static String getPackageName() {
-        return getPackageName(GlobalContext.getContext());
+        PackageInfo packageInfo = getPackageInfo();
+        if (packageInfo != null) {
+            return packageInfo.packageName;
+        }
+        return null;
     }
 
-    public static String getAppName(Context context) {
-        try {
-            PackageInfo e = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return e.applicationInfo.name;
-        } catch (PackageManager.NameNotFoundException var2) {
-            LogUtil.e("getAppName %s", new Object[]{var2.toString()});
-            return "";
+    public static ApplicationInfo getApplicationInfo() {
+        PackageInfo packageInfo = getPackageInfo();
+        if (packageInfo != null) {
+            return packageInfo.applicationInfo;
         }
+        return null;
     }
+
 
     public static String getAppName() {
-        return getAppName(GlobalContext.getContext());
-    }
-
-    public static boolean isInstall(Context context, String _packageName) {
-        PackageInfo packageInfo;
-
-        try {
-            packageInfo = context.getApplicationContext().getPackageManager().getPackageInfo(_packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
+        ApplicationInfo applicationInfo = getApplicationInfo();
+        if (applicationInfo != null) {
+            return applicationInfo.name;
         }
-        return packageInfo != null;
+        return null;
     }
 
     public static boolean isInstall(String _packageName) {
-        return isInstall(GlobalContext.getContext(), _packageName);
-    }
-
-    public static List<ApplicationInfo> getAllApps(Context context) {
-        PackageManager pm = context.getPackageManager();
-        return pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        return getPackageInfo(_packageName) != null;
     }
 
     public static List<ApplicationInfo> getAllApps() {
-        return getAllApps(GlobalContext.getContext());
+        PackageManager pm = getPackageManager();
+        if (pm == null) {
+            return null;
+        } else {
+            return pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        }
     }
 
-
     public static void openApp(Context context, String packageName) throws Exception {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
         context.startActivity(intent);
     }
 
@@ -175,7 +171,7 @@ public class AppUtil {
 
 
     public static Signature[] getSignatures(Context context) {
-        return getSignatures(context, getPackageName(context));
+        return getSignatures(context, getPackageName());
     }
 
     public static Signature[] getSignatures(String packageName) {
@@ -184,7 +180,7 @@ public class AppUtil {
 
 
     public static Signature[] getSignatures() {
-        return getSignatures(GlobalContext.getContext(), getPackageName(GlobalContext.getContext()));
+        return getSignatures(GlobalContext.getContext(), getPackageName());
     }
 
     public final static String SHA1 = "SHA1";
@@ -237,7 +233,7 @@ public class AppUtil {
      * @return
      */
     public static String getSingInfo(Context context, String type) {
-        return getSingInfo(context, getPackageName(context), type);
+        return getSingInfo(context, getPackageName(), type);
     }
 
     /**
