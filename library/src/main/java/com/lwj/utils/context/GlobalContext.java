@@ -5,6 +5,7 @@
  */
 package com.lwj.utils.context;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
@@ -31,10 +32,23 @@ public class GlobalContext {
      *
      * @return 全局的context   由 application
      */
-    @SuppressWarnings("all")
+
     public synchronized static Context getContext() {
         if (sApplication == null) {
+            init();
+        }
+        return sApplication;
+    }
+
+    static {
+        init();
+    }
+
+    @SuppressWarnings("all")
+    public static void init() {
+        if (sApplication == null) {
             try {
+
                 Class aClass = Class.forName("android.app.ActivityThread");
                 Method method = aClass.getMethod("currentApplication");
                 Application application = (Application) method.invoke(null, (Object[]) null);
@@ -44,7 +58,7 @@ public class GlobalContext {
                             sApplication.getClass().getSimpleName(),
                             aClass.getName(),
                             method.getName());
-                    return application;
+                    return;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -60,7 +74,7 @@ public class GlobalContext {
                             sApplication.getClass().getSimpleName(),
                             aClass.getName(),
                             method.getName());
-                    return application;
+                    return;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -68,6 +82,6 @@ public class GlobalContext {
 
             throw new IllegalStateException("ContextHolder is not initialed, it is recommend to init with application context.");
         }
-        return sApplication;
     }
+
 }
