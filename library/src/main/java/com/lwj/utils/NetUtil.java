@@ -2,7 +2,6 @@ package com.lwj.utils;
 
 import android.app.Service;
 import android.content.Context;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
@@ -21,58 +20,34 @@ public class NetUtil {
     /**
      * 检查网络连接状态
      *
-     * @param context
-     *
      * @return
      */
     @SuppressWarnings("MissingPermission")
-    public static boolean checkNetwork(Context context) {
-        if (context != null) {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
-            if (cm == null) {
-                return false;
-            }
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnected()) {
-                return true;
-            }
+    public static boolean checkNetwork() {
+        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
+        if (cm == null) {
+            return false;
+        }
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
         }
 
         return false;
     }
 
     public static boolean isNetConnected() {
-        return isNetConnected(GlobalContext.getContext());
-    }
-
-    public static boolean isNetConnected(Context context) {
-        return getAPNType(context) != TYPE_UNKNOWN;
-    }
-
-
-    /**
-     * 检查网络连接状态
-     *
-     * @return
-     */
-    public static boolean checkNetwork() {
-        return checkNetwork(GlobalContext.getContext());
-    }
-
-    public static boolean isWifiConnected() {
-        return isWifiConnected(GlobalContext.getContext());
+        return getAPNType() != TYPE_UNKNOWN;
     }
 
     /**
      * 判断wifi是否打开
      *
-     * @param context
-     *
      * @return
      */
     @SuppressWarnings("MissingPermission")
-    public static boolean isWifiConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
+    public static boolean isWifiConnected() {
+        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
@@ -87,14 +62,10 @@ public class NetUtil {
     }
 
 
-    public static int getAPNType() {
-        return getAPNType(GlobalContext.getContext());
-    }
-
     @SuppressWarnings("MissingPermission")
-    public static int getAPNType(Context context) {
+    public static int getAPNType() {
         int type = TYPE_UNKNOWN;
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if (isConnect(networkInfo)) {
@@ -102,7 +73,7 @@ public class NetUtil {
                 if (netType == ConnectivityManager.TYPE_WIFI) {
                     type = TYPE_WIFI;
                 } else {
-                    TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    TelephonyManager telephonyManager = (TelephonyManager) GlobalContext.getContext().getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null && !telephonyManager.isNetworkRoaming()) {
                         int subType = networkInfo.getSubtype();
                         if ((subType == TelephonyManager.NETWORK_TYPE_GPRS
@@ -137,18 +108,17 @@ public class NetUtil {
     }
 
     public static boolean is2GConnected() {
-        return getAPNType(GlobalContext.getContext()) == TYPE_2G;
+        return getAPNType() == TYPE_2G;
     }
 
     public static boolean is3GConnected() {
-        return getAPNType(GlobalContext.getContext()) == TYPE_3G;
+        return getAPNType() == TYPE_3G;
     }
 
 
     public static boolean is4GConnected() {
-        return getAPNType(GlobalContext.getContext()) == TYPE_4G;
+        return getAPNType() == TYPE_4G;
     }
-
 
 
 }

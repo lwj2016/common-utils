@@ -25,43 +25,43 @@ public class FormatUtil {
         return (long) Math.ceil(f);
     }
 
-    public static int strToIn(String str) {
+    public static int str2Int(String str) {
         int l = 0;
         try {
             l = Integer.valueOf(str);
         } catch (NumberFormatException e) {
-            LogUtil.e("strToInteger %s", "error");
+            LogUtil.e("str2Integer %s", "error");
         }
         return l;
     }
 
-    public static float strToFloat(String str) {
+    public static float str2Float(String str) {
         float l = 0f;
         try {
             l = Float.valueOf(str);
         } catch (NumberFormatException e) {
-            LogUtil.e("strToFloat %s", "error");
+            LogUtil.e("str2Float %s", "error");
         }
         return l;
     }
 
-    public static long strToLong(String str) {
+    public static long str2Long(String str) {
         long l = 0L;
         try {
             l = Long.valueOf(str);
         } catch (NumberFormatException e) {
-            LogUtil.e("strToLong %s", "error");
+            LogUtil.e("str2Long %s", "error");
         }
         return l;
     }
 
 
-    public static double strToDouble(String str) {
+    public static double str2Double(String str) {
         double l = 0d;
         try {
             l = Double.valueOf(str);
         } catch (NumberFormatException e) {
-            LogUtil.e("strToDouble %s", "error");
+            LogUtil.e("str2Double %s", "error");
         }
         return l;
     }

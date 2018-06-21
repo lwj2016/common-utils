@@ -5,6 +5,12 @@ import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AnimRes;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.RawRes;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -43,7 +49,7 @@ public class ResUtil {
      *
      * @return string
      */
-    public static String getString(int resId) {
+    public static String getString(@StringRes int resId) {
         return getResources().getString(resId);
     }
 
@@ -55,7 +61,7 @@ public class ResUtil {
      *
      * @return color
      */
-    public static int getColor(int resId) {
+    public static int getColor(@ColorRes int resId) {
         return getResources().getColor(resId);
     }
 
@@ -67,7 +73,7 @@ public class ResUtil {
      *
      * @return color
      */
-    public static ColorStateList getColorStateList(int resId) {
+    public static ColorStateList getColorStateList(@ColorRes int resId) {
         return ContextCompat.getColorStateList(GlobalContext.getContext(), resId);
     }
 
@@ -79,7 +85,7 @@ public class ResUtil {
      *
      * @return String[]
      */
-    public static String[] getStringArray(int resId) {
+    public static String[] getStringArray(@ArrayRes int resId) {
         return getResources().getStringArray(resId);
     }
 
@@ -96,7 +102,7 @@ public class ResUtil {
     }
 
 
-    public static Drawable getDrawable(int drawableResId) {
+    public static Drawable getDrawable(@DrawableRes int drawableResId) {
         return ContextCompat.getDrawable(GlobalContext.getContext(), drawableResId);
     }
 
@@ -108,7 +114,7 @@ public class ResUtil {
      *
      * @return IntegerArray
      */
-    public static int[] getIntegerArray(int resId) {
+    public static int[] getIntegerArray(@ArrayRes int resId) {
 
         return getResources().getIntArray(resId);
     }
@@ -140,7 +146,7 @@ public class ResUtil {
      *
      * @return
      */
-    public static String getFormatString(int resId, Object... args) {
+    public static String getFormatString(@StringRes int resId, Object... args) {
         return getFormatString(ResUtil.getString(resId), args);
     }
 
@@ -151,7 +157,7 @@ public class ResUtil {
      *
      * @return
      */
-    public static Animation getAnimation(int animationID) {
+    public static Animation getAnimation(@AnimRes int animationID) {
         return AnimationUtils.loadAnimation(GlobalContext.getContext(), animationID);
     }
 
@@ -182,17 +188,17 @@ public class ResUtil {
     }
 
 
-    public static String readRawStrById(int id) {
+    public static String readRawStrById(@RawRes int id) {
         return readRawStrById(id, "UTF-8");
     }
 
-    public static String readRawStrById(int id, String encoding) {
+    public static String readRawStrById(@RawRes int id, String encoding) {
         Charset charset = Charset.forName(encoding);
         return readRawStrById(id, charset);
     }
 
 
-    public static String readRawStrById(int id, Charset charset) {
+    public static String readRawStrById(@RawRes int id, Charset charset) {
         String text = null;
         InputStreamReader inputReader = null;
         BufferedReader bufReader = null;

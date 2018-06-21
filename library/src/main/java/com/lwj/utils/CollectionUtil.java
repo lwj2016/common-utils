@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ import java.util.List;
  * Created by lwj on 16/3/23.
  * Des: 集合工具类
  */
-public class CollectionUtil implements Serializable {
+public class CollectionUtil {
 
 
     public static boolean isListMoreOne(Collection mArrayList) {
@@ -37,17 +36,5 @@ public class CollectionUtil implements Serializable {
     public static <T> T[] list2Array(List<T> list, Class<T> clazz) {
         return list.toArray((T[]) Array.newInstance(clazz, list.size()));
     }
-
-//    public static <T> T[] list2Array(List<T> list) {
-//        try {
-//            Method method = list.getClass().getMethod("get", int.class);
-//            Class<T> returnTypeClass = (Class<T>) method.getReturnType();
-//            return list2Array(list, returnTypeClass);
-//        } catch (NoSuchMethodException e) {
-//            return null;
-//        }
-//
-//    }
-
 
 }

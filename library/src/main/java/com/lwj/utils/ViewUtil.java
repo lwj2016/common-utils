@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -24,22 +25,22 @@ import com.lwj.utils.context.GlobalContext;
  */
 public class ViewUtil {
     @SuppressWarnings("unchecked")
-    public static <V extends View> V findViewById(Activity ac, int id) {
+    public static <V extends View> V findViewById(Activity ac, @IdRes int id) {
         return (V) ac.findViewById(id);
     }
 
     @SuppressWarnings("unchecked")
-    public static <V extends View> V findViewById(View view, int id) {
+    public static <V extends View> V findViewById(View view, @IdRes int id) {
         return (V) view.findViewById(id);
     }
 
     @SuppressWarnings("unchecked")
-    public static <V extends View> V findViewById(Dialog view, int id) {
+    public static <V extends View> V findViewById(Dialog view, @IdRes int id) {
         return (V) view.findViewById(id);
     }
 
     @SuppressWarnings("unchecked")
-    public static <V extends View> V findViewById(Window window, int id) {
+    public static <V extends View> V findViewById(Window window, @IdRes int id) {
         return (V) window.findViewById(id);
     }
 
@@ -71,7 +72,7 @@ public class ViewUtil {
         return LayoutInflater.from(GlobalContext.getContext());
     }
 
-    public static View inflate(int layoutId) {
+    public static View inflate(@LayoutRes int layoutId) {
         return inflate(layoutId, null, false);
     }
 
@@ -83,84 +84,84 @@ public class ViewUtil {
         return newInflate().inflate(resource, root, root != null);
     }
 
-    public static LinearLayout findLinearLayoutById(View view, int id) {
+    public static LinearLayout findLinearLayoutById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
-    public static RelativeLayout findRelativeLayoutById(View view, int id) {
+    public static RelativeLayout findRelativeLayoutById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
 
-    public static FrameLayout findFrameLayoutById(View view, int id) {
+    public static FrameLayout findFrameLayoutById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
-    public static TextView findTextViewById(View view, int id) {
-
-        return findViewById(view, id);
-    }
-
-    public static Button findButtonById(View view, int id) {
+    public static TextView findTextViewById(View view, @IdRes int id) {
 
         return findViewById(view, id);
     }
 
-    public static ImageView findImageViewById(View view, int id) {
+    public static Button findButtonById(View view, @IdRes int id) {
+
         return findViewById(view, id);
     }
 
-    public static CheckBox findCheckBoxById(View view, int id) {
+    public static ImageView findImageViewById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
-    public static LinearLayout findLinearLayoutById(Activity activity, int id) {
+    public static CheckBox findCheckBoxById(View view, @IdRes int id) {
+        return findViewById(view, id);
+    }
+
+    public static LinearLayout findLinearLayoutById(Activity activity, @IdRes int id) {
         return findViewById(activity, id);
     }
 
-    public static RelativeLayout findRelativeLayoutById(Activity activity, int id) {
+    public static RelativeLayout findRelativeLayoutById(Activity activity, @IdRes int id) {
         return findViewById(activity, id);
     }
 
 
-    public static FrameLayout findFrameLayoutById(Activity activity, int id) {
+    public static FrameLayout findFrameLayoutById(Activity activity, @IdRes int id) {
         return findViewById(activity, id);
     }
 
-    public static TextView findTextViewById(Activity activity, int id) {
+    public static TextView findTextViewById(Activity activity, @IdRes int id) {
 
         return findViewById(activity, id);
     }
 
-    public static TextView setTvText(Activity activity, int id, String text) {
+    public static TextView setTvText(Activity activity, @IdRes int id, String text) {
         TextView textView = findTextViewById(activity, id);
         textView.setText(text);
         return textView;
     }
 
 
-    public static TextView setTvText(View view, int id, String text) {
+    public static TextView setTvText(View view, @IdRes int id, String text) {
         TextView textView = findTextViewById(view, id);
         textView.setText(text);
         return textView;
     }
 
-    public static Button setBtnText(Activity activity, int id, String text) {
+    public static Button setBtnText(Activity activity, @IdRes int id, String text) {
         Button button = findButtonById(activity, id);
         button.setText(text);
         return button;
     }
 
-    public static Button findButtonById(Activity activity, int id) {
+    public static Button findButtonById(Activity activity, @IdRes int id) {
 
         return findViewById(activity, id);
     }
 
-    public static ImageView findImageViewById(Activity activity, int id) {
+    public static ImageView findImageViewById(Activity activity, @IdRes int id) {
         return findViewById(activity, id);
     }
 
-    public static CheckBox findCheckBoxById(Activity activity, int id) {
+    public static CheckBox findCheckBoxById(Activity activity, @IdRes int id) {
         return findViewById(activity, id);
     }
 
