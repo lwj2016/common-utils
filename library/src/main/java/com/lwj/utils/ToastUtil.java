@@ -36,8 +36,8 @@ public class ToastUtil {
 
         public ToastBuilder(Context context) {
             this.context = context;
-            yOffset = DisplayUtil.dp2px(context, Y_OFFSET_DP);
-            xOffset = DisplayUtil.dp2px(context, X_OFFSET_DP);
+            yOffset = DisplayUtil.dp2px(Y_OFFSET_DP);
+            xOffset = DisplayUtil.dp2px(X_OFFSET_DP);
         }
 
         public ToastBuilder setView(int layoutID, int tvID) {
@@ -159,7 +159,7 @@ public class ToastUtil {
     }
 
     public static void show(Context context, String msg) {
-        show(context, msg, Toast.LENGTH_SHORT, DEFAULT_GRAVITY, DisplayUtil.dp2px(context, X_OFFSET_DP), DisplayUtil.dp2px(context, Y_OFFSET_DP));
+        show(context, msg, Toast.LENGTH_SHORT, DEFAULT_GRAVITY, DisplayUtil.dp2px(X_OFFSET_DP), DisplayUtil.dp2px(Y_OFFSET_DP));
     }
 
     public static void show(Context context, String msg, int duration, int gravity, int xOffset, int yOffset) {

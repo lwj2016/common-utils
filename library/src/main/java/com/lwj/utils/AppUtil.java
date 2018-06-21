@@ -108,10 +108,10 @@ public class AppUtil {
     }
 
 
-    public boolean isRunning(Context context, String packageName) {
+    public boolean isRunning(String packageName) {
 
         boolean isRunning = false;
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) GlobalContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (am == null) {
             return false;
         }
@@ -153,15 +153,14 @@ public class AppUtil {
     /**
      * 返回对应包的签名信息
      *
-     * @param context
      * @param packageName
      *
      * @return
      */
-    public static Signature[] getSignatures(Context context, String packageName) {
+    public static Signature[] getSignatures(String packageName) {
         PackageInfo packageInfo = null;
         try {
-            packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            packageInfo = GlobalContext.getContext().getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             return packageInfo.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -170,17 +169,8 @@ public class AppUtil {
     }
 
 
-    public static Signature[] getSignatures(Context context) {
-        return getSignatures(context, getPackageName());
-    }
-
-    public static Signature[] getSignatures(String packageName) {
-        return getSignatures(GlobalContext.getContext(), packageName);
-    }
-
-
     public static Signature[] getSignatures() {
-        return getSignatures(GlobalContext.getContext(), getPackageName());
+        return getSignatures(getPackageName());
     }
 
     public final static String SHA1 = "SHA1";
@@ -188,15 +178,14 @@ public class AppUtil {
     /**
      * 返回一个签名的对应类型的字符串
      *
-     * @param context
      * @param packageName
      * @param type
      *
      * @return
      */
-    public static String getSingInfo(Context context, String packageName, String type) {
+    public static String getSingInfo(String packageName, String type) {
         String tmp = null;
-        Signature[] signs = getSignatures(context, packageName);
+        Signature[] signs = getSignatures(packageName);
         for (Signature sig : signs) {
             if (SHA1.equals(type)) {
                 tmp = getSignatureString(sig, SHA1);
@@ -215,7 +204,7 @@ public class AppUtil {
      * @return
      */
     public static String getSingInfo(String type) {
-        return getSingInfo(GlobalContext.getContext(), getPackageName(), type);
+        return getSingInfo(getPackageName(), type);
     }
 
     /**
@@ -224,28 +213,7 @@ public class AppUtil {
      * @return
      */
     public static String getSingInfo() {
-        return getSingInfo(GlobalContext.getContext(), getPackageName(), SHA1);
-    }
-
-    /**
-     * 返回一个签名的对应类型的字符串
-     *
-     * @return
-     */
-    public static String getSingInfo(Context context, String type) {
-        return getSingInfo(context, getPackageName(), type);
-    }
-
-    /**
-     * 返回一个签名的对应类型的字符串
-     *
-     * @param type
-     * @param packageName
-     *
-     * @return
-     */
-    public static String getSingInfo(String packageName, String type) {
-        return getSingInfo(GlobalContext.getContext(), packageName, type);
+        return getSingInfo(getPackageName(), SHA1);
     }
 
 

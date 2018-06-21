@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
 import java.io.File;
@@ -50,47 +51,47 @@ public class BroadcastUtil {
     /**
      * 发送广播
      */
-    public static void sendBroadcast(Context context, String action) {
+    public static void sendBroadcast(String action) {
         Intent intent = new Intent();
         intent.setAction(action);
-        sendBroadcast(context, intent);
+        sendBroadcast(intent);
     }
 
     /**
      * 发送广播
      */
-    public static void sendBroadcast(Context context, String action, String receiverPermission) {
+    public static void sendBroadcast(String action, String receiverPermission) {
         Intent intent = new Intent();
         intent.setAction(action);
-        sendBroadcast(context, intent, receiverPermission);
+        sendBroadcast(intent, receiverPermission);
     }
 
     /**
      * 发送广播
      */
-    public static void sendBroadcast(Context context, Intent intent) {
-        sendBroadcast(context, intent, null);
+    public static void sendBroadcast(Intent intent) {
+        sendBroadcast(intent, null);
     }
 
     /**
      * 发送广播
      */
-    public static void sendBroadcast(Context context, Intent intent, String receiverPermission) {
-        context.sendBroadcast(intent, receiverPermission);
+    public static void sendBroadcast(Intent intent, String receiverPermission) {
+        GlobalContext.getContext().sendBroadcast(intent, receiverPermission);
     }
 
 
-    public static void refreshGallery(Context context, File file) {
+    public static void refreshGallery(File file) {
         Uri uri = Uri.fromFile(file);
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(uri);
-        sendBroadcast(context, intent);
+        sendBroadcast(intent);
     }
 
-    public static void refreshGallery(Context context, String filePath) {
+    public static void refreshGallery(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
-            refreshGallery(context, file);
+            refreshGallery(file);
         } else {
             LogUtil.e("refreshGallery ->> %s not found", filePath);
         }

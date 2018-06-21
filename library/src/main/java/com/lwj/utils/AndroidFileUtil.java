@@ -1,9 +1,10 @@
 package com.lwj.utils;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+
+import com.lwj.utils.context.GlobalContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,23 +17,23 @@ import java.io.IOException;
 public class AndroidFileUtil extends FileUtil {
 
 
-    public synchronized static File getCustomDirs(Context context, String folderName) throws IOException {
+    public synchronized static File getCustomDirs(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
-            file = getExternalCacheDirFolder(context, folderName);
+            file = getExternalCacheDirFolder(folderName);
         } else {
-            file = getCacheDir(context, folderName);
+            file = getCacheDir(folderName);
         }
         return file;
 
     }
 
-    public synchronized static String getCustomFolderPath(Context context, String folderName) throws IOException {
+    public synchronized static String getCustomFolderPath(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
-            file = getExternalCacheDirFolder(context, folderName);
+            file = getExternalCacheDirFolder(folderName);
         } else {
-            file = getCacheDir(context, folderName);
+            file = getCacheDir(folderName);
         }
         if (file != null) {
             return file.getAbsolutePath();
@@ -41,23 +42,23 @@ public class AndroidFileUtil extends FileUtil {
 
     }
 
-    public synchronized static File getCustomFile(Context context, String folderName) throws IOException {
+    public synchronized static File getCustomFile(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
-            file = getExternalCacheDirFile(context, folderName);
+            file = getExternalCacheDirFile(folderName);
         } else {
-            file = getCacheFile(context, folderName);
+            file = getCacheFile(folderName);
         }
         return file;
 
     }
 
-    public synchronized static String getCustomFilePath(Context context, String folderName) throws IOException {
+    public synchronized static String getCustomFilePath(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
-            file = getExternalCacheDirFile(context, folderName);
+            file = getExternalCacheDirFile(folderName);
         } else {
-            file = getCacheFile(context, folderName);
+            file = getCacheFile(folderName);
         }
         if (file != null) {
             return file.getAbsolutePath();
@@ -73,75 +74,68 @@ public class AndroidFileUtil extends FileUtil {
      * @param name
      * @param content
      */
-    public static void saveStr2FilePriorSD(Context context, String name, String content) throws IOException {
+    public static void saveStr2FilePriorSD(String name, String content) throws IOException {
 
-        File file = getExternalCacheDirFile(context, name);
+        File file = getExternalCacheDirFile(name);
         if (file == null) {
-            file = getCacheFile(context, name);
+            file = getCacheFile(name);
         }
         writeStr2File(file, content);
     }
 
 
     /**
-     * @param context
-     *
      * @return /data/data/{packageName}/cache/
      */
-    public synchronized static String getCacheDirPath(Context context) {
+    public synchronized static String getCacheDirPath() {
 
-        return context.getCacheDir().getPath();
+        return GlobalContext.getContext().getCacheDir().getPath();
     }
 
     /**
-     * @param context
      * @param uniqueName
      *
      * @return /data/data/{packageName}/cache/xxx
      */
-    public synchronized static File getCacheDir(Context context, String uniqueName) {
-        return getFolder(getCacheDirPath(context), uniqueName);
+    public synchronized static File getCacheDir(String uniqueName) {
+        return getFolder(getCacheDirPath(), uniqueName);
     }
 
 
     /**
-     * @param context
      * @param uniqueName
      *
      * @return /data/data/{packageName}/cache/xxx
      */
-    public synchronized static File getCacheFile(Context context, String uniqueName) throws IOException {
-        return getFile(getCacheDirPath(context), uniqueName);
+    public synchronized static File getCacheFile(String uniqueName) throws IOException {
+        return getFile(getCacheDirPath(), uniqueName);
     }
 
 
     /**
-     * @param context
      *
      * @return /data/data/{packageName}/files/
      */
-    public synchronized static String getFilesDirPath(Context context) {
-        return context.getFilesDir().getPath();
+    public synchronized static String getFilesDirPath() {
+        return GlobalContext.getContext().getFilesDir().getPath();
     }
 
     /**
-     * @param context
      * @param uniqueName
      *
      * @return /data/data/{packageName}/files/xxx
      */
-    public synchronized static File getFilesDir(Context context, String uniqueName) {
-        return getFolder(getFilesDirPath(context), uniqueName);
+    public synchronized static File getFilesDir(String uniqueName) {
+        return getFolder(getFilesDirPath(), uniqueName);
     }
 
     /**
-     * @param context
      * @param uniqueName
      *
      * @return /data/data/{packageName}/files/xxx
      */
-    public synchronized static File getFilesFile(Context context, String uniqueName) throws IOException {
-        return getFile(getFilesDirPath(context), uniqueName);
+    public synchronized static File getFilesFile(String uniqueName) throws IOException {
+        return getFile(getFilesDirPath(), uniqueName);
     }
 
 
@@ -156,36 +150,36 @@ public class AndroidFileUtil extends FileUtil {
     }
 
 
-    public static File getExternalCacheDirFile(Context context, String file) throws IOException {
-        return getFile(getExternalCacheDir(context).getAbsolutePath(), file);
+    public static File getExternalCacheDirFile(String file) throws IOException {
+        return getFile(getExternalCacheDir().getAbsolutePath(), file);
     }
 
-    public static String getExternalCacheDirFilePath(Context context, String file) throws IOException {
-        return getFilePath(getExternalCacheDir(context).getAbsolutePath(), file);
+    public static String getExternalCacheDirFilePath(String file) throws IOException {
+        return getFilePath(getExternalCacheDir().getAbsolutePath(), file);
     }
 
-    public static File getExternalCacheDirFolder(Context context, String file) throws IOException {
-        return getFolder(getExternalCacheDir(context).getAbsolutePath(), file);
+    public static File getExternalCacheDirFolder(String file) throws IOException {
+        return getFolder(getExternalCacheDir().getAbsolutePath(), file);
     }
 
-    public static String getExternalCacheDirFolderPath(Context context, String file) throws IOException {
-        return getFolderPath(getExternalCacheDir(context).getAbsolutePath(), file);
+    public static String getExternalCacheDirFolderPath(String file) throws IOException {
+        return getFolderPath(getExternalCacheDir().getAbsolutePath(), file);
     }
 
 
-    public static File getExternalCacheDir(Context context) {
+    public static File getExternalCacheDir() {
         File file = null;
         if (OSUtils.hasFroyo()) {
-            file = context.getExternalCacheDir();
+            file = GlobalContext.getContext().getExternalCacheDir();
         }
         if (file == null) {
-            file = createExternalCacheDirPath(context);
+            file = createExternalCacheDirPath();
         }
         return file;
     }
 
-    public static String getExternalCacheDirPath(Context context) {
-        File file = getExternalCacheDir(context);
+    public static String getExternalCacheDirPath() {
+        File file = getExternalCacheDir();
         if (file != null) {
             return file.getAbsolutePath();
         }
@@ -196,14 +190,13 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * 有则返回，无则自己创建
      *
-     * @param context
      *
      * @return
      */
-    public static File createExternalCacheDirPath(Context context) {
+    public static File createExternalCacheDirPath() {
         StringBuilder path = new StringBuilder();
         path.append(Environment.getExternalStorageDirectory().getPath());
-        path.append("/Android/data").append(context.getPackageName());
+        path.append("/Android/data").append(GlobalContext.getContext().getPackageName());
         path.append("/cache").append(File.separator);
         return new File(path.toString());
     }
@@ -263,20 +256,18 @@ public class AndroidFileUtil extends FileUtil {
     /**
      * 刷新图库
      *
-     * @param context  Activity or Application
-     * @param file  文件
+     * @param file 文件
      */
-    public static void refreshGallery(Context context, File file) {
-        BroadcastUtil.refreshGallery(context, file);
+    public static void refreshGallery(File file) {
+        BroadcastUtil.refreshGallery(file);
     }
 
     /**
      * 刷新图库
      *
-     * @param context  Activity or Application
      * @param filePath 文件路径
      */
-    public static void refreshGallery(Context context, String filePath) {
-        BroadcastUtil.refreshGallery(context, filePath);
+    public static void refreshGallery(String filePath) {
+        BroadcastUtil.refreshGallery(filePath);
     }
 }

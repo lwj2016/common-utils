@@ -1,7 +1,6 @@
 package com.lwj.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
@@ -17,92 +16,75 @@ public class DisplayUtil {
 
 
     public static int getScreenWidth() {
-        return getScreenWidth(GlobalContext.getContext());
+        return getScreenWidthInPx();
     }
 
     public static int getScreenHeight() {
-        return getScreenHeight(GlobalContext.getContext());
-    }
-
-    public static int getScreenWidth(Context context) {
-        return getScreenWidthInPx(context);
-    }
-
-    public static int getScreenHeight(Context context) {
-        return getScreenHeightInPx(context);
+        return getScreenHeightInPx();
     }
 
 
-    public static DisplayMetrics getDisplayMetrics(Context context) {
+    public static DisplayMetrics getDisplayMetrics() {
         if (dm == null) {
-            dm = context.getResources().getDisplayMetrics();
+            dm = GlobalContext.getContext().getResources().getDisplayMetrics();
         }
         return dm;
     }
 
-    public static int px2dp(Context context, int px) {
-        if (context == null) {
-            return px;
-        }
-        getDisplayMetrics(context);
+    public static int px2dp(int px) {
+
+        getDisplayMetrics();
         final float density = dm.density;
         return (int) (px / density + 0.5f);
     }
 
-    public static int dp2px(Context context, float dp) {
-        if (context == null) {
-            return (int) dp;
-        }
-        getDisplayMetrics(context);
+    public static int dp2px(float dp) {
+
+        getDisplayMetrics();
         final float density = dm.density;
         return (int) (dp * density + 0.5f);
     }
 
-    public static int px2sp(Context context, float px) {
-        if (context == null) {
-            return (int) px;
-        }
-        getDisplayMetrics(context);
+    public static int px2sp(float px) {
+
+        getDisplayMetrics();
         return (int) (px / dm.scaledDensity + 0.5f);
     }
 
-    public static int sp2px(Context context, float sp) {
-        if (context == null) {
-            return (int) sp;
-        }
-        getDisplayMetrics(context);
+    public static int sp2px(float sp) {
+        getDisplayMetrics();
         return (int) (sp * dm.scaledDensity + 0.5f);
     }
 
-    public static int getScreenWidthInPx(Context context) {
-        getDisplayMetrics(context);
+    public static int getScreenWidthInPx() {
+        getDisplayMetrics();
         return dm.widthPixels;
     }
 
-    public static int getScreenHeightInPx(Context context) {
-        getDisplayMetrics(context);
+    public static int getScreenHeightInPx() {
+        getDisplayMetrics();
         return dm.heightPixels;
     }
 
-    public static int getScreenWidthInDp(Context context) {
-        getDisplayMetrics(context);
+    public static int getScreenWidthInDp() {
+        getDisplayMetrics();
         return (int) ((float) dm.widthPixels * (160 / dm.xdpi));
     }
 
-    public static int getScreenHeightInDp(Context context) {
-        getDisplayMetrics(context);
+    public static int getScreenHeightInDp() {
+        getDisplayMetrics();
         int screenHeight = dm.heightPixels;
         return (int) ((float) screenHeight / dm.density);
     }
 
-    public static float getDensity(Context context) {
-        getDisplayMetrics(context);
+    public static float getDensity() {
+        getDisplayMetrics();
         return dm.density;
     }
 
-    public static int getScreenTitleBarHeight(Context context) {
+    public static int getScreenTitleBarHeight(Activity activity) {
         Rect rect = new Rect();
-        ((Activity) context).getWindow().getDecorView()
+        activity.getWindow().getDecorView()
                 .getWindowVisibleDisplayFrame(rect);
         return rect.top;
     }

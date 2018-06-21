@@ -110,6 +110,20 @@ public class ActivityUtil {
         context.startActivity(intent);
     }
 
+    public static void startActivity(Context context, String action) {
+        startActivity(context,
+                IntentBuilder.getBuilder().
+                        setAction(action).
+                        builder());
+    }
+
+
+    public static void startActivityForResult(Activity context, String action, int reqCode) {
+        startActivityForResult(context, IntentBuilder.getBuilder().
+                setAction(action).
+                builder(), reqCode);
+    }
+
 
     /**
      * 一个Activity 开启 另一个 Activity，并且可以返回处理的数据

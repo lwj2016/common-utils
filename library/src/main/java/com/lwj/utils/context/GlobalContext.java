@@ -5,7 +5,6 @@
  */
 package com.lwj.utils.context;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
@@ -80,7 +79,7 @@ public class GlobalContext {
                 e.printStackTrace();
             }
 
-            throw new IllegalStateException("ContextHolder is not initialed, it is recommend to init with application context.");
+            throw new IllegalStateException("GlobalContext is not initialed, it is recommend to init with application context.");
         }
     }
 

@@ -40,8 +40,8 @@ public class DeviceUtil {
     }
 
     @SuppressWarnings("MissingPermission")
-    public static String getDeviceId(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getDeviceId() {
+        TelephonyManager tm = (TelephonyManager) GlobalContext.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) {
             LogUtil.e("TelephonyManager %s", "null");
             return "";
@@ -55,17 +55,11 @@ public class DeviceUtil {
     }
 
 
-    @SuppressWarnings("MissingPermission")
-    public static String getDeviceId() {
-        return getDeviceId(GlobalContext.getContext());
-    }
-
-
     // 获得可用的内存
-    public static long getUseAbleMemory(Context mContext) {
+    public static long getUseAbleMemory() {
         long MEM_UNUSED;
         // 得到ActivityManager
-        ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) GlobalContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         // 创建ActivityManager.MemoryInfo对象
 
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
@@ -77,10 +71,6 @@ public class DeviceUtil {
         return MEM_UNUSED;
     }
 
-    // 获得可用的内存
-    public static long getUseableMemory() {
-        return getUseAbleMemory(GlobalContext.getContext());
-    }
 
     public static long getTotalMemory() {
         long mTotal;

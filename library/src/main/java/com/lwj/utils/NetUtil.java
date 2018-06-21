@@ -22,6 +22,7 @@ public class NetUtil {
      * 检查网络连接状态
      *
      * @param context
+     *
      * @return
      */
     @SuppressWarnings("MissingPermission")
@@ -66,6 +67,7 @@ public class NetUtil {
      * 判断wifi是否打开
      *
      * @param context
+     *
      * @return
      */
     @SuppressWarnings("MissingPermission")
@@ -135,53 +137,19 @@ public class NetUtil {
     }
 
     public static boolean is2GConnected() {
-        return is2GConnected(GlobalContext.getContext());
+        return getAPNType(GlobalContext.getContext()) == TYPE_2G;
     }
 
     public static boolean is3GConnected() {
-        return is3GConnected(GlobalContext.getContext());
+        return getAPNType(GlobalContext.getContext()) == TYPE_3G;
     }
 
 
     public static boolean is4GConnected() {
-        return is4GConnected(GlobalContext.getContext());
-    }
-
-    public static boolean is2GConnected(Context context) {
-        return getAPNType(context) == TYPE_2G;
-    }
-
-    public static boolean is3GConnected(Context context) {
-        return getAPNType(context) == TYPE_3G;
+        return getAPNType(GlobalContext.getContext()) == TYPE_4G;
     }
 
 
-    public static boolean is4GConnected(Context context) {
-        return getAPNType(context) == TYPE_4G;
-    }
 
-
-    /**
-     * 判断GPS是否打开
-     * ACCESS_FINE_LOCATION权限
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isGPSEnabled(Context context) {
-        //获取手机所有连接LOCATION_SERVICE对象
-        LocationManager locationManager = ((LocationManager) context.getSystemService(Context.LOCATION_SERVICE));
-        return locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    /**
-     * 判断GPS是否打开
-     * ACCESS_FINE_LOCATION权限
-     *
-     * @return
-     */
-    public static boolean isGPSEnabled() {
-        return isGPSEnabled(GlobalContext.getContext());
-    }
 }
 

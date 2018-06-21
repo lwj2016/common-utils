@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.lwj.utils.AppBackPress;
 import com.lwj.utils.AppUtil;
@@ -103,6 +104,13 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         for (Integer integer : result) {
             LogUtil.d("integer %s", integer+"");
         }
+
+        findViewById(R.id.tv_empty).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SysIntentUtil.openMP3(MainActivity.this);
+            }
+        });
 
 
     }

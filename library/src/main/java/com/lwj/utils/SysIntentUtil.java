@@ -127,9 +127,33 @@ public class SysIntentUtil {
 
     public static void openMP3(Context context) {
         Intent intent = new Intent("android.intent.action.MUSIC_PLAYER");
-
         context.startActivity(intent);
     }
+
+    public static void playMP3(Context context, String filePath) {
+        browserFile(context, filePath, "audio/mp3");
+    }
+
+
+    public static void browserFile(Context context, String filePath, String type) {
+        ActivityUtil.startActivity(context,
+                IntentBuilder.getBuilder().
+                        setAction(android.content.Intent.ACTION_VIEW).
+                        setData(filePath).
+                        setType(type).
+                        builder());
+    }
+
+
+    public static void openGPS(Context context) {
+        ActivityUtil.startActivity(context, Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    }
+
+
+    public static void openGPS(Activity activity, int reqCode) {
+        ActivityUtil.startActivityForResult(activity, Settings.ACTION_LOCATION_SOURCE_SETTINGS, reqCode);
+    }
+
 
     /**
      * 选择本地视频
@@ -201,6 +225,7 @@ public class SysIntentUtil {
      *
      * @param context
      * @param packageName 所要打开的app简介
+     *
      * @throws Exception
      */
     public static void gotoMarket(Context context, String packageName) throws Exception {

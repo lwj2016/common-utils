@@ -3,9 +3,9 @@ package com.lwj.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.ShareCompat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,16 +31,32 @@ public class IntentBuilder {
         return resultIntent;
     }
 
-    public IntentBuilder setClass(Context packageContext, Class<?> cls){
-        resultIntent.setClass(packageContext,cls);
+    public IntentBuilder setClass(Context packageContext, Class<?> cls) {
+        resultIntent.setClass(packageContext, cls);
         return this;
     }
 
-    public IntentBuilder setClass(ComponentName component){
+    public IntentBuilder setClass(ComponentName component) {
         resultIntent.setComponent(component);
         return this;
     }
 
+    public IntentBuilder setAction(String action) {
+        resultIntent.setAction(action);
+        return this;
+    }
+
+
+    public IntentBuilder setType(String type) {
+        resultIntent.setType(type);
+        return this;
+    }
+
+    public IntentBuilder setData(String filePath) {
+        Uri uri = Uri.parse(filePath);
+        resultIntent.setData(uri);
+        return this;
+    }
 
     public IntentBuilder putBundle(String key, Bundle value) {
         resultIntent.putExtra(key, value);
