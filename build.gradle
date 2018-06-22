@@ -48,7 +48,7 @@ ext {
     PROJ_WEBSITEURL = "https://github.com/lwjfork/common-utils"
     // 这里改成issue地址 ，
     //比如https:github.com/android/appcompat/issues
-    PROJ_ISSUEURL = "https://github.com /lwjfork/common-utils/issues"
+    PROJ_ISSUEURL = "https://github.com/lwjfork/common-utils/issues"
     // 这里改成版本控制地主 ，
     // 比如https:github.com/android/appcompat.git
     PROJ_VCSURL = "https://github.com/lwjfork/common-utils.git"
