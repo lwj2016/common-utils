@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 def SLVersion = rootProject.ext.supportLibVersion
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -9,26 +9,24 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
-
+        versionName version
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
 
+    }
     lintOptions {
         abortOnError false
     }
-
 }
+
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:$SLVersion"
-    compile project(':AndroidUtils')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided "com.android.support:appcompat-v7:$SLVersion"
 }
+apply from: "https://raw.githubusercontent.com/lwjfork/scriptlib/master/gradle/bintray.gradle"

@@ -16,9 +16,12 @@ buildscript {
     }
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
 }
 
@@ -27,10 +30,42 @@ allprojects {
         jcenter()
     }
 }
+
 ext {
     compileSdkVersion = 25
-    buildToolsVersion = "25.0.1"
+    buildToolsVersion = "26.0.2"
     minSdkVersion = 14
     targetSdkVersion = 25
     supportLibVersion = "25.0.1"
+
+    // 这里改成groupId ， 比如com.android.support
+    PROJ_GROUP = "com.lwj.fork"
+    // 这里改成库版本 ， 比如22.2.0
+    PROJ_VERSION = "1.0.0"
+    // 这里改成库名字 ， 比如appcompat
+    PROJ_NAME = "AndroidUtils"
+    // 这里改成github地址 ， 比如https:github.com/android/appcompat
+    PROJ_WEBSITEURL = "https://github.com/lwjfork/common-utils"
+    // 这里改成issue地址 ，
+    //比如https:github.com/android/appcompat/issues
+    PROJ_ISSUEURL = "https://github.com /lwjfork/common-utils/issues"
+    // 这里改成版本控制地主 ，
+    // 比如https:github.com/android/appcompat.git
+    PROJ_VCSURL = "https://github.com/lwjfork/common-utils.git"
+    // 这里改成库的描述信息
+    PROJ_DESCRIPTION = "common utils for Android"
+
+    // 这里改成库的标示 ， 比如appcompat - v7
+    PROJ_ARTIFACTID = "AndroidUtils"
+
+    // 这里改成开发者id ， 比如
+    DEVELOPER_ID = "lwjfork"
+    // 这里改成开发者名字 ， 比如android
+    DEVELOPER_NAME = "lwjfork"
+    //这里改成开发者邮箱，比如[email]someone@android.com[/email]
+    DEVELOPER_EMAIL = "lwjfork@gmail.com"
+// 用户名
+    BINTRAY_USER = "lwjfork"
+    // key
+    BINTRAY_APIKEY = ""
 }

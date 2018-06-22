@@ -2,6 +2,7 @@ package com.utils.test;
 
 import android.app.Application;
 
+import com.lwj.utils.NetUtil;
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
 
@@ -19,7 +20,29 @@ public class MyApplication extends Application {
 
         LogUtil.setLog(BuildConfig.DEBUG);
 
-        GlobalContext.setApplication(this);
+        new Thread(){
+            @Override
+            public void run() {
+                if (NetUtil.isNetConnected()) {
+                    LogUtil.d("isNetConnected---> %s", true);
 
+                    if (NetUtil.is2GConnected()) {
+                        LogUtil.d("is2GConnected---> %s", true);
+                    }
+
+                    if (NetUtil.is3GConnected()) {
+                        LogUtil.d("is3GConnected---> %s", true);
+                    }
+
+                    if (NetUtil.is4GConnected()) {
+                        LogUtil.d("is4GConnected---> %s", true);
+                    }
+
+                    if (NetUtil.isWifiConnected()) {
+                        LogUtil.d("isWifiConnected---> %s", true);
+                    }
+                }
+            }
+        }.start();
     }
 }
