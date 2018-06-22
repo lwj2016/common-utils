@@ -16,11 +16,12 @@ buildscript {
     }
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
 }
 
@@ -29,6 +30,7 @@ allprojects {
         jcenter()
     }
 }
+
 ext {
     compileSdkVersion = 25
     buildToolsVersion = "26.0.2"
@@ -64,4 +66,6 @@ ext {
     DEVELOPER_EMAIL = "lwjfork@gmail.com"
 // 用户名
     BINTRAY_USER = "lwjfork"
+    // key
+    BINTRAY_APIKEY = ""
 }
