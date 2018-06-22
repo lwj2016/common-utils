@@ -338,8 +338,6 @@ public class FileUtil extends ZipUtil {
      * @param content
      * @param file
      *
-     * @return
-     *
      * @throws java.io.IOException
      */
     public static void writeStr2File(File file, String content) throws IOException {

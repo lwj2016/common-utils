@@ -16,6 +16,7 @@ import java.security.InvalidParameterException;
  */
 public class ActivityUtil {
 
+
     private static long innerTime = 0L;
 
     /**
