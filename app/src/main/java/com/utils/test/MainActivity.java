@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                 ActivityUtil.startActivity(MainActivity.this, WebActivity.class);
             }
         });
-
+        backPress.setOnBackPressListener(this);
     }
 
 

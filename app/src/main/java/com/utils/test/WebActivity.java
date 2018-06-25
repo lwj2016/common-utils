@@ -31,7 +31,7 @@ public class WebActivity extends Activity {
         setContentView(webView);
         webView.loadUrl(ResUtil.getPathFromAssets("web.html"));
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        WebViewUtil.setCommonSetting(webSettings, true);
         webView.addJavascriptInterface(this, "android");
     }
 
@@ -48,5 +48,23 @@ public class WebActivity extends Activity {
     public void toast(String result, int index) {
         ToastUtil.show(result);
         LogUtil.d("toast %d", index);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebViewUtil.pauseWebView(webView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebViewUtil.resumeWebView(webView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebViewUtil.destroyWebView(webView);
     }
 }

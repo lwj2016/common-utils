@@ -6,6 +6,8 @@ import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.lwj.utils.log.LogUtil;
+
 /**
  * Created:2018/6/25
  * User：lwjfork
@@ -73,7 +75,7 @@ public class WebViewUtil {
         }
         // 允许打开窗口
         webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
-
+        // 缩放
         setZoom(webSetting, true);
         return webSetting;
     }
@@ -123,17 +125,25 @@ public class WebViewUtil {
 
 
     public static void resumeWebView(WebView webView) {
+        if (webView == null) {
+            return;
+        }
         webView.onResume();
         webView.resumeTimers();
+        LogUtil.d("WebView %s", "resume");
     }
 
-    public static void pasueWebView(WebView webView) {
+    public static void pauseWebView(WebView webView) {
+        if (webView == null) {
+            return;
+        }
         webView.onPause();
         webView.pauseTimers();
+        LogUtil.d("WebView %s", "pause");
     }
 
 
-    public static void destoryWebView(WebView webView) {
+    public static void destroyWebView(WebView webView) {
         if (webView != null) {
             webView.stopLoading();
             webView.clearHistory();
@@ -148,6 +158,7 @@ public class WebViewUtil {
             webView.destroy();
             webView = null;
         }
+        LogUtil.d("WebView %s", "destroy");
     }
 
     public static void main(String[] arags) {
