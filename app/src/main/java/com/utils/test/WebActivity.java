@@ -12,6 +12,9 @@ import com.lwj.utils.ToastUtil;
 import com.lwj.utils.WebViewUtil;
 import com.lwj.utils.log.LogUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created:2018/6/25
  * User：lwjfork
@@ -29,10 +32,19 @@ public class WebActivity extends Activity {
         super.onCreate(savedInstanceState);
         webView = new WebView(this);
         setContentView(webView);
-        webView.loadUrl(ResUtil.getPathFromAssets("web.html"));
+        String url = "https://www.baidu.com";
+        HashMap<String, String> cookie = new HashMap<>();
+        cookie.put("uid", "111");
+        cookie.put("name", "lwj");
+        WebViewUtil.setCookie(webView, url, cookie);
+        webView.loadUrl(url);
         WebSettings webSettings = webView.getSettings();
         WebViewUtil.setCommonSetting(webSettings, true);
         webView.addJavascriptInterface(this, "android");
+        Map<String, String> result = WebViewUtil.getCookie(url);
+
+        LogUtil.d("result %s", result.toString());
+
     }
 
 

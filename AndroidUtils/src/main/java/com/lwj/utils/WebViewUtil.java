@@ -2,11 +2,19 @@ package com.lwj.utils;
 
 import android.os.Build;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created:2018/6/25
@@ -19,6 +27,7 @@ import com.lwj.utils.log.LogUtil;
 public class WebViewUtil {
 
     public static final String JAVA_SCRIPT = "javascript:";
+    public static final String REGX = "; ";
 
     public static void executeJS(final WebView webView, String jsMethod, final ValueCallback callback, Object... jsParams) {
         final String url = buildJSUrl(jsMethod, jsParams);
@@ -164,6 +173,60 @@ public class WebViewUtil {
     public static void main(String[] arags) {
         String jsMethod = "test";
         System.out.println(buildJSUrl(jsMethod, "11", 1, 1));
+    }
+
+
+    public static void setCookie(WebView webView, String url, Map<String, String> values) {
+
+        if (!OSUtils.hasLollipop()) {
+            CookieSyncManager.createInstance(GlobalContext.getContext());
+        } else {
+            CookieManager.getInstance().setAcceptCookie(true);
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+        }
+        Set<Map.Entry<String, String>> set = values.entrySet();
+        Iterator<Map.Entry<String, String>> iterator = set.iterator();
+        CookieManager cookieManager = CookieManager.getInstance();
+        while (iterator.hasNext()) {
+            StringBuilder itemValue = new StringBuilder();
+            Map.Entry<String, String> entry = iterator.next();
+            String key = entry.getKey();
+            String value = entry.getValue();
+            itemValue.append(key).append("=").append(value);
+            cookieManager.setCookie(url, itemValue.toString());
+        }
+        if (!OSUtils.hasLollipop()) {
+            CookieSyncManager.createInstance(GlobalContext.getContext()).sync();
+        }
+    }
+
+
+    public static Map<String, String> getCookie(String url) {
+        HashMap<String, String> cookieValue = new HashMap<>();
+        CookieManager cookieManager = CookieManager.getInstance();
+        String cookie = cookieManager.getCookie(url);
+        if (cookie != null && cookie.length() > 0) {
+            String[] array = cookie.split(REGX);
+            for (String s : array) {
+                String[] itemValue = s.split("=");
+                if (itemValue != null && itemValue.length == 2) {
+                    cookieValue.put(itemValue[0], itemValue[1]);
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    public static void removeAllCookie() {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);// 允许接受 Cookie
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeAllCookie();// 移除
+        } else {
+            cookieManager.removeSessionCookies(null);// 移除
+
+        }
+        cookieManager.removeAllCookie();
     }
 
 }
