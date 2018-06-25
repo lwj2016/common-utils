@@ -2,30 +2,34 @@ package com.lwj.utils;
 
 import android.os.Build;
 
+
 /**
  * Created by lwj on 16/6/7.
  * Des:
  */
 public class OSUtils {
     /**
+     * 8
      * @return 2.2
      */
     public static boolean hasFroyo() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
+        return has(Build.VERSION_CODES.FROYO);
     }
 
     /**
+     * 9
      * @return 2.3
      */
     public static boolean hasGingerbread() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
+        return has(Build.VERSION_CODES.GINGERBREAD);
     }
 
     /**
+     * 11
      * @return 3.0
      */
     public static boolean hasHoneycomb() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+        return has(Build.VERSION_CODES.HONEYCOMB);
     }
 
     /**
@@ -34,15 +38,36 @@ public class OSUtils {
      * @return 4.0
      */
     public static boolean hasIceCreamSandwich() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        return has(Build.VERSION_CODES.ICE_CREAM_SANDWICH);
     }
 
 
     /**
+     * api 16
+     *
      * @return 4.2
      */
     public static boolean hasJellyBean() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+        return has(Build.VERSION_CODES.JELLY_BEAN);
+    }
+
+
+    /**
+     * api 17
+     *
+     * @return 4.3
+     */
+    public static boolean hasJELLY_BEAN_MR1() {
+        return has(Build.VERSION_CODES.JELLY_BEAN_MR1);
+    }
+
+    /**
+     * api 18
+     *
+     * @return 4.4
+     */
+    public static boolean hasJELLY_BEAN_MR2() {
+        return has(Build.VERSION_CODES.JELLY_BEAN_MR2);
     }
 
     /**
@@ -51,7 +76,7 @@ public class OSUtils {
      * @return 4.4
      */
     public static boolean hasKitKat() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        return has(Build.VERSION_CODES.KITKAT);
     }
 
     /**
@@ -60,7 +85,7 @@ public class OSUtils {
      * @return 5.0
      */
     public static boolean hasLollipop() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        return has(Build.VERSION_CODES.LOLLIPOP);
     }
 
 
@@ -70,7 +95,7 @@ public class OSUtils {
      * @return 5.1
      */
     public static boolean hasLollipop_MR1() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
+        return has(Build.VERSION_CODES.LOLLIPOP_MR1);
     }
 
     /**
@@ -79,7 +104,7 @@ public class OSUtils {
      * @return 6.0
      */
     public static boolean hasM() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+        return has(Build.VERSION_CODES.M);
     }
 
     /**
@@ -88,7 +113,7 @@ public class OSUtils {
      * @return 7.0
      */
     public static boolean hasN() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+        return has(Build.VERSION_CODES.N);
     }
 
     /**
@@ -97,6 +122,14 @@ public class OSUtils {
      * @return 7.1.1
      */
     public static boolean hasN_MR1() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+        return has(Build.VERSION_CODES.N_MR1);
+    }
+
+    /**
+     * The user-visible SDK version of the framework); its possible
+     * values are defined in {@link Build.VERSION_CODES}.
+     */
+    public static boolean has(int versionCode) {
+        return Build.VERSION.SDK_INT >= versionCode;
     }
 }

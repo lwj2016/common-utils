@@ -7,7 +7,7 @@ import android.graphics.drawable.StateListDrawable;
 
 /**
  * Created by lwj on 16/7/12.
- * liuwenjie@goumin.com
+ * lwjfork@gmail.com
  * shape util
  */
 public class ShapeUtil {
