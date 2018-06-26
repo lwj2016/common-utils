@@ -106,4 +106,14 @@ public class DeviceUtil {
         mTotal = Integer.parseInt(content);
         return mTotal;
     }
+
+    /**
+     * 判断GPS是否打开
+     * ACCESS_FINE_LOCATION权限
+     *
+     * @return
+     */
+    public static boolean isGPSEnabled() {
+        return GPSUtil.isGPSEnabled();
+    }
 }
