@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.lwj.utils.Preconditions.checkNotNUll;
 
 /**
  * Created by lwj on 16/6/7.
@@ -16,33 +15,8 @@ import static com.lwj.utils.Preconditions.checkNotNUll;
  */
 public class URLUtil {
 
-    public static void main(String[] args) {
-        String url1 = "http://www.runoob.com/java/java-url-processing.html";
-        String url2 = "http://www.runoob.com/java/java-url-processing.html?a=3&a&a=4&a=5&b=4#hh";
-        String url3 = "http://www.baidu.com/index.html?title=我是包含and符号&&的标题&&&12121212&id=024";
-//        System.out.println(getProtocol(url1));
-//        System.out.println(getHost(url1));
-//        System.out.println(getPath(url1));
-//        System.out.println(getQuery(url1));
-//        System.out.println(getQueryMap(url1));
-//        System.out.println(getRef(url1));
-//        System.out.println(getProtocol(url2));
-//        System.out.println(getHost(url2));
-//        System.out.println(getPath(url2));
-//        System.out.println(getQuery(url2));
-//        System.out.println(getQueryMap(url2));
-//        System.out.println(getRef(url2));
-//
-//        System.out.println(getProtocol(url3));
-//        System.out.println(getHost(url3));
-//        System.out.println(getPath(url3));
-        System.out.println(getQuery(url3));
-        System.out.println(getQueryMap(url3));
-        System.out.println(getRef(url3));
-    }
-
     public static URL getUrlFromStr(String urlStr) {
-        urlStr = checkNotNUll(urlStr, "URL String must not be null");
+        urlStr = ExceptionUtil.checkNotNUll(urlStr, "URL String must not be null");
         URL url = null;
         try {
             url = new URL(urlStr);
@@ -56,6 +30,7 @@ public class URLUtil {
      * 获取协议
      *
      * @param urlStr
+     *
      * @return
      */
     public static String getProtocol(String urlStr) {
@@ -76,6 +51,7 @@ public class URLUtil {
      * 返回URL的主机
      *
      * @param urlStr
+     *
      * @return
      */
     public static String getHost(String urlStr) {
@@ -97,6 +73,7 @@ public class URLUtil {
      * 返回URL路径部分
      *
      * @param urlStr
+     *
      * @return
      */
     public static String getPath(String urlStr) {
@@ -117,6 +94,7 @@ public class URLUtil {
      * 返回URL查询部分。
      *
      * @param urlStr
+     *
      * @return
      */
     public static String getQuery(String urlStr) {
@@ -137,6 +115,7 @@ public class URLUtil {
      * 获取此 URL 的锚点（也称为"引用"）。
      *
      * @param urlStr
+     *
      * @return
      */
     public static String getRef(String urlStr) {

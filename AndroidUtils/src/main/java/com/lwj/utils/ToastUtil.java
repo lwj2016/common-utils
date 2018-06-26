@@ -1,7 +1,6 @@
 package com.lwj.utils;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,18 +15,18 @@ import com.lwj.utils.context.GlobalContext;
 public class ToastUtil {
 
 
-    public static final int DEFAULT_GRAVITY = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-    public static final int X_OFFSET_DP = 0;
-    public static final int Y_OFFSET_DP = 64;
+    public static  int DEFAULT_GRAVITY = -1;
+    public static  int X_OFFSET_DP = -1;
+    public static  int Y_OFFSET_DP = -1;
+
 
     public static class ToastBuilder {
-        public Context context;
         int duration = Toast.LENGTH_LONG;
         String message;
         int msgId;
         int gravity = DEFAULT_GRAVITY;
-        int xOffset = 0;
-        int yOffset = 0;
+        int xOffset = X_OFFSET_DP;
+        int yOffset = Y_OFFSET_DP;
 
 
         private View view;
@@ -35,13 +34,12 @@ public class ToastUtil {
         private TextView tv;
 
         public ToastBuilder(Context context) {
-            this.context = context;
             yOffset = DisplayUtil.dp2px(Y_OFFSET_DP);
             xOffset = DisplayUtil.dp2px(X_OFFSET_DP);
         }
 
         public ToastBuilder setView(int layoutID, int tvID) {
-            view = View.inflate(context, layoutID, null);
+            view = ViewUtil.inflate(layoutID);
             return setMsgViewID(tvID);
         }
 
@@ -53,7 +51,7 @@ public class ToastUtil {
 
 
         public ToastBuilder setView(int layoutID) {
-            view = View.inflate(context, layoutID, null);
+            view = ViewUtil.inflate(layoutID);
             return this;
         }
 
@@ -63,7 +61,7 @@ public class ToastUtil {
         }
 
         public ToastBuilder setMsgViewID(int tvID) {
-            tv = (TextView) view.findViewById(tvID);
+            tv = ViewUtil.findViewById(view, tvID);
             return this;
         }
 
@@ -119,7 +117,7 @@ public class ToastUtil {
 
         private String getMsg() {
             if (msgId > 0) {
-                return context.getResources().getString(msgId);
+                return ResUtil.getString(msgId);
             }
             if (message != null && message.length() > 0) {
                 return message;
@@ -128,13 +126,12 @@ public class ToastUtil {
         }
 
         public void show() {
-
             if (view == null) {
-                Toast toast = Toast.makeText(context, getMsg(), duration);
+                Toast toast = Toast.makeText(GlobalContext.getContext(), getMsg(), duration);
                 toast.setGravity(gravity, xOffset, yOffset);
                 toast.show();
             } else {
-                Toast toast = new Toast(context);
+                Toast toast = new Toast(GlobalContext.getContext());
                 toast.setGravity(gravity, xOffset, yOffset);
                 toast.setDuration(duration);
                 toast.setView(view);
