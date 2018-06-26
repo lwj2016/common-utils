@@ -6,7 +6,6 @@
 package com.lwj.utils.context;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.lwj.utils.log.LogUtil;
 
@@ -15,24 +14,30 @@ import java.lang.reflect.Method;
 /**
  * Created by lwj on 2018/4/10.
  * lwjfork@gmail.com
- * 全局 Context
+ * <p>
+ * Application application = GlobalContext.getContext();
  */
 public class GlobalContext {
 
     private static Application sApplication;
 
 
+    /**
+     * @param _application Application
+     *
+     * @see #init()
+     */
     public static void setApplication(Application _application) {
         sApplication = _application;
     }
 
     /**
-     * 获得全局的context
+     * get Application
      *
-     * @return 全局的context   由 application
+     * @return Application
      */
 
-    public synchronized static Context getContext() {
+    public synchronized static Application getContext() {
         if (sApplication == null) {
             init();
         }
@@ -43,11 +48,13 @@ public class GlobalContext {
         init();
     }
 
+    /**
+     * initialize  by reflection
+     */
     @SuppressWarnings("all")
     public static void init() {
         if (sApplication == null) {
             try {
-
                 Class aClass = Class.forName("android.app.ActivityThread");
                 Method method = aClass.getMethod("currentApplication");
                 Application application = (Application) method.invoke(null, (Object[]) null);
