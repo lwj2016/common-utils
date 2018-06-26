@@ -14,7 +14,9 @@ public class Base64Util {
     /**
      * @param src     the data to encode
      * @param charset convert data to  byte
-     * @param flag
+     * @param flag  controls certain features of the encoded output.
+     *               Passing {@code DEFAULT} results in output that
+     *               adheres to RFC 2045.
      * @return result by encode
      * @see android.util.Base64
      */

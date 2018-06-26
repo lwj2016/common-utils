@@ -5,8 +5,8 @@ import android.support.annotation.DrawableRes;
 
 /**
  * Created:2018/6/19
- * User：liuwenjie
- * Email:liuwnejie180423@credithc.com
+ * User：lwjfork
+ * Email:lwjfork@gmail.com
  * Des:
  * ====================
  */

@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -163,18 +162,17 @@ public class ResUtil {
 
 
     /**
-     * @param _context
      * @param filename
      *
      * @return 从 assets 里读文件
      */
-    public static String getStrFromAssets(Context _context, String filename) {
+    public static String getStrFromAssets(String filename) {
         InputStream is;
 
         Writer writer = new StringWriter();
         char[] buffer = new char[8 * 1024];
         try {
-            is = _context.getResources().getAssets().open(filename);
+            is = getResources().getAssets().open(filename);
             Reader reader = new BufferedReader(new InputStreamReader(is));
             int n = 0;
             while ((n = reader.read(buffer)) != -1) {
@@ -185,6 +183,17 @@ public class ResUtil {
             e.printStackTrace();
         }
         return writer.toString();
+    }
+
+
+    /**
+     * @param filename
+     *
+     * @return 从 assets 里读文件
+     */
+    public static String getPathFromAssets(String filename) {
+
+        return "file:///android_asset/" + filename;
     }
 
 

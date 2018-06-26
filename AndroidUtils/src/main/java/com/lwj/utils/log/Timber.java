@@ -2,7 +2,7 @@ package com.lwj.utils.log;
 
 /**
  * Created by lwj on 2016/3/8.
- * liuwenjie@goumin.com
+ * lwjfork@gmail.com
  * Copy from https://github.com/JakeWharton/timber
  */
 
