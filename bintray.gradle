@@ -1,0 +1,124 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+void loadProperties(String sourceFileName) {
+    def config = new Properties()
+    def propFile = new File(sourceFileName)
+    config.load(new FileInputStream(propFile))
+    for (Map.Entry property in config) {
+        rootProject.extensions.extraProperties.set(property.key, property.value)
+    }
+
+}
+
+loadProperties(rootProject.getRootDir().getAbsolutePath() + "/local.properties")
+//填写唯一包名
+group = rootProject.ext.PROJ_GROUP
+version = rootProject.ext.PROJ_VERSION
+print("verion----->" + version)
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging "aar"
+
+                //添加项目描述
+                name rootProject.ext.PROJ_DESCRIPTION
+                url rootProject.ext.PROJ_WEBSITEURL
+
+                //设置开源证书信息
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                //添加开发者信息
+                developers {
+                    developer {
+                        id rootProject.ext.DEVELOPER_ID
+                        name rootProject.ext.DEVELOPER_NAME
+                        email rootProject.ext.DEVELOPER_EMAIL
+                    }
+                }
+
+                scm {
+                    connection rootProject.ext.PROJ_VCSURL
+                    developerConnection rootProject.ext.PROJ_VCSURL
+                    url rootProject.ext.PROJ_WEBSITEURL
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding = "utf-8"
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+//配置上传Bintray相关信息
+bintray {
+    //读取Bintray帐号和密码。
+    //一般的为了保密和安全性，在项目的local.properties文件中添加两行句话即可：
+    //BINTRAY_USER=username
+    //BINTRAY_APIKEY=apikey
+    user = rootProject.ext.BINTRAY_USER
+    key = rootProject.ext.BINTRAY_APIKEY
+
+    configurations = ['archives']
+
+    pkg {
+        repo = "maven"//上传的中央仓库名称
+        name = rootProject.ext.PROJ_NAME//上传的项目的名字
+        websiteUrl = rootProject.ext.PROJ_WEBSITEURL
+        vcsUrl = rootProject.ext.PROJ_VCSURL
+        licenses = ["Apache-2.0"]
+        publish = true  //是否发布
+    }
+}
+ext {
+    //#这里改成开发者id，比如
+    DEVELOPER_ID = ''
+    //#这里改成开发者名字，比如android
+    DEVELOPER_NAME = ''
+    //#这里改成开发者邮箱，比如[email]someone@android.com[/email]
+    DEVELOPER_EMAIL = ''
+//#  这里改成groupId，比如com.android.support
+    PROJ_GROUP = ''
+//# 这里改成库版本，比如22.2.0
+    PROJ_VERSION = ''
+//#这里改成库名字，比如appcompat
+    PROJ_NAME = ''
+//#这里改成github地址，比如https://github.com/android/appcompat
+    PROJ_WEBSITEURL = ''
+    //          #这里改成issue地址，比如https://github.com/android/appcompat/issues
+    PROJ_ISSUEURL = ''
+    //        #这里改成版本控制地主，比如https://github.com/android/appcompat.git
+    PROJ_VCSURL = ''
+    //      #这里改成库的描述信息
+    PROJ_DESCRIPTION = ''
+    //    #这里改成库的标示，比如appcompat-v7
+    PROJ_ARTIFACTID = ''
+    //  # 用户名
+    BINTRAY_USER = ''
+    //# key
+    BINTRAY_APIKEY = ''
+}
+//    how to import and compile
+//    compile PROJ_GROUP:PROJ_NAME:PROJ_VERSION

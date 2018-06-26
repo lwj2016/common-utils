@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,9 +16,9 @@ import com.lwj.utils.context.GlobalContext;
 public class ToastUtil {
 
 
-    public static  int DEFAULT_GRAVITY = -1;
-    public static  int X_OFFSET_DP = -1;
-    public static  int Y_OFFSET_DP = -1;
+    public static final int DEFAULT_GRAVITY = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+    public static final int X_OFFSET_DP = 0;
+    public static final int Y_OFFSET_DP = 64;
 
 
     public static class ToastBuilder {

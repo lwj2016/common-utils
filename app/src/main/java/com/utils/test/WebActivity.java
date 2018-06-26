@@ -32,7 +32,7 @@ public class WebActivity extends Activity {
         super.onCreate(savedInstanceState);
         webView = new WebView(this);
         setContentView(webView);
-        String url = "https://www.baidu.com";
+        String url = ResUtil.getPathFromAssets("web.html");
         HashMap<String, String> cookie = new HashMap<>();
         cookie.put("uid", "111");
         cookie.put("name", "lwj");
