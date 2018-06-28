@@ -2,28 +2,15 @@ package com.lwj.utils;
 
 import com.lwj.utils.log.LogUtil;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Created by lwj on 16/5/16.
  * Des:
  */
 public class FormatUtil {
-    /**
-     *  求 地板运算
-     * @param f    float
-     * @return  long
-     */
-    public static long floor(double f) {
-        return (long) Math.floor(f);
-    }
 
-    /**
-     *  求 天棚 运算
-     * @param f  float
-     * @return  long
-     */
-    public static long ceil(double f) {
-        return (long) Math.ceil(f);
-    }
 
     public static int str2Int(String str) {
         int l = 0;
@@ -65,4 +52,6 @@ public class FormatUtil {
         }
         return l;
     }
+
+
 }

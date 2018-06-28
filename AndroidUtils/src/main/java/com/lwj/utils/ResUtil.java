@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ArrayRes;
@@ -61,7 +62,18 @@ public class ResUtil {
      * @return color
      */
     public static int getColor(@ColorRes int resId) {
-        return getResources().getColor(resId);
+        return ContextCompat.getColor(GlobalContext.getContext(), resId);
+    }
+
+    /**
+     * create Drawable by color
+     *
+     * @param resId color id
+     *
+     * @return Drawable
+     */
+    public static Drawable getColorDrawable(@ColorRes int resId) {
+        return new ColorDrawable(getColor(resId));
     }
 
 
