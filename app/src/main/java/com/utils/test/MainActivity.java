@@ -39,6 +39,11 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
             }
         });
         DrawableUtil.setTopDrawable(tv_empty, R.mipmap.ic_launcher);
+        DrawableUtil.setLeftDrawable(ViewUtil.findTextViewById(this,R.id.tv_left), R.mipmap.ic_launcher);
+        DrawableUtil.setTopDrawable(ViewUtil.findTextViewById(this,R.id.tv_top), R.mipmap.ic_launcher);
+        DrawableUtil.setRightDrawable(ViewUtil.findTextViewById(this,R.id.tv_right), R.mipmap.ic_launcher);
+        DrawableUtil.setBottomDrawable(ViewUtil.findTextViewById(this,R.id.tv_bottom), R.mipmap.ic_launcher);
+
         backPress.setOnBackPressListener(this);
     }
 
