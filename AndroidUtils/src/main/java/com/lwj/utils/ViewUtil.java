@@ -2,6 +2,8 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -65,6 +67,57 @@ public class ViewUtil {
             _view.setVisibility(View.VISIBLE);
         }
 
+    }
+
+
+    public static <T extends TextView> void setCompoundDrawables(T view, @Nullable Drawable leftRes, @Nullable Drawable topRes,
+                                                                 @Nullable Drawable rightRes, @Nullable Drawable bottomRes) {
+        if (leftRes != null) {
+            leftRes.setBounds(0, 0, leftRes.getMinimumWidth(), leftRes.getMinimumHeight());//对图片进行压缩
+        }
+        if (rightRes != null) {
+            rightRes.setBounds(0, 0, rightRes.getMinimumWidth(), rightRes.getMinimumHeight());//对图片进行压缩
+        }
+        if (topRes != null) {
+            topRes.setBounds(0, 0, topRes.getMinimumWidth(), topRes.getMinimumHeight());//对图片进行压缩
+        }
+        if (bottomRes != null) {
+            bottomRes.setBounds(0, 0, bottomRes.getMinimumWidth(), bottomRes.getMinimumHeight());//对图片进行压缩
+        }
+        view.setCompoundDrawables(leftRes, topRes, rightRes, bottomRes);
+    }
+
+
+    public static <T extends TextView> void setLeftDrawable(T view, @DrawableRes int id) {
+        view.setCompoundDrawables(DrawableUtil.getBoundDrawable(id), null, null, null);
+    }
+
+    public static <T extends TextView> void setTopDrawable(T view, @DrawableRes int id) {
+        view.setCompoundDrawables(null, DrawableUtil.getBoundDrawable(id), null, null);
+    }
+
+    public static <T extends TextView> void setRightDrawable(T view, @DrawableRes int id) {
+        view.setCompoundDrawables(null, null, DrawableUtil.getBoundDrawable(id), null);
+    }
+
+    public static <T extends TextView> void setBottomDrawable(T view, @DrawableRes int id) {
+        view.setCompoundDrawables(null, null, null, DrawableUtil.getBoundDrawable(id));
+    }
+
+    public static <T extends TextView> void setLeftDrawable(T view, Drawable drawable) {
+        view.setCompoundDrawables(DrawableUtil.getBoundDrawable(drawable), null, null, null);
+    }
+
+    public static <T extends TextView> void setTopDrawable(T view, Drawable drawable) {
+        view.setCompoundDrawables(null, DrawableUtil.getBoundDrawable(drawable), null, null);
+    }
+
+    public static <T extends TextView> void setRightDrawable(T view, Drawable drawable) {
+        view.setCompoundDrawables(null, null, DrawableUtil.getBoundDrawable(drawable), null);
+    }
+
+    public static <T extends TextView> void setBottomDrawable(T view, Drawable drawable) {
+        view.setCompoundDrawables(null, null, null, DrawableUtil.getBoundDrawable(drawable));
     }
 
 
