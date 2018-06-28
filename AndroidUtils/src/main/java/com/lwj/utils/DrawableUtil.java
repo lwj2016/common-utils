@@ -29,26 +29,19 @@ public class DrawableUtil {
     }
 
 
-    public static <T extends TextView> void setCompoundDrawables(T view, @Nullable Drawable leftRes, @Nullable Drawable topRes,
-                                                                 @Nullable Drawable rightRes, @Nullable Drawable bottomRes) {
-        if (leftRes != null) {
-            leftRes.setBounds(0, 0, leftRes.getMinimumWidth(), leftRes.getMinimumHeight());//对图片进行压缩
-        }
-        if (rightRes != null) {
-            rightRes.setBounds(0, 0, rightRes.getMinimumWidth(), rightRes.getMinimumHeight());//对图片进行压缩
-        }
-        if (topRes != null) {
-            topRes.setBounds(0, 0, topRes.getMinimumWidth(), topRes.getMinimumHeight());//对图片进行压缩
-        }
-        if (bottomRes != null) {
-            bottomRes.setBounds(0, 0, bottomRes.getMinimumWidth(), bottomRes.getMinimumHeight());//对图片进行压缩
-        }
-        view.setCompoundDrawables(leftRes, topRes, rightRes, bottomRes);
+    public static <T extends TextView> void setCompoundDrawables(T view, @Nullable Drawable leftRes, @Nullable Drawable topRes, @Nullable Drawable rightRes, @Nullable Drawable bottomRes) {
+        view.setCompoundDrawables(getBoundDrawable(leftRes),
+                getBoundDrawable(topRes),
+                getBoundDrawable(rightRes),
+                getBoundDrawable(bottomRes));
     }
 
 
     public static <T extends TextView> void setCompoundDrawables(T view, int leftRes, int topRes, int rightRes, int bottomRes) {
-        view.setCompoundDrawables(getBoundDrawable(leftRes), getBoundDrawable(topRes), getBoundDrawable(rightRes), getBoundDrawable(bottomRes));
+        view.setCompoundDrawables(getBoundDrawable(leftRes),
+                getBoundDrawable(topRes),
+                getBoundDrawable(rightRes),
+                getBoundDrawable(bottomRes));
     }
 
 
