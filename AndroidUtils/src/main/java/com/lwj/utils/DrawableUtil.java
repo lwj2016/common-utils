@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -75,6 +76,45 @@ public class DrawableUtil {
 
     public static <T extends TextView> void setBottomDrawable(T view, Drawable drawable) {
         view.setCompoundDrawables(null, null, null, DrawableUtil.getBoundDrawable(drawable));
+    }
+
+    /**
+     * 清除图片
+     *
+     * @param view
+     * @param <T>
+     */
+    public static <T extends TextView> void clearCompoundDrawables(T view) {
+        setCompoundDrawables(view, null, null, null, null);
+    }
+
+
+    public static DrawableBuilder getStateDrawableBuilder() {
+        return new DrawableBuilder();
+    }
+
+    public static class DrawableBuilder {
+        StateListDrawable stateListDrawable = new StateListDrawable();
+
+        private DrawableBuilder() {
+
+        }
+
+        public DrawableBuilder addState(Drawable drawable, int... stateSet) {
+            stateListDrawable.addState(stateSet, drawable);
+            return this;
+        }
+
+
+        public DrawableBuilder addState(@DrawableRes int id, int... stateSet) {
+            stateListDrawable.addState(stateSet, ResUtil.getDrawable(id));
+            return this;
+        }
+
+
+        public StateListDrawable getStateListDrawable() {
+            return stateListDrawable;
+        }
     }
 
 

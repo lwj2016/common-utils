@@ -20,10 +20,10 @@ public class ShapeUtil {
      * @param color  int
      * @return shape
      */
-    public static GradientDrawable createRectangleShape(int radius, int color) {
+    public static GradientDrawable getGradientDrawable(int radius, int color) {
 
         if (radius <= 0) {
-            return createRectangleShape(color);
+            return getGradientDrawable(color);
         }
 
         GradientDrawable shape = new GradientDrawable();
@@ -33,13 +33,14 @@ public class ShapeUtil {
         return shape;
     }
 
+
     /**
      * 创建矩形 shape 资源
      *
      * @param color
      * @return
      */
-    public static GradientDrawable createRectangleShape(int color) {
+    public static GradientDrawable getGradientDrawable(int color) {
 
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
