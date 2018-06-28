@@ -114,7 +114,11 @@ public class ResUtil {
 
 
     public static Drawable getDrawable(@DrawableRes int drawableResId) {
-        return ContextCompat.getDrawable(GlobalContext.getContext(), drawableResId);
+        try {
+            return ContextCompat.getDrawable(GlobalContext.getContext(), drawableResId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 
