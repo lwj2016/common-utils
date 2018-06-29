@@ -91,6 +91,7 @@ public class NetUtil {
                                 || subType == TelephonyManager.NETWORK_TYPE_EVDO_B
                                 || subType == TelephonyManager.NETWORK_TYPE_EHRPD
                                 || subType == TelephonyManager.NETWORK_TYPE_HSPAP
+                                || subType == TelephonyManager.NETWORK_TYPE_TD_SCDMA
                                 ) {
                             type = TYPE_3G;
                         } else if (subType == TelephonyManager.NETWORK_TYPE_LTE) {

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by lwj on 16/3/23.
  * Des: 正则工具类
  */
-public class RegularUtil extends StringUtil {
+public class RegularUtil extends StrUtil {
     /**
      * 验证输入的邮箱格式是否符合
      *

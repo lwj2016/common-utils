@@ -144,12 +144,12 @@ public class URLUtil {
     public static Map<String, ArrayList<String>> getQueryMap(String urlStr) {
         Map<String, ArrayList<String>> mapRequest = new HashMap<String, ArrayList<String>>();
         String query = getQuery(urlStr);
-        if (StringUtil.isEmpty(query)) {
+        if (StrUtil.isEmpty(query)) {
             return mapRequest;
         }
         String[] queryArray = query.split("&");
         for (String str : queryArray) {
-            if (StringUtil.isEmpty(str)) {
+            if (StrUtil.isEmpty(str)) {
                 continue;
             }
             ArrayList<String> strings = null;

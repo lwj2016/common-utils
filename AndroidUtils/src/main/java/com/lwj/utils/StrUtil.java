@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public class StringUtil {
+public class StrUtil {
 
 
     public static boolean isEmpty(String str) {

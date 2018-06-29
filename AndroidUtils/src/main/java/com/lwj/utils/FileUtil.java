@@ -250,7 +250,7 @@ public class FileUtil extends ZipUtil {
      */
     public static boolean isFileExists(String path) {
 
-        if (StringUtil.isEmpty(path)) {
+        if (StrUtil.isEmpty(path)) {
             return false;
         }
 

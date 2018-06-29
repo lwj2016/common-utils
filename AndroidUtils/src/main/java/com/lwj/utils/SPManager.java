@@ -32,14 +32,15 @@ public class SPManager {
     public static SPManager getManager(String preName) {
         SPManager manager = managers.get(preName);
         if (manager == null) {
-            manager = new SPManager(GlobalContext.getContext(), preName);
+            manager = new SPManager(preName);
             managers.put(preName, manager);
         }
         return manager;
     }
 
-    private SPManager(Context context, String preName) {
-        this.mSharedPreferences = context.getSharedPreferences(preName, Context.MODE_PRIVATE);
+    @SuppressWarnings("all")
+    private SPManager(String preName) {
+        this.mSharedPreferences = GlobalContext.getContext().getSharedPreferences(preName, Context.MODE_PRIVATE);
         editor = this.mSharedPreferences.edit();
     }
 
@@ -272,7 +273,7 @@ public class SPManager {
         Object obj = null;
         try {
             String productString = getString(key, "");
-            if (StringUtil.isEmpty(productString)) {
+            if (StrUtil.isEmpty(productString)) {
                 return defValue;
             }
             byte[] base64Product = Base64.decode(productString, Base64.DEFAULT);

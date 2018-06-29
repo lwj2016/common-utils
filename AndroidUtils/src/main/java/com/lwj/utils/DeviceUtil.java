@@ -48,7 +48,7 @@ public class DeviceUtil {
         }
 
         String device_id = tm.getDeviceId();
-        if (StringUtil.isEmpty(device_id)) {
+        if (StrUtil.isEmpty(device_id)) {
             LogUtil.e("device_id %s", "null");
         }
         return device_id;
