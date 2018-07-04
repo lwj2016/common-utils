@@ -19,6 +19,7 @@ public class MD5Util {
      * 将字符串装换为MD5
      *
      * @param str
+     *
      * @return
      */
     public static String str2Md5Str(String str) {
@@ -33,6 +34,19 @@ public class MD5Util {
 
         return str;
     }
+
+
+    /**
+     * 将字符串装换为MD5
+     *
+     * @param str
+     *
+     * @return
+     */
+    public static String str2Md5Str(String str, int length) {
+        return str2MD5Str(str, 0, length);
+    }
+
 
     public static String str2MD5Str(String str, int start, int end) {
         String md5 = str2Md5Str(str);
@@ -85,6 +99,7 @@ public class MD5Util {
      * get the md5 of file
      *
      * @param filename
+     *
      * @return
      */
     public static String md5File(String filename) {

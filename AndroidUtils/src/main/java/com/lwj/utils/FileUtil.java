@@ -23,7 +23,6 @@ public class FileUtil extends ZipUtil {
     /**
      * @param path directory path
      * @param name file name
-     *
      * @return really path for this file
      */
     public static String getFilePath(String path, String name) {
@@ -53,54 +52,113 @@ public class FileUtil extends ZipUtil {
 
 
     /**
-     * @param path directory path
-     * @param name file name
+     * 创建目录
      *
-     * @return really path for this file
+     * @param path
+     * @return
      */
-    public static File getFile(String path, String name) throws IOException {
-        String resultPath = getFilePath(path, name);
-        if (resultPath != null && createNewFile(resultPath)) {
-            return new File(resultPath);
+    public static File createDirectory(String path) {
+        File dir = new File(path);
+        if (dir.isFile()) {
+            boolean isDelete = dir.delete();
+            if (!isDelete) { // 删除失败
+                return null;
+            }
         }
-        return null;
+        boolean isHaveDir = dir.exists();
+        if (!isHaveDir) { // 目录不存在，创建目录
+            isHaveDir = dir.mkdirs();
+        }
+        if (!isHaveDir) { // 目录创建失败了
+            return null;
+        }
+        return dir;
     }
 
 
     /**
-     * @param path directory path
-     * @param name file name
+     * 创建目录
      *
-     * @return really path for this file
+     * @param path
+     * @return
      */
-    public static File getFolder(String path, String name) {
-        String resultPath = getFilePath(path, name);
-        if (resultPath != null && createNewFolder(resultPath)) {
-            return new File(resultPath);
+    public static File createDirectory(String path, String name) {
+        return createDirectory(getFilePath(path, name));
+    }
+
+
+    /**
+     * 创建文件
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static File createFile(String path) throws IOException {
+        File file = new File(path);
+        if (file.exists()) {
+            return file;
+        }
+        boolean isCreate = file.createNewFile();
+        if (isCreate) {
+            return file;
         }
         return null;
     }
 
     /**
-     * @param path directory path
-     * @param name file name
+     * 创建文件
      *
-     * @return really path for this file
+     * @param dir
+     * @param fileName
+     * @return
+     * @throws IOException
      */
-    public static String getFolderPath(String path, String name) {
-        String resultPath = getFilePath(path, name);
-        if (resultPath != null && createNewFolder(resultPath)) {
-            return new File(resultPath).getAbsolutePath();
+    public static File createFile(File dir, String fileName) throws IOException {
+        if (dir == null) {
+            return null;
         }
-        return null;
+        if (dir.isFile()) {
+            boolean isDelete = dir.delete();
+            if (!isDelete) { // 删除失败
+                return null;
+            }
+        }
+        boolean isHaveDir = true;
+        if (!dir.exists()) { // 目录已经存在
+            isHaveDir = dir.mkdirs();
+        }
+        if (!isHaveDir) { // 目录创建失败了
+            return null;
+        }
+
+        return createFile(dir.getAbsolutePath() + File.separator + fileName);
     }
+
+
+    /**
+     * 创建文件
+     *
+     * @param dirPath
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
+    public static File createFile(String dirPath, String fileName) throws IOException {
+        File dir = createDirectory(dirPath);
+        if (dir == null) {
+            return null;
+        }
+        return createFile(dir.getAbsolutePath() + File.separator + fileName);
+    }
+
 
     /**
      * @param object obj
      * @param path   directory
      * @param name   file name
      */
-    public synchronized static <T extends Serializable> void saveObject(T object, String path, String name) {
+    public synchronized static <T extends Serializable> void saveObj2File(T object, String path, String name) {
         String filePath = getFilePath(path, name);
         if (filePath == null) {
             return;
@@ -134,7 +192,7 @@ public class FileUtil extends ZipUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T readObject(String path, String name) {
+    public synchronized static <T> T readObjfromFile(String path, String name) {
         FileInputStream f_in = null;
         Object object = null;
         String filePath = path + File.separator + name;
@@ -179,22 +237,18 @@ public class FileUtil extends ZipUtil {
      * 移动文件
      *
      * @param srcFileName 源文件完整路径
-     * @param destDirName 目的目录完整路径
-     *
+     * @param desFileName 目的目录完整路径
      * @return 文件移动成功返回true，否则返回false
      */
-    public static boolean moveFile(String srcFileName, String destDirName) {
-
+    public static boolean moveFile(String srcFileName, String desFileName) {
         File srcFile = new File(srcFileName);
-
         if (!srcFile.exists() || !srcFile.isFile()) return false;
 
-        File destDir = new File(destDirName);
-        if (!destDir.exists()) {
-            destDir.mkdirs();
+        File destFile = new File(desFileName);
+        if (destFile.exists()) {
+            return false;
         }
-        // APPLOG.log("file path " + destDirName + srcFile.getName());
-        return srcFile.renameTo(new File(destDirName + File.separator + srcFile.getName()));
+        return srcFile.renameTo(destFile);
     }
 
     /**
@@ -222,13 +276,7 @@ public class FileUtil extends ZipUtil {
      * @param path
      */
     public static void deleteFiles(String path) {
-        File fileDel = new File(path);
-        if (fileDel.exists()) {
-            File[] files = fileDel.listFiles();
-            for (File file : files) {
-                file.delete();
-            }
-        }
+        deleteFilesAll(new File(path));
     }
 
     /**
@@ -238,23 +286,18 @@ public class FileUtil extends ZipUtil {
      */
     public static void deleteFile(String path) {
         File file = new File(path);
-        if (file.exists() && file.isFile()) {
-            file.delete();
-        }
+        file.deleteOnExit();
     }
 
     /**
      * @param path
-     *
      * @return true if file is exits,otherwise false
      */
     public static boolean isFileExists(String path) {
-
         if (StrUtil.isEmpty(path)) {
             return false;
         }
-
-        return new File(path).exists();
+        return isFileExists(new File(path));
     }
 
     public static boolean isFileExists(File file) {
@@ -266,50 +309,12 @@ public class FileUtil extends ZipUtil {
         return file.exists();
     }
 
-    public static boolean createNewFolder(String path) {
-        File file = new File(path);
-        if (!file.exists()) {
-            try {
-                return file.mkdirs();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (file.isDirectory()) {
-            return true;
-        } else {
-            if (file.delete()) {
-                return file.mkdirs();
-            }
-        }
-        return false;
-    }
-
-    public static boolean createNewFile(String path) throws IOException {
-        File file = new File(path);
-        if (!file.exists()) {
-            try {
-                return file.createNewFile();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (file.isDirectory()) {
-            if (file.delete()) {
-                return file.createNewFile();
-            }
-        } else {
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * 从文件中读取数据
      *
      * @param fileName
-     *
      * @return
-     *
      * @throws java.io.IOException
      */
     public static String readStrFromFile(String fileName) throws IOException {
@@ -337,10 +342,9 @@ public class FileUtil extends ZipUtil {
      *
      * @param content
      * @param file
-     *
      * @throws java.io.IOException
      */
-    public static void writeStr2File(File file, String content) throws IOException {
+    public static void writeStr2File(String content, File file) throws IOException {
 
         FileOutputStream fos = null;
         try {

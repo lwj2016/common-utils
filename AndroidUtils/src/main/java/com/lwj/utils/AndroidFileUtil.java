@@ -80,7 +80,7 @@ public class AndroidFileUtil extends FileUtil {
         if (file == null) {
             file = getCacheFile(name);
         }
-        writeStr2File(file, content);
+        writeStr2File(content, file);
     }
 
 
@@ -94,26 +94,23 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * @param uniqueName
-     *
      * @return /data/data/{packageName}/cache/xxx
      */
     public synchronized static File getCacheDir(String uniqueName) {
-        return getFolder(getCacheDirPath(), uniqueName);
+        return createDirectory(getCacheDirPath(), uniqueName);
     }
 
 
     /**
      * @param uniqueName
-     *
      * @return /data/data/{packageName}/cache/xxx
      */
     public synchronized static File getCacheFile(String uniqueName) throws IOException {
-        return getFile(getCacheDirPath(), uniqueName);
+        return createFile(getCacheDirPath(), uniqueName);
     }
 
 
     /**
-     *
      * @return /data/data/{packageName}/files/
      */
     public synchronized static String getFilesDirPath() {
@@ -122,20 +119,18 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * @param uniqueName
-     *
      * @return /data/data/{packageName}/files/xxx
      */
     public synchronized static File getFilesDir(String uniqueName) {
-        return getFolder(getFilesDirPath(), uniqueName);
+        return createDirectory(getFilesDirPath(), uniqueName);
     }
 
     /**
      * @param uniqueName
-     *
      * @return /data/data/{packageName}/files/xxx
      */
     public synchronized static File getFilesFile(String uniqueName) throws IOException {
-        return getFile(getFilesDirPath(), uniqueName);
+        return createFile(getFilesDirPath(), uniqueName);
     }
 
 
@@ -151,7 +146,7 @@ public class AndroidFileUtil extends FileUtil {
 
 
     public static File getExternalCacheDirFile(String file) throws IOException {
-        return getFile(getExternalCacheDir().getAbsolutePath(), file);
+        return createFile(getExternalCacheDir().getAbsolutePath(), file);
     }
 
     public static String getExternalCacheDirFilePath(String file) throws IOException {
@@ -159,11 +154,11 @@ public class AndroidFileUtil extends FileUtil {
     }
 
     public static File getExternalCacheDirFolder(String file) throws IOException {
-        return getFolder(getExternalCacheDir().getAbsolutePath(), file);
+        return createDirectory(getExternalCacheDir().getAbsolutePath(), file);
     }
 
     public static String getExternalCacheDirFolderPath(String file) throws IOException {
-        return getFolderPath(getExternalCacheDir().getAbsolutePath(), file);
+        return getFilePath(getExternalCacheDir().getAbsolutePath(), file);
     }
 
 
@@ -189,7 +184,6 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * 有则返回，无则自己创建
-     *
      *
      * @return
      */
