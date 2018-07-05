@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Struct;
 
 
 /**
@@ -55,73 +56,38 @@ public class BitmapUtil {
 
     private static void saveBitmap2File(File saveDir, String jpgName,
                                         Bitmap bitmap, Bitmap.CompressFormat format, int width, int height) {
-        if (!saveDir.exists()) {
-            saveDir.mkdirs();
-        }
-        File jpgFile = new File(saveDir, jpgName);
-        try {
-            jpgFile.createNewFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
 
 
-        FileOutputStream fOut = null;
+        File file;
+
         try {
-            fOut = new FileOutputStream(jpgFile);
-        } catch (FileNotFoundException e) {
+            file = FileUtil.createFile(saveDir, jpgName);
+        } catch (IOException e) {
             e.printStackTrace();
             return;
         }
-        if (width * height != 0) {
-            Bitmap newBitmap = scaleBitmap(bitmap, width, height); // 根据所要的图片做相应修改
-            newBitmap.compress(format, 100, fOut);
-        } else
-            bitmap.compress(format, 100, fOut);
-        try {
-            if (fOut != null)
+        if (file != null) {
+            FileOutputStream fOut = null;
+            try {
+                fOut = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (width * height != 0) {
+                Bitmap newBitmap = scaleBitmap(bitmap, width, height); // 根据所要的图片做相应修改
+                newBitmap.compress(format, 100, fOut);
+            } else {
+                bitmap.compress(format, 100, fOut);
+            }
+            try {
                 fOut.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (fOut != null)
                 fOut.close();
-            bitmap.recycle();
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-
-    /**
-     * drawable 转 bitmap
-     *
-     * @param drawable srcDrawable
-     * @return bitmap
-     */
-    public static Bitmap drawable2Bitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bd = (BitmapDrawable) drawable;
-            return bd.getBitmap();
-        }
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(),
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
-    /**
-     * bitmap 转 drawable
-     *
-     * @param bitmap srcbitmap
-     * @return drawable
-     */
-    public static Drawable bitmap2Drawable(Bitmap bitmap) {
-        return new BitmapDrawable(ResUtil.getResources(), bitmap);
     }
 
 
@@ -133,27 +99,27 @@ public class BitmapUtil {
      * @param reqHeight
      * @return
      */
-    public static Bitmap getScaleBitmap(Bitmap bitmap, int reqWidth,
-                                        int reqHeight) {
+    public static Bitmap scaleBitmap(Bitmap bitmap, int reqWidth,
+                                     int reqHeight) {
         if (bitmap == null) {
             return null;
         }
-        float scale = 1f;
+
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
+        if (width == reqWidth && height == reqHeight) {
+            return bitmap;
+        }
         float scaleWidth = (float) reqWidth / (float) width;
         float scaleHeight = (float) reqHeight / (float) height;
-        if (scaleWidth == 1 && scaleHeight == 1) {// 不需要放大或缩小
-            return bitmap;
-        } else {// 取最小值
-            scale = scaleWidth > scaleHeight ? scaleHeight : scaleWidth;
-        }
+
         Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
+        matrix.postScale(scaleWidth, scaleHeight);
         Bitmap newBitmap = null;
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
-                    matrix, true);
+                    matrix, false);
+            recycleBitmap(bitmap, newBitmap);
         } catch (Exception e) {
             e.printStackTrace();
             System.gc();
@@ -161,32 +127,11 @@ public class BitmapUtil {
         return newBitmap;
     }
 
-    public static Bitmap scaleBitmap(Bitmap bitmap, int newWidth, int newHeight) {
-        if (bitmap == null)
-            return null;
-
+    public static Bitmap scaleBitmapByWidth(Bitmap bitmap, int newWidth) {
         int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHight);
-        Bitmap newBitmap = null;
-        try {
-            newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
-                    matrix, true);
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-            System.gc();
+        if (newWidth == width) {
+            return bitmap;
         }
-        if (newBitmap != bitmap) {
-            bitmap.recycle();
-        }
-        return newBitmap;
-    }
-
-    public static Bitmap scaleBitmapW(Bitmap bitmap, int newWidth) {
-        int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         float scaleWidth = ((float) newWidth) / width;
         Matrix matrix = new Matrix();
@@ -195,6 +140,7 @@ public class BitmapUtil {
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
                     matrix, true);
+            recycleBitmap(bitmap, newBitmap);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
             System.gc();
@@ -202,9 +148,13 @@ public class BitmapUtil {
         return newBitmap;
     }
 
-    public static Bitmap scaleBitmapH(Bitmap bitmap, int newHeight) {
-        int width = bitmap.getWidth();
+    public static Bitmap scaleBitmapByHeight(Bitmap bitmap, int newHeight) {
         int height = bitmap.getHeight();
+
+        if (newHeight == height) {
+            return bitmap;
+        }
+        int width = bitmap.getWidth();
         float scaleHeight = ((float) newHeight) / height;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleHeight, scaleHeight);
@@ -212,6 +162,7 @@ public class BitmapUtil {
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
                     matrix, true);
+            recycleBitmap(bitmap, newBitmap);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
             System.gc();
@@ -220,53 +171,26 @@ public class BitmapUtil {
     }
 
 
-    public static Bitmap getLocalBitmap(String imgPath) {
-        return getLocalBitmap(new File(imgPath));
+    public static Bitmap createBitmapByFile(String imgPath) {
+        return createBitmapByFile(imgPath, null);
     }
 
-    public static Bitmap getLocalBitmap(File imgFile) {
+    public static Bitmap createBitmapByFile(File imgFile) {
+        return createBitmapByFile(imgFile, null);
+    }
+
+
+    public static Bitmap createBitmapByFile(String imgPath, BitmapFactory.Options options) {
+        return createBitmapByFile(new File(imgPath), options);
+    }
+
+
+    public static Bitmap createBitmapByFile(File imgFile, BitmapFactory.Options options) {
         Bitmap bmp = null;
         if (imgFile.exists() && imgFile.isFile()) {
             InputStream is = null;
             try {
                 is = new FileInputStream(imgFile.getAbsolutePath());
-                bmp = BitmapFactory.decodeStream(is);
-            } catch (Throwable e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (is != null)
-                        is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return bmp;
-    }
-
-    //等比例缩放
-    public static Bitmap getScaleWH(Bitmap bitmap, int maxWitdh, int maxlength) {
-        Matrix matrix = new Matrix();
-        int width = bitmap.getWidth();// 获取资源位图的宽
-        int height = bitmap.getHeight();// 获取资源位图的高
-        float w = maxWitdh / bitmap.getWidth();
-        float h = maxlength / bitmap.getHeight();
-        matrix.postScale(w, h);// 获取缩放比例
-        // 根据缩放比例获取新的位图
-        Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        return newbmp;
-    }
-
-    public static Bitmap getScaledLocalBitmap(String imgPath, int sampleSize) {
-        File imgFile = new File(imgPath);
-        Bitmap bmp = null;
-        if (imgFile.exists() && imgFile.isFile()) {
-            InputStream is = null;
-            try {
-                is = new FileInputStream(imgPath);
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = sampleSize;
                 bmp = BitmapFactory.decodeStream(is, null, options);
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -282,28 +206,47 @@ public class BitmapUtil {
         return bmp;
     }
 
+
     /**
-     * 根据指定的宽、高，计算出成比例缩小的倍数，进行缩小。
+     * 获取图片文件的信息，是否旋转了90度，如果是则反转
      *
-     * @param imgPath
-     * @param reqWidth
-     * @param reqHeight
-     * @return
+     * @param path 图片的路径
      */
-    public static Bitmap getScaledLocalBitmap(String imgPath, int reqWidth,
-                                              int reqHeight) {
-        File imgFile = new File(imgPath);
-        Bitmap bmp = null;
+    public static Bitmap createBitmapByFixRotate(String path) {
+        int degree = getPicRotate(path);
+        return rotateBitmap(createBitmapByFile(path), degree);
+    }
+
+
+    public static Bitmap matrixBitmap(Bitmap srcBitmap, Matrix matrix) {
+        return createBitmap(srcBitmap, 0, 0, srcBitmap.getWidth(), srcBitmap.getHeight(), matrix, false);
+    }
+
+
+    public static Bitmap createBitmap(Bitmap srcBitmap, int x, int y, int width, int height,
+                                      Matrix matrix, boolean filter) {
+        return Bitmap.createBitmap(srcBitmap, x, y, width, height, matrix, filter);
+    }
+
+    public static Bitmap createBitmapByFile(String path, int width, int height) {
+        if (StrUtil.isEmpty(path)) {
+            return null;
+        }
+        return createBitmapByFile(new File(path), width, height);
+    }
+
+
+    public static Bitmap createBitmapByFile(File imgFile, int width, int height) {
         if (imgFile.exists() && imgFile.isFile()) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(imgPath, options);
-            options.inSampleSize = calculateInSampleSize(options, reqWidth,
-                    reqHeight);
+            BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
+            options.inSampleSize = calculateInSampleSize(options, width,
+                    height);
             options.inJustDecodeBounds = false;
-            bmp = BitmapFactory.decodeFile(imgPath, options);
+            return createBitmapByFile(imgFile, options);
         }
-        return bmp;
+        return null;
     }
 
 
@@ -325,23 +268,6 @@ public class BitmapUtil {
         return inSampleSize;
     }
 
-    /**
-     * 获取图片文件的信息，是否旋转了90度，如果是则反转
-     *
-     * @param bitmap 需要旋转的图片
-     * @param path   图片的路径
-     */
-    public static Bitmap reviewPicRotate(Bitmap bitmap, String path) {
-        int degree = getPicRotate(path);
-        if (degree != 0) {
-            Matrix m = new Matrix();
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            m.setRotate(degree); // 旋转angle度
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, m, true);// 从新生成图片
-        }
-        return bitmap;
-    }
 
     /**
      * 读取图片文件旋转的角度
@@ -372,110 +298,46 @@ public class BitmapUtil {
     }
 
 
-    public static final int UNCONSTRAINED = -1;
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+        if (degree % 360 == 0) {
+            return bitmap;
+        }
 
-    public static BitmapFactory.Options getOptions(String path) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-        return options;
+        Matrix matrix = new Matrix();
+        matrix.setRotate(degree);
+        return matrixBitmap(bitmap, matrix);
     }
 
+
     /**
-     * get bitmap without oom
+     * drawable 转 bitmap
      *
-     * @param path
-     * @param options
-     * @return
+     * @param drawable srcDrawable
+     * @return bitmap
      */
-    public static Bitmap getBitmapByPath(String path, BitmapFactory.Options options, int screenWidth, int screenHeight) {
-        File file = new File(path);
-        if (!file.exists()) {
-            return null;
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bd = (BitmapDrawable) drawable;
+            return bd.getBitmap();
         }
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        if (options != null) {
-            Rect r = getScreenRegion(screenWidth, screenHeight);
-            int w = r.width();
-            int h = r.height();
-            int maxSize = w > h ? w : h;
-            int inSimpleSize = computeSampleSize(options, maxSize, w * h);
-            options.inSampleSize = inSimpleSize;
-            options.inJustDecodeBounds = false;
-        }
-        Bitmap b = BitmapFactory.decodeStream(in, null, options);
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return b;
-    }
-
-
-    public static Bitmap getBitmapByPath(String path, int width, int height) {
-        if (path == null) {
-            return null;
-        }
-
-        return getBitmapByPath(path, getOptions(path), width, height);
-    }
-
-
-    private static Rect getScreenRegion(int width, int height) {
-        return new Rect(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     /**
-     * @param options
-     * @param minSideLength
-     * @param maxNumOfPixels
-     * @return
+     * bitmap 转 drawable
+     *
+     * @param bitmap srcbitmap
+     * @return drawable
      */
-    public static int computeSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
-        int initialSize = computeInitialSampleSize(options, minSideLength, maxNumOfPixels);
-
-        int roundedSize;
-        if (initialSize <= 8) {
-            roundedSize = 1;
-            while (roundedSize < initialSize) {
-                roundedSize <<= 1;
-            }
-        } else {
-            roundedSize = (initialSize + 7) / 8 * 8;
-        }
-
-        return roundedSize;
+    public static Drawable bitmap2Drawable(Bitmap bitmap) {
+        return new BitmapDrawable(bitmap);
     }
-
-    private static int computeInitialSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
-        double w = options.outWidth;
-        double h = options.outHeight;
-
-        int lowerBound = (maxNumOfPixels == UNCONSTRAINED) ? 1 : (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
-        int upperBound =
-                (minSideLength == UNCONSTRAINED) ? 128 : (int) Math.min(Math.floor(w / minSideLength),
-                        Math.floor(h / minSideLength));
-
-        if (upperBound < lowerBound) {
-            // return the larger one when there is no overlapping zone.
-            return lowerBound;
-        }
-
-        if ((maxNumOfPixels == UNCONSTRAINED) && (minSideLength == UNCONSTRAINED)) {
-            return 1;
-        } else if (minSideLength == UNCONSTRAINED) {
-            return lowerBound;
-        } else {
-            return upperBound;
-        }
-    }
-
 
     /**
      * 获取圆角图片
