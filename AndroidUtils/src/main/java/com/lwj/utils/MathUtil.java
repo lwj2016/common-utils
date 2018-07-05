@@ -16,7 +16,6 @@ public class MathUtil {
      * 求 地板运算
      *
      * @param f float
-     *
      * @return long
      */
     public static long floor(double f) {
@@ -27,18 +26,38 @@ public class MathUtil {
      * 求 天棚 运算
      *
      * @param f float
-     *
      * @return long
      */
     public static long ceil(double f) {
         return (long) Math.ceil(f);
     }
 
+
+    /**
+     * 求 四舍五入
+     *
+     * @param f float
+     * @return long
+     */
+    public static long round(double f) {
+        return Math.round(f);
+    }
+
+    /**
+     * 求 四舍五入
+     *
+     * @param f float
+     * @return long
+     */
+    public static int round(float f) {
+        return Math.round(f);
+    }
+
+
     /**
      * @param num          待转换数字
      * @param newScale     保留小数点位数
      * @param roundingMode 舍入规则
-     *
      * @return 转换后数字
      */
     public static double getBigDecimal(double num, int newScale, RoundingMode roundingMode) {
@@ -52,7 +71,6 @@ public class MathUtil {
      *
      * @param num      待转换数字
      * @param newScale 保留小数点位数
-     *
      * @return 生成结果
      */
     public static double getBigDecimal(double num, int newScale) {
@@ -64,7 +82,6 @@ public class MathUtil {
      *
      * @param num          带转换数字
      * @param roundingMode 舍入规则
-     *
      * @return 结果
      */
     public static double getBigDecimal(double num, RoundingMode roundingMode) {
@@ -78,7 +95,6 @@ public class MathUtil {
      * 四舍五入
      *
      * @param num 待转换数字
-     *
      * @return 转换后数字
      */
     public static double getBigDecimal(double num) {
@@ -90,7 +106,6 @@ public class MathUtil {
      *
      * @param num1
      * @param num2
-     *
      * @return
      */
     public static double doubleAdd(double num1, double num2) {
@@ -104,7 +119,6 @@ public class MathUtil {
      *
      * @param num1
      * @param num2
-     *
      * @return
      */
     public static double doubleSubtract(double num1, double num2) {
@@ -118,7 +132,6 @@ public class MathUtil {
      *
      * @param num1
      * @param num2
-     *
      * @return
      */
     public static double doubleMultiply(double num1, double num2) {
@@ -132,7 +145,6 @@ public class MathUtil {
      *
      * @param num1
      * @param num2
-     *
      * @return
      */
     public static double doubleDivide(double num1, double num2) {
@@ -145,7 +157,6 @@ public class MathUtil {
      * @param num1
      * @param num2
      * @param roundingMode
-     *
      * @return
      */
     public static double doubleDivide(double num1, double num2, RoundingMode roundingMode) {
@@ -164,7 +175,7 @@ public class MathUtil {
 
         double x = 0.03;
         double y = 0.02;
-        System.out.println(x-y);
-        System.out.println(doubleSubtract(x,y));
+        System.out.println(x - y);
+        System.out.println(doubleSubtract(x, y));
     }
 }

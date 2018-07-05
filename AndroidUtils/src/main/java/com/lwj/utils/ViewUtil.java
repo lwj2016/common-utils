@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.VoiceInteractor;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -68,8 +69,6 @@ public class ViewUtil {
         }
 
     }
-
-
 
 
     public static LayoutInflater newInflate() {
@@ -169,5 +168,59 @@ public class ViewUtil {
         return findViewById(activity, id);
     }
 
+
+    public static <T extends TextView> void setCompoundDrawables(T view, @Nullable Drawable leftRes, @Nullable Drawable topRes, @Nullable Drawable rightRes, @Nullable Drawable bottomRes) {
+        DrawableUtil.setCompoundDrawables(view, leftRes, topRes, rightRes, bottomRes);
+    }
+
+
+    public static <T extends TextView> void setCompoundDrawables(T view, int leftRes, int topRes, int rightRes, int bottomRes) {
+
+        DrawableUtil.setCompoundDrawables(view, leftRes, topRes, rightRes, bottomRes);
+
+    }
+
+
+    public static <T extends TextView> void setLeftDrawable(T view, @DrawableRes int id) {
+        DrawableUtil.setLeftDrawable(view, id);
+    }
+
+    public static <T extends TextView> void setTopDrawable(T view, @DrawableRes int id) {
+        DrawableUtil.setTopDrawable(view, id);
+    }
+
+    public static <T extends TextView> void setRightDrawable(T view, @DrawableRes int id) {
+        DrawableUtil.setRightDrawable(view, id);
+    }
+
+    public static <T extends TextView> void setBottomDrawable(T view, @DrawableRes int id) {
+        DrawableUtil.setBottomDrawable(view, id);
+    }
+
+    public static <T extends TextView> void setLeftDrawable(T view, Drawable drawable) {
+        DrawableUtil.setLeftDrawable(view, drawable);
+    }
+
+    public static <T extends TextView> void setTopDrawable(T view, Drawable drawable) {
+        DrawableUtil.setTopDrawable(view, drawable);
+    }
+
+    public static <T extends TextView> void setRightDrawable(T view, Drawable drawable) {
+        DrawableUtil.setRightDrawable(view, drawable);
+    }
+
+    public static <T extends TextView> void setBottomDrawable(T view, Drawable drawable) {
+        DrawableUtil.setBottomDrawable(view, drawable);
+    }
+
+    /**
+     * 清除图片
+     *
+     * @param view
+     * @param <T>
+     */
+    public static <T extends TextView> void clearCompoundDrawables(T view) {
+        DrawableUtil.clearCompoundDrawables(view);
+    }
 
 }

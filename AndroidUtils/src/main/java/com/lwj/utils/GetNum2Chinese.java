@@ -146,6 +146,9 @@ public class GetNum2Chinese {
         }
         return sd;
     }
-
+    public static void main(String[] args){
+        String text = getCnString(110100000);
+        System.out.println(GetCH(110100000));
+    }
 
 }

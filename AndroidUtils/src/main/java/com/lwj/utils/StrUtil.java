@@ -26,6 +26,15 @@ public class StrUtil {
         return !isEmpty(string);
     }
 
+    /**
+     * @param res
+     * @param args
+     * @return
+     */
+    public static String getFormatStr(String res, Object... args) {
+        return String.format(res, args);
+    }
+
 
     /**
      * 数组转 字符串

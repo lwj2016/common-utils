@@ -151,4 +151,9 @@ public class GetNum2Upper {
     }
 
 
+    public static void main(String[] args){
+        String text = getCnString(110100000);
+        System.out.println(GetCH(110100000));
+    }
+
 }

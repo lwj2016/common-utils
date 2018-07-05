@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lwj.utils.ActivityUtil;
 import com.lwj.utils.AppBackPress;
+import com.lwj.utils.ColorUtil;
 import com.lwj.utils.DrawableUtil;
 import com.lwj.utils.ResUtil;
 import com.lwj.utils.ShapeUtil;
@@ -40,20 +41,18 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                 ActivityUtil.startActivity(MainActivity.this, WebActivity.class);
             }
         });
-        DrawableUtil.setTopDrawable(tv_empty, R.mipmap.ic_launcher);
-        DrawableUtil.setLeftDrawable(ViewUtil.findTextViewById(this, R.id.tv_left), R.mipmap.ic_launcher);
-        DrawableUtil.setTopDrawable(ViewUtil.findTextViewById(this, R.id.tv_top), R.mipmap.ic_launcher);
-        DrawableUtil.setRightDrawable(ViewUtil.findTextViewById(this, R.id.tv_right), R.mipmap.ic_launcher);
-        DrawableUtil.setBottomDrawable(ViewUtil.findTextViewById(this, R.id.tv_bottom), R.mipmap.ic_launcher);
+
 
         backPress.setOnBackPressListener(this);
 
 
-        tv_empty.setBackgroundDrawable(DrawableUtil.getStateDrawableBuilder()
-                .addState(R.mipmap.ic_launcher, android.R.attr.state_pressed)
-                .addState(ShapeUtil.getGradientDrawable(ResUtil.getColor(android.R.color.white)))
-                .getStateListDrawable());
 
+
+
+        tv_empty.setTextColor(ColorUtil.getColorStateListBuilder()
+                .addState(ResUtil.getColor(android.R.color.holo_red_dark), android.R.attr.state_pressed)
+                .addState(ResUtil.getColor(android.R.color.holo_blue_bright))
+                .getStateListDrawable());
     }
 
 

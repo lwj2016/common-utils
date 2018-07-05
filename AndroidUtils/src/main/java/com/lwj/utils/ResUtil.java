@@ -151,7 +151,7 @@ public class ResUtil {
      *
      * @return
      */
-    public static String getFormatString(String res, Object... args) {
+    public static String getFormatStr(String res, Object... args) {
         return String.format(res, args);
     }
 
@@ -161,8 +161,8 @@ public class ResUtil {
      *
      * @return
      */
-    public static String getFormatString(@StringRes int resId, Object... args) {
-        return getFormatString(ResUtil.getString(resId), args);
+    public static String getFormatStr(@StringRes int resId, Object... args) {
+        return getFormatStr(ResUtil.getString(resId), args);
     }
 
     /**

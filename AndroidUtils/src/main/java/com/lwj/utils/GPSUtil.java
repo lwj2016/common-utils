@@ -16,14 +16,19 @@ import com.lwj.utils.context.GlobalContext;
 public class GPSUtil {
 
 
+    public static LocationManager getManager() {
+        return ((LocationManager) GlobalContext.getContext().getSystemService(Context.LOCATION_SERVICE));
+    }
+
     /**
      * 判断GPS是否打开
      * ACCESS_FINE_LOCATION权限
+     *
      * @return
      */
     public static boolean isGPSEnabled() {
         //获取手机所有连接LOCATION_SERVICE对象
-        LocationManager locationManager = ((LocationManager) GlobalContext.getContext().getSystemService(Context.LOCATION_SERVICE));
+        LocationManager locationManager = getManager();
         return locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }

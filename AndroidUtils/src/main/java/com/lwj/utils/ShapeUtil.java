@@ -57,13 +57,12 @@ public class ShapeUtil {
      * @return
      */
     public static StateListDrawable createStateListDrawable(Drawable normalDrawable, Drawable pressDrawable) {
-        StateListDrawable stateListDrawable = new StateListDrawable();
-
-        addState(stateListDrawable, new int[]{android.R.attr.state_pressed}, pressDrawable);
-        addState(stateListDrawable, new int[]{android.R.attr.state_selected}, pressDrawable);
-        addState(stateListDrawable, new int[]{android.R.attr.state_checked}, pressDrawable);
-        addState(stateListDrawable, new int[]{}, normalDrawable);
-        return stateListDrawable;
+        return DrawableUtil.getStateDrawableBuilder()
+                .addState(pressDrawable, android.R.attr.state_pressed)
+                .addState(pressDrawable, android.R.attr.state_checked)
+                .addState(pressDrawable, android.R.attr.state_selected)
+                .addState(normalDrawable)
+                .getStateListDrawable();
     }
 
     public static StateListDrawable addState(StateListDrawable stateListDrawable, int[] stateSet, Drawable drawable) {

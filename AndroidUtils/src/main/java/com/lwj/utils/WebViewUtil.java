@@ -31,6 +31,7 @@ public class WebViewUtil {
 
     public static void executeJS(final WebView webView, String jsMethod, final ValueCallback callback, Object... jsParams) {
         final String url = buildJSUrl(jsMethod, jsParams);
+        LogUtil.d("execute JS code %s", url);
         webView.post(new Runnable() {
             @Override
             public void run() {
@@ -49,6 +50,7 @@ public class WebViewUtil {
 
     public static void loadUrl(final WebView webView, final String jsMethod, Object... jsParams) {
         final String url = buildJSUrl(jsMethod, jsParams);
+        LogUtil.d("execute JS code %s", url);
         webView.post(new Runnable() {
             @Override
             public void run() {
@@ -84,6 +86,10 @@ public class WebViewUtil {
         }
         // 允许打开窗口
         webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
+        // 禁止保存表单数据
+        webSetting.setSaveFormData(false);
+        // 禁止保存密码
+        webSetting.setSavePassword(false);
         // 缩放
         setZoom(webSetting, true);
         return webSetting;
