@@ -10,6 +10,8 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 
+import com.lwj.utils.log.LogUtil;
+
 import java.io.File;
 
 /**
@@ -233,6 +235,31 @@ public class SysIntentUtil {
         Uri uri = Uri.parse(strUrl);
         Intent it = new Intent("android.intent.action.VIEW", uri);
         context.startActivity(it);
+    }
+
+
+
+    /**
+     * 更新  手机相册 显示最新图片
+     *
+     * @param context context
+     * @param file    this file update
+     */
+    public static void updateGallery(Context context, File file) {
+        Intent intent = new Intent();
+        Uri uri = Uri.fromFile(file);
+        intent.setAction("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        intent.setData(uri);
+        context.sendBroadcast(intent);
+    }
+
+    public static void updateGallery(Context context, String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            updateGallery(context, file);
+            return;
+        }
+        LogUtil.w("%s isn't exist", filePath);
     }
 
 }
