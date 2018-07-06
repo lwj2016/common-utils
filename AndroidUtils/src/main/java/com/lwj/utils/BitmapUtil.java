@@ -119,7 +119,6 @@ public class BitmapUtil {
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
                     matrix, false);
-            recycleBitmap(bitmap, newBitmap);
         } catch (Exception e) {
             e.printStackTrace();
             System.gc();
@@ -140,7 +139,6 @@ public class BitmapUtil {
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
                     matrix, true);
-            recycleBitmap(bitmap, newBitmap);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
             System.gc();
@@ -162,7 +160,6 @@ public class BitmapUtil {
         try {
             newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,
                     matrix, true);
-            recycleBitmap(bitmap, newBitmap);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
             System.gc();
@@ -386,6 +383,40 @@ public class BitmapUtil {
         return output;
     }
 
+    /**
+     * 获取圆角图片-- 带边框
+     *
+     * @param srcBitmap
+     * @param radius      圆角半径
+     * @param borderColor 边框颜色
+     * @param borderWidth 边框宽度
+     * @return Bitmap
+     */
+    public static Bitmap bitmap2RoundBitmap(Bitmap srcBitmap, int radius, @ColorInt int borderColor, int borderWidth) {
+        Bitmap output = Bitmap.createBitmap(srcBitmap.getWidth(), srcBitmap
+                .getHeight(), srcBitmap.getConfig());
+        Canvas canvas = new Canvas(output);
+        Rect rect = new Rect(0, 0, srcBitmap.getWidth(), srcBitmap.getHeight());
+        RectF rectF = new RectF(rect);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(0xff424242);
+        canvas.drawRoundRect(rectF, radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(srcBitmap, rect, rect, paint);
+        if (borderWidth > 0) { // 画边框
+            Paint borderPaint = new Paint();
+            borderPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            borderPaint.setColor(borderColor);
+            borderPaint.setStrokeWidth(borderWidth);
+            borderPaint.setStyle(Paint.Style.STROKE);
+            borderPaint.setAntiAlias(true);
+            canvas.drawRoundRect(rectF, radius, radius, borderPaint);
+        }
+        return output;
+    }
+
 
     /**
      * 获取圆形图片
@@ -430,8 +461,8 @@ public class BitmapUtil {
         // Create and draw circle bitmap
         Bitmap output = Bitmap.createBitmap(minEdge, minEdge, srcBitmap.getConfig());
         Canvas canvas = new Canvas(output);
+        canvas.drawOval(new RectF(0, 0, minEdge, minEdge), paint);
         if (borderWidth > 0) {
-            canvas.drawOval(new RectF(0, 0, minEdge, minEdge), paint);
             Paint borderPaint = new Paint();
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(borderWidth);
@@ -441,11 +472,7 @@ public class BitmapUtil {
             borderPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             int radius = (int) (minEdge / 2f);
             canvas.drawCircle(radius, radius, radius, borderPaint);
-        } else {
-            canvas.drawOval(new RectF(0, 0, minEdge, minEdge), paint);
         }
-        // Recycle the source bitmap, because we already generate a new one
-        recycleBitmap(srcBitmap, output);
         return output;
     }
 
@@ -506,7 +533,6 @@ public class BitmapUtil {
         Matrix matrix = new Matrix();
         matrix.setScale(scale, scale);
         Bitmap result = Bitmap.createBitmap(bitmap, startX, startY, minWidth, minWidth, matrix, true);
-        recycleBitmap(bitmap, result);
         return result;
     }
 

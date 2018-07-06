@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorInt;
 
 /**
  * Created by lwj on 16/7/12.
@@ -20,7 +21,7 @@ public class ShapeUtil {
      * @param color  int
      * @return shape
      */
-    public static GradientDrawable getGradientDrawable(int radius, int color) {
+    public static GradientDrawable getGradientDrawable(@ColorInt int color, int radius) {
 
         if (radius <= 0) {
             return getGradientDrawable(color);
@@ -40,12 +41,9 @@ public class ShapeUtil {
      * @param color
      * @return
      */
-    public static GradientDrawable getGradientDrawable(int color) {
+    public static GradientDrawable getGradientDrawable(@ColorInt int color) {
 
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setColor(color);
-        return shape;
+        return getGradientDrawable(color, 0);
 
     }
 
@@ -58,10 +56,10 @@ public class ShapeUtil {
      */
     public static StateListDrawable createStateListDrawable(Drawable normalDrawable, Drawable pressDrawable) {
         return DrawableUtil.getStateDrawableBuilder()
-                .addState(pressDrawable, android.R.attr.state_pressed)
-                .addState(pressDrawable, android.R.attr.state_checked)
-                .addState(pressDrawable, android.R.attr.state_selected)
-                .addState(normalDrawable)
+                .addDrawableState(pressDrawable, android.R.attr.state_pressed)
+                .addDrawableState(pressDrawable, android.R.attr.state_checked)
+                .addDrawableState(pressDrawable, android.R.attr.state_selected)
+                .addDrawableState(normalDrawable)
                 .getStateListDrawable();
     }
 
@@ -71,7 +69,4 @@ public class ShapeUtil {
         return stateListDrawable;
     }
 
-    public static int praseColor(String color) {
-        return Color.parseColor(color);
-    }
 }

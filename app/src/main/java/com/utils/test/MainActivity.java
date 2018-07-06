@@ -1,6 +1,7 @@
 package com.utils.test;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -46,13 +47,12 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         backPress.setOnBackPressListener(this);
 
 
+        ColorStateList stateList = ColorUtil.getColorStateListBuilder()
+                .addColorResState(android.R.color.holo_red_dark, android.R.attr.state_pressed)
+                .addColorResState(android.R.color.holo_blue_bright)
+                .getColorStateList();
 
-
-
-        tv_empty.setTextColor(ColorUtil.getColorStateListBuilder()
-                .addState(ResUtil.getColor(android.R.color.holo_red_dark), android.R.attr.state_pressed)
-                .addState(ResUtil.getColor(android.R.color.holo_blue_bright))
-                .getStateListDrawable());
+        tv_empty.setTextColor(stateList);
     }
 
 

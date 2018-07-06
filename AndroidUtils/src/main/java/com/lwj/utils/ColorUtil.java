@@ -1,15 +1,10 @@
 package com.lwj.utils;
 
 import android.content.res.ColorStateList;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
-
-import com.lwj.utils.context.GlobalContext;
 
 import java.util.ArrayList;
 
@@ -20,6 +15,10 @@ import java.util.ArrayList;
 
 public class ColorUtil {
 
+
+    public static int praseColor(String color) {
+        return Color.parseColor(color);
+    }
 
     /**
      * 从colors.xml中读取color
@@ -67,14 +66,19 @@ public class ColorUtil {
 
         }
 
-        public ColorStateListBuilder addState(@ColorInt int colorInt, int... stateSet) {
+        public ColorStateListBuilder addColorState(@ColorInt int colorInt, int... stateSet) {
             state.add(stateSet);
             color.add(colorInt);
             return this;
         }
 
 
-        public ColorStateList getStateListDrawable() {
+        public ColorStateListBuilder addColorResState(@ColorRes int resId, int... stateSet) {
+            return addColorState(ResUtil.getColor(resId), stateSet);
+        }
+
+
+        public ColorStateList getColorStateList() {
 
             int num = state.size();
             int[][] states = new int[num][];

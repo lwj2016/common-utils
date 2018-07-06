@@ -84,12 +84,15 @@ public class WebViewUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //  5.0以后 https url load http image
             webSetting.setMixedContentMode(webSetting.getMixedContentMode());
         }
-        // 允许打开窗口
-        webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
         // 禁止保存表单数据
         webSetting.setSaveFormData(false);
         // 禁止保存密码
         webSetting.setSavePassword(false);
+        ;
+        // 支持js自动打开窗口
+        webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
+        // 当webview调用requestFocus时为webview设置节点
+        webSetting.setNeedInitialFocus(true);
         // 缩放
         setZoom(webSetting, true);
         return webSetting;
@@ -113,9 +116,14 @@ public class WebViewUtil {
             webSetting.setBuiltInZoomControls(false); //设置内置的缩放控件。若为false，则该WebView不可缩放
             webSetting.setDisplayZoomControls(true); //隐藏原生的缩放控件
         }
+
+        return webSetting;
+    }
+
+    public static WebSettings setAutoFit(WebSettings webSetting, boolean isAuto) {
         //设置自适应屏幕，两者合用
-        webSetting.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSetting.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+        webSetting.setUseWideViewPort(isAuto); //将图片调整到适合webview的大小
+        webSetting.setLoadWithOverviewMode(isAuto); // 缩放至屏幕的大小
         return webSetting;
     }
 
@@ -179,6 +187,7 @@ public class WebViewUtil {
     public static void main(String[] arags) {
         String jsMethod = "test";
         System.out.println(buildJSUrl(jsMethod, "11", 1, 1));
+        System.out.println(buildJSUrl(jsMethod, "11", "1", 133));
     }
 
 

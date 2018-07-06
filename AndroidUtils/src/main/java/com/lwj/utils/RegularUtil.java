@@ -53,13 +53,13 @@ public class RegularUtil extends StrUtil {
     }
 
     /**
-     * 验证手机号
+     * 验证手机号,考虑+86
      *
      * @param str
      * @return
      */
     public static boolean isPhone(String str) {
-        String p = "(^(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7})$";
+        String p = "(^(\\+86)?(13\\d|14[57]|15[^4,\\D]|17[678]|18\\d)\\d{8}|170[059]\\d{7})$";
 
         return isPhone(str, p);
     }
@@ -105,4 +105,16 @@ public class RegularUtil extends StrUtil {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
+
+    public static void main(String[] args) {
+
+        boolean isTrue = isPhone("+8618715618142");
+
+
+        System.out.println(isTrue);
+
+
+    }
+
 }

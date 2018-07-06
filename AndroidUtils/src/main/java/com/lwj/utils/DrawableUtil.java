@@ -100,13 +100,13 @@ public class DrawableUtil {
 
         }
 
-        public DrawableBuilder addState(Drawable drawable, int... stateSet) {
+        public DrawableBuilder addDrawableState(Drawable drawable, int... stateSet) {
             stateListDrawable.addState(stateSet, drawable);
             return this;
         }
 
 
-        public DrawableBuilder addState(@DrawableRes int id, int... stateSet) {
+        public DrawableBuilder addDrawableResState(@DrawableRes int id, int... stateSet) {
             stateListDrawable.addState(stateSet, ResUtil.getDrawable(id));
             return this;
         }

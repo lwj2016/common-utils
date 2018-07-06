@@ -11,14 +11,14 @@ import java.util.ArrayList;
  * lwjfork@gmail.com
  */
 
-public class TextSpanUtil {
+public class SpanUtil {
 
 
-    public static TextSpanUtil getInstance() {
-        return new TextSpanUtil();
+    public static SpanUtil getInstance() {
+        return new SpanUtil();
     }
 
-    private TextSpanUtil() {
+    private SpanUtil() {
     }
 
 
@@ -33,7 +33,7 @@ public class TextSpanUtil {
 
     public SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
 
-    public TextSpanUtil append(String string, Object... spans) {
+    public SpanUtil append(String string, Object... spans) {
         int start = stringBuilder.length();
         stringBuilder.append(string);
         int end = stringBuilder.length();
@@ -48,7 +48,7 @@ public class TextSpanUtil {
         return this;
     }
 
-    public TextSpanUtil append(String string, int flags, Object... spans) {
+    public SpanUtil append(String string, int flags, Object... spans) {
         int start = stringBuilder.length();
         stringBuilder.append(string);
         int end = stringBuilder.length();
@@ -63,12 +63,12 @@ public class TextSpanUtil {
         return this;
     }
 
-    public TextSpanUtil append(String string) {
+    public SpanUtil append(String string) {
         stringBuilder.append(string);
         return this;
     }
 
-    public TextSpanUtil append(SpannableStringBuilder stringBuilder) {
+    public SpanUtil append(SpannableStringBuilder stringBuilder) {
         stringBuilder.append(stringBuilder);
         return this;
     }
