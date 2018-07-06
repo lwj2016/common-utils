@@ -450,11 +450,11 @@ public class BitmapUtil {
         radiusArray[2] = rightTopRadius;
         radiusArray[3] = rightTopRadius;
 
-        radiusArray[4] = leftBottomRadius;
-        radiusArray[5] = leftBottomRadius;
+        radiusArray[4] = rightBottomRadius;
+        radiusArray[5] = rightBottomRadius;
 
-        radiusArray[6] = rightBottomRadius;
-        radiusArray[7] = rightBottomRadius;
+        radiusArray[6] = leftBottomRadius;
+        radiusArray[7] = leftBottomRadius;
 
         path.addRoundRect(new RectF(0, 0, width, height), radiusArray, Path.Direction.CW);
 
@@ -529,18 +529,18 @@ public class BitmapUtil {
      * Bitmap recycle
      * 防止在某些情况下两个Bitmap一样，导致使用了已经recycle的Bitmap
      *
-     * @param recycle
+     * @param recycled
      * @param another
      */
-    public static void recycleBitmap(Bitmap recycle, Bitmap another) {
-        if (recycle == null) {
+    public static void recycleBitmap(Bitmap recycled, Bitmap another) {
+        if (recycled == null) {
             return;
         }
-        if (recycle.isRecycled()) {
+        if (recycled.isRecycled()) {
             return;
         }
-        if (recycle != another) {
-            recycle.recycle();
+        if (recycled != another) {
+            recycled.recycle();
         }
     }
 

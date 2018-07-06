@@ -1,6 +1,9 @@
 package com.utils.test;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.lwj.utils.ActivityUtil;
 import com.lwj.utils.AppBackPress;
+import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
 import com.lwj.utils.DrawableUtil;
 import com.lwj.utils.ResUtil;
@@ -30,6 +34,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
 
     AppBackPress backPress = new AppBackPress();
     TextView tv_empty;
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +44,11 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         tv_empty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtil.startActivity(MainActivity.this, WebActivity.class);
+//                ActivityUtil.startActivity(MainActivity.this, WebActivity.class);
+                Intent intent = new Intent();
+                intent.setAction("Test");
+                intent.putExtra("test", "sssssssdx");
+                BroadcastUtil.sendBroadcast(intent);
             }
         });
 
@@ -53,6 +62,17 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                 .getColorStateList();
 
         tv_empty.setTextColor(stateList);
+
+
+        receiver = BroadcastUtil.register(this, new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String test = intent.getStringExtra("test");
+                LogUtil.e("test %s", test);
+            }
+        }, "Test");
+
+
     }
 
 
@@ -66,6 +86,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.e("onDestroy %s", "onDestroy");
+        BroadcastUtil.unregister(this, receiver);
     }
 
     @Override

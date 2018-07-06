@@ -29,12 +29,13 @@ public class BroadcastUtil {
      * @param receiver
      * @param action
      */
-    public static void register(Context context, BroadcastReceiver receiver, String... action) {
+    public static BroadcastReceiver register(Context context, BroadcastReceiver receiver, String... action) {
         IntentFilter filter = new IntentFilter();
         for (String s : action) {
             filter.addAction(s);
         }
         context.registerReceiver(receiver, filter);
+        return receiver;
     }
 
     /**
