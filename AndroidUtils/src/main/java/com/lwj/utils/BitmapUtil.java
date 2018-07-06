@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -365,22 +366,8 @@ public class BitmapUtil {
      * @return Bitmap
      */
     public static Bitmap bitmap2RoundBitmap(Bitmap srcBitmap, int radius) {
-        Bitmap output = Bitmap.createBitmap(srcBitmap.getWidth(), srcBitmap
-                .getHeight(), srcBitmap.getConfig());
-        Canvas canvas = new Canvas(output);
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, srcBitmap.getWidth(), srcBitmap.getHeight());
-        final RectF rectF = new RectF(rect);
 
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(0xff424242);
-        canvas.drawRoundRect(rectF, radius, radius, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(srcBitmap, rect, rect, paint);
-
-        return output;
+        return bitmap2RoundBitmap(srcBitmap, radius, Color.TRANSPARENT, 0);
     }
 
     /**
@@ -393,27 +380,87 @@ public class BitmapUtil {
      * @return Bitmap
      */
     public static Bitmap bitmap2RoundBitmap(Bitmap srcBitmap, int radius, @ColorInt int borderColor, int borderWidth) {
-        Bitmap output = Bitmap.createBitmap(srcBitmap.getWidth(), srcBitmap
-                .getHeight(), srcBitmap.getConfig());
+        int width = srcBitmap.getWidth();
+        int height = srcBitmap.getHeight();
+        Bitmap output = Bitmap.createBitmap(width, height, srcBitmap.getConfig());
         Canvas canvas = new Canvas(output);
-        Rect rect = new Rect(0, 0, srcBitmap.getWidth(), srcBitmap.getHeight());
+        Rect rect = new Rect(0, 0, width, height);
         RectF rectF = new RectF(rect);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(0xff424242);
+        canvas.drawARGB(0, 0, 0, 0);
+        // 绘制圆角矩形图
         canvas.drawRoundRect(rectF, radius, radius, paint);
+        // 交集部分显示上层图 即Bitmap部分
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(srcBitmap, rect, rect, paint);
         if (borderWidth > 0) { // 画边框
-            Paint borderPaint = new Paint();
-            borderPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            borderPaint.setColor(borderColor);
-            borderPaint.setStrokeWidth(borderWidth);
-            borderPaint.setStyle(Paint.Style.STROKE);
-            borderPaint.setAntiAlias(true);
-            canvas.drawRoundRect(rectF, radius, radius, borderPaint);
+            // 交集部分显示上层图 即Bitmap部分
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            paint.setColor(borderColor);
+            paint.setStrokeWidth(borderWidth);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setAntiAlias(true);
+            canvas.drawRoundRect(rectF, radius, radius, paint);
         }
+        return output;
+    }
+
+
+    /**
+     * @param srcBitmap         源Bitmap
+     * @param leftTopRadius     左上角角度半径
+     * @param rightTopRadius    右上角角度半径
+     * @param rightBottomRadius 右下角角度半径
+     * @param leftBottomRadius  左下角角度半径
+     * @return dest Bitmap
+     */
+    public static Bitmap bitmap2RoundBitmap(Bitmap srcBitmap, int leftTopRadius, int rightTopRadius, int rightBottomRadius, int leftBottomRadius) {
+        int width = srcBitmap.getWidth();
+        int height = srcBitmap.getHeight();
+        Bitmap output = Bitmap.createBitmap(width, height, srcBitmap.getConfig());
+        Canvas canvas = new Canvas(output);
+        Bitmap roundBitmap = createRoundBitmap(srcBitmap.getWidth(), srcBitmap.getHeight(), leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius);
+        canvas.drawBitmap(roundBitmap, 0, 0, new Paint(Paint.ANTI_ALIAS_FLAG));
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(srcBitmap, 0, 0, paint);
+        return output;
+    }
+
+    /**
+     * @param width             // 生成的Bitmap的宽度
+     * @param height            生成的Bitmap 的高度
+     * @param leftTopRadius     左上角角度半径
+     * @param rightTopRadius    右上角角度半径
+     * @param leftBottomRadius  左下角角度半径
+     * @param rightBottomRadius 右下角角度半径
+     * @return dest Bitmap
+     */
+    public static Bitmap createRoundBitmap(int width, int height, int leftTopRadius, int rightTopRadius, int rightBottomRadius, int leftBottomRadius) {
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        Path path = new Path();
+        float[] radiusArray = new float[8];
+        radiusArray[0] = leftTopRadius;
+        radiusArray[1] = leftTopRadius;
+
+        radiusArray[2] = rightTopRadius;
+        radiusArray[3] = rightTopRadius;
+
+        radiusArray[4] = leftBottomRadius;
+        radiusArray[5] = leftBottomRadius;
+
+        radiusArray[6] = rightBottomRadius;
+        radiusArray[7] = rightBottomRadius;
+
+        path.addRoundRect(new RectF(0, 0, width, height), radiusArray, Path.Direction.CW);
+
+        Paint bitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        bitmapPaint.setColor(Color.GREEN); // 颜色随意，不要有透明度。
+        canvas.drawPath(path, bitmapPaint);
         return output;
     }
 
@@ -447,9 +494,11 @@ public class BitmapUtil {
      * @return Drawable
      */
     public static Bitmap cropCircleBitmap(Bitmap srcBitmap, @ColorInt int borderColor, int borderWidth) {
-        int minEdge = Math.min(srcBitmap.getWidth(), srcBitmap.getHeight());
-        int dx = (srcBitmap.getWidth() - minEdge) / 2;
-        int dy = (srcBitmap.getHeight() - minEdge) / 2;
+        int width = srcBitmap.getWidth();
+        int height = srcBitmap.getHeight();
+        int minEdge = Math.min(width, height);
+        int dx = (width - minEdge) / 2;
+        int dy = (height - minEdge) / 2;
         // Init shader
         Shader shader = new BitmapShader(srcBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         Matrix matrix = new Matrix();
@@ -532,8 +581,7 @@ public class BitmapUtil {
         }
         Matrix matrix = new Matrix();
         matrix.setScale(scale, scale);
-        Bitmap result = Bitmap.createBitmap(bitmap, startX, startY, minWidth, minWidth, matrix, true);
-        return result;
+        return Bitmap.createBitmap(bitmap, startX, startY, minWidth, minWidth, matrix, true);
     }
 
 }
