@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 
 public class BluetoothUtil {
 
-    public static boolean isSupporBluetooth() {
+    public static boolean isSupportBluetooth() {
         return BluetoothAdapter.getDefaultAdapter() != null;
     }
 
@@ -137,9 +137,7 @@ public class BluetoothUtil {
                                  String str) throws Exception {
 
         try {
-            Method removeBondMethod = btClass.getDeclaredMethod("setPin",
-                    new Class[]
-                            {byte[].class});
+            Method removeBondMethod = btClass.getDeclaredMethod("setPin", new Class[]{byte[].class});
             Boolean returnValue = (Boolean) removeBondMethod.invoke(btDevice,
                     new Object[]
                             {str.getBytes()});

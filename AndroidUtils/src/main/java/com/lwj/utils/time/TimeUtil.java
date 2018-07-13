@@ -327,6 +327,17 @@ public class TimeUtil {
         return c1.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
+
+    /**
+     * 通过日期获取当月的含有的天数
+     *
+     * @return
+     */
+    public static int getTotalDaysInMonth() {
+
+        return getTotalDaysInMonth(new Date());
+    }
+
     /**
      * 通过日期获取当年的含有的天数
      *
@@ -340,6 +351,15 @@ public class TimeUtil {
         return c1.getActualMaximum(Calendar.DAY_OF_YEAR);
     }
 
+    /**
+     * 通过日期获取当月的含有的天数
+     *
+     * @return
+     */
+    public static int getTotalDaysInYear() {
+
+        return getTotalDaysInYear(new Date());
+    }
 
     /**
      * 获取 天数偏移  忽略 年 月
@@ -432,4 +452,64 @@ public class TimeUtil {
     public static boolean isSameMonth(Date date, boolean isIngoreYear) {
         return isSameMonth(date, new Date(), isIngoreYear);
     }
+
+    /**
+     * 微博信息流时间
+     *
+     * @param timeStamp
+     * @return
+     */
+    public static String getWBFeedTime(long timeStamp) {
+        Calendar current = Calendar.getInstance();
+        if (current.getTimeInMillis() < timeStamp * 1000L) {
+            return "未知";
+        }
+        Calendar time = Calendar.getInstance();
+        time.setTimeInMillis(timeStamp * 1000L);
+        int currentYear = current.get(Calendar.YEAR);
+        int timeYear = time.get(Calendar.YEAR);
+        int currentMonth = current.get(Calendar.MONTH);
+        int timeMonth = time.get(Calendar.MONTH);
+        int currentDay = current.get(Calendar.DAY_OF_MONTH);
+        int timeDay = time.get(Calendar.DAY_OF_MONTH);
+        if (currentYear == timeYear && currentMonth == timeMonth && currentDay == timeDay) { // 同一天
+            long offsetMinute = (current.getTimeInMillis() / 1000L - timeStamp) / 60;
+            if (offsetMinute < 5) { // 5分钟之内
+                return "刚刚";
+            }
+            if (offsetMinute < 60) {
+                return offsetMinute + "分前";
+            }
+            return getFormatBySeconds(timeStamp, dateFormatHM); // 13:15
+        }
+
+        Calendar preDate = Calendar.getInstance(); // 昨天
+        preDate.add(Calendar.DAY_OF_MONTH, -1);
+        if (preDate.get(Calendar.YEAR) == timeYear
+                && preDate.get(Calendar.MONTH) == timeMonth
+                && preDate.get(Calendar.DAY_OF_MONTH) == timeDay ) {
+            return getFormatBySeconds(timeStamp, "昨天 HH:mm");  // 昨天 13:10
+        }
+
+        if (currentYear == timeYear) {  // 同一年
+            return getFormatBySeconds(timeStamp, "MM-dd HH:mm");
+        }
+
+        return getFormatBySeconds(timeStamp, "yy-MM-dd");
+    }
+
+
+    public static void main(String[] args) {
+        Calendar time = Calendar.getInstance();
+        time.add(Calendar.MINUTE, -4);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+        time.add(Calendar.DAY_OF_MONTH, -1);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+        time.add(Calendar.MONTH, -2);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+        time.add(Calendar.YEAR, -1);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+
+    }
+
 }
