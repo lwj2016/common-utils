@@ -503,6 +503,10 @@ public class TimeUtil {
         Calendar time = Calendar.getInstance();
         time.add(Calendar.MINUTE, -4);
         System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+        time.add(Calendar.MINUTE, -40);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
+        time.add(Calendar.MINUTE, -20);
+        System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
         time.add(Calendar.DAY_OF_MONTH, -1);
         System.out.println(getWBFeedTime(time.getTimeInMillis() / 1000L));
         time.add(Calendar.MONTH, -2);

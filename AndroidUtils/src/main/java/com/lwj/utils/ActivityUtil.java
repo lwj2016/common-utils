@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -199,6 +200,41 @@ public class ActivityUtil {
 
     public static void startActivityForResult(Activity act, Intent intent, int code) {
         act.startActivityForResult(intent, code);
+    }
+
+
+    /**
+     * Start activity.
+     *
+     * @param context the context
+     * @param action  the action
+     * @param data    the data
+     * @author Created by liuwenjie on 2018/07/16 14:43
+     */
+    public static void startActivity(Context context, String action, Uri data) {
+
+        startActivity(context,
+                IntentBuilder.getBuilder().
+                        setAction(action).
+                        setData(data).
+                        builder());
+
+    }
+
+    /**
+     * Start activity.
+     *
+     * @param context   the context
+     * @param action    the action
+     * @param uriString the uri string
+     * @author Created by liuwenjie on 2018/07/16 14:43
+     */
+    public static void startActivity(Context context, String action, String uriString) {
+        startActivity(context,
+                IntentBuilder.getBuilder().
+                        setAction(action).
+                        setData(uriString).
+                        builder());
     }
 
 

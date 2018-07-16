@@ -67,10 +67,7 @@ public class SysIntentUtil {
      * @param telNum
      */
     public static void openTel(Context context, String telNum) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        Uri data = Uri.parse("tel:" + telNum);
-        intent.setData(data);
-        context.startActivity(intent);
+        ActivityUtil.startActivity(context, Intent.ACTION_DIAL, "tel:" + telNum);
     }
 
     /**
@@ -81,10 +78,7 @@ public class SysIntentUtil {
      */
     @SuppressWarnings("MissingPermission")
     public static void callTel(Context context, String telNum) {
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        Uri data = Uri.parse("tel:" + telNum);
-        intent.setData(data);
-        context.startActivity(intent);
+        ActivityUtil.startActivity(context, Intent.ACTION_CALL, "tel:" + telNum);
     }
 
     /**
@@ -93,9 +87,7 @@ public class SysIntentUtil {
      * @param context
      */
     public static void openSetting(Context context) {
-        Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS); //系统设置
-
-        context.startActivity(intent);
+        ActivityUtil.startActivity(context,android.provider.Settings.ACTION_SETTINGS);
     }
 
     /**
@@ -105,9 +97,7 @@ public class SysIntentUtil {
      */
 
     public static void openCamera(Context context) {
-
-        Intent intent = new Intent("android.media.action.STILL_IMAGE_CAMERA");
-        context.startActivity(intent);
+        ActivityUtil.startActivity(context,"android.media.action.STILL_IMAGE_CAMERA");
     }
 
     /**
@@ -227,7 +217,6 @@ public class SysIntentUtil {
      *
      * @param context
      * @param packageName 所要打开的app简介
-     *
      * @throws Exception
      */
     public static void gotoMarket(Context context, String packageName) throws Exception {
@@ -236,7 +225,6 @@ public class SysIntentUtil {
         Intent it = new Intent("android.intent.action.VIEW", uri);
         context.startActivity(it);
     }
-
 
 
     /**

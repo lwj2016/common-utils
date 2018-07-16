@@ -58,6 +58,12 @@ public class IntentBuilder {
         return this;
     }
 
+
+    public IntentBuilder setData(Uri uri) {
+        resultIntent.setData(uri);
+        return this;
+    }
+
     public IntentBuilder putBundle(String key, Bundle value) {
         resultIntent.putExtra(key, value);
         return this;

@@ -10,6 +10,7 @@ import android.os.Build;
 public class OSUtils {
     /**
      * 8
+     *
      * @return 2.2
      */
     public static boolean hasFroyo() {
@@ -18,6 +19,7 @@ public class OSUtils {
 
     /**
      * 9
+     *
      * @return 2.3
      */
     public static boolean hasGingerbread() {
@@ -26,6 +28,7 @@ public class OSUtils {
 
     /**
      * 11
+     *
      * @return 3.0
      */
     public static boolean hasHoneycomb() {
@@ -124,6 +127,37 @@ public class OSUtils {
     public static boolean hasN_MR1() {
         return has(Build.VERSION_CODES.N_MR1);
     }
+
+
+    /**
+     * api 26
+     *
+     * @return 8.0.0
+     */
+    public static boolean hasO() {
+        return has(Build.VERSION_CODES.O);
+    }
+
+
+    /**
+     * api 27
+     *
+     * @return 8.1.0
+     */
+    public static boolean hasO_MR1() {
+        return has(Build.VERSION_CODES.O_MR1);
+    }
+
+
+    /**
+     * api 28
+     *
+     * @return 9.0.0
+     */
+    public static boolean hasP() {
+        return has(Build.VERSION_CODES.P);
+    }
+
 
     /**
      * The user-visible SDK version of the framework); its possible
