@@ -151,8 +151,8 @@ public class WebViewUtil {
         if (webView == null) {
             return;
         }
-        webView.onResume();
         webView.resumeTimers();
+        webView.onResume();
         LogUtil.d("WebView %s", "resume");
     }
 
@@ -160,8 +160,8 @@ public class WebViewUtil {
         if (webView == null) {
             return;
         }
-        webView.onPause();
         webView.pauseTimers();
+        webView.onPause();
         LogUtil.d("WebView %s", "pause");
     }
 
@@ -169,11 +169,11 @@ public class WebViewUtil {
     public static void destroyWebView(WebView webView) {
         if (webView != null) {
             webView.stopLoading();
+            // 禁止 JS 代码继续执行
+            webView.getSettings().setJavaScriptEnabled(false);
             webView.clearHistory();
             webView.clearView();
             webView.removeAllViews();
-            // 禁止 JS 代码继续执行
-            webView.getSettings().setJavaScriptEnabled(false);
             ViewGroup parent = (ViewGroup) webView.getParent();
             if (parent != null) {
                 parent.removeView(webView);
@@ -244,4 +244,13 @@ public class WebViewUtil {
         cookieManager.removeAllCookie();
     }
 
+    /**
+     * 判断 WebView 是否可以返回
+     *
+     * @param webView
+     * @return
+     */
+    public boolean isCanGoBack(WebView webView) {
+        return webView.canGoBack() && webView.copyBackForwardList().getSize() > 0;
+    }
 }

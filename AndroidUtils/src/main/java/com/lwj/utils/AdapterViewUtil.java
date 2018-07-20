@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -11,12 +12,15 @@ import android.widget.ListView;
  * Des: AdapterViewUtil
  */
 public class AdapterViewUtil {
+
     @SuppressWarnings("unchecked")
     public static <T> T getItemModel(AdapterView adapterView, int i) {
         if (adapterView instanceof ListView) {
             return getItemModel((ListView) adapterView, i);
         } else if (adapterView instanceof GridView) {
             return getItemModel((GridView) adapterView, i);
+        } else if (adapterView instanceof Gallery) {
+            return getItemModel((Gallery) adapterView, i);
         }
         return (T) adapterView.getAdapter().getItem(i);
     }
@@ -56,6 +60,24 @@ public class AdapterViewUtil {
         return (T) gridView.getAdapter().getItem(i);
 
     }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T getItemModel(Gallery gallery, int i) {
+
+        if (gallery == null) {
+            return null;
+        }
+        if (i < 0) {
+            return null;
+        }
+        int count = gallery.getAdapter().getCount();
+        if (i >= count) {
+            return null;
+        }
+        return (T) gallery.getAdapter().getItem(i);
+
+    }
+
 
     /**
      * 判断 listview  是否滑动到顶部了

@@ -20,7 +20,7 @@ public class PropertiesUtil {
      * @param path the path
      * @return the properties by class loader
      * @throws IOException the io exception
-     * @author Created by liuwenjie on 2018/07/10 17:51
+     * @author Created by lwjfork on 2018/07/10 17:51
      */
     public static Properties getPropertiesByClassLoader(String path) throws IOException {
         Properties properties = new Properties();
@@ -36,7 +36,7 @@ public class PropertiesUtil {
      *
      * @return the properties by class loader
      * @throws IOException the io exception
-     * @author Created by liuwenjie on 2018/07/10 17:51
+     * @author Created by lwjfork on 2018/07/10 17:51
      */
     public static Properties getProperties(InputStream in) throws IOException {
         Properties properties = new Properties();

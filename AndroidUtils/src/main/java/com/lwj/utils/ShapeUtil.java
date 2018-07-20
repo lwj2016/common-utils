@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -60,7 +59,7 @@ public class ShapeUtil {
                 .addDrawableState(pressDrawable, android.R.attr.state_checked)
                 .addDrawableState(pressDrawable, android.R.attr.state_selected)
                 .addDrawableState(normalDrawable)
-                .getStateListDrawable();
+                .buildDrawable();
     }
 
     public static StateListDrawable addState(StateListDrawable stateListDrawable, int[] stateSet, Drawable drawable) {

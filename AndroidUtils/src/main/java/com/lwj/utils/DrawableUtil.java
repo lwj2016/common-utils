@@ -112,7 +112,7 @@ public class DrawableUtil {
         }
 
 
-        public StateListDrawable getStateListDrawable() {
+        public StateListDrawable buildDrawable() {
             return stateListDrawable;
         }
     }

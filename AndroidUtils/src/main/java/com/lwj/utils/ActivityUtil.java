@@ -209,7 +209,7 @@ public class ActivityUtil {
      * @param context the context
      * @param action  the action
      * @param data    the data
-     * @author Created by liuwenjie on 2018/07/16 14:43
+     * @author Created by lwjfork on 2018/07/16 14:43
      */
     public static void startActivity(Context context, String action, Uri data) {
 
@@ -227,7 +227,7 @@ public class ActivityUtil {
      * @param context   the context
      * @param action    the action
      * @param uriString the uri string
-     * @author Created by liuwenjie on 2018/07/16 14:43
+     * @author Created by lwjfork on 2018/07/16 14:43
      */
     public static void startActivity(Context context, String action, String uriString) {
         startActivity(context,

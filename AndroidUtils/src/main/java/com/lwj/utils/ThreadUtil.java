@@ -4,8 +4,8 @@ import android.os.Looper;
 
 /**
  * Created:2018/7/2
- * User：liuwenjie
- * Email:liuwnejie180423@credithc.com
+ * User：lwjfork
+ * Email:lwjfork@gmail.com
  * Des: 线程检查类
  * ====================
  */

@@ -4,6 +4,8 @@ import com.lwj.utils.log.LogUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Created by lwj on 16/5/16.
@@ -53,5 +55,8 @@ public class FormatUtil {
         return l;
     }
 
-
+    public static String getFormat(double money, String formatStr) {
+        NumberFormat nf = new DecimalFormat(formatStr);
+        return nf.format(money);
+    }
 }

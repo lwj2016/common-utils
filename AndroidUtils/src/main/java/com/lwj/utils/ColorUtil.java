@@ -78,7 +78,7 @@ public class ColorUtil {
         }
 
 
-        public ColorStateList getColorStateList() {
+        public ColorStateList buildColor() {
 
             int num = state.size();
             int[][] states = new int[num][];

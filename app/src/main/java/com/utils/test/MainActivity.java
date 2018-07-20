@@ -11,17 +11,22 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lwj.utils.ActivityUtil;
 import com.lwj.utils.AppBackPress;
 import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
-import com.lwj.utils.DrawableUtil;
-import com.lwj.utils.ResUtil;
-import com.lwj.utils.ShapeUtil;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -59,7 +64,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         ColorStateList stateList = ColorUtil.getColorStateListBuilder()
                 .addColorResState(android.R.color.holo_red_dark, android.R.attr.state_pressed)
                 .addColorResState(android.R.color.holo_blue_bright)
-                .getColorStateList();
+                .buildColor();
 
         tv_empty.setTextColor(stateList);
 
@@ -73,6 +78,80 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         }, "Test");
 
 
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(new AppInterceptor1());
+        builder.addInterceptor(new AppInterceptor2());
+        builder.addNetworkInterceptor(new NetWorkInterceptor1());
+        builder.addNetworkInterceptor(new NetWorkInterceptor2());
+        OkHttpClient client = builder.build();
+
+        Request request = new Request.Builder().url("https://blog.csdn.net/fightingXia/article/details/70947701").build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                LogUtil.d("----> %s","test");
+            }
+        });
+    }
+
+
+    public static class AppInterceptor1 implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            LogUtil.d("----> %s","AppInterceptor1 before");
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            LogUtil.d("----> %s","AppInterceptor1 end");
+            return response;
+        }
+    }
+
+
+    public static class AppInterceptor2 implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            LogUtil.d("----> %s","AppInterceptor2 before");
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            LogUtil.d("----> %s","AppInterceptor2 end");
+            return response;
+        }
+    }
+
+
+    public static class NetWorkInterceptor1 implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+
+            LogUtil.d("----> %s","NetWorkInterceptor1 before");
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            LogUtil.d("----> %s","NetWorkInterceptor1 end");
+            return response;
+        }
+    }
+
+
+    public static class NetWorkInterceptor2 implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+
+            LogUtil.d("----> %s","NetWorkInterceptor2 before");
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            LogUtil.d("----> %s","NetWorkInterceptor2 end");
+            return response;
+        }
     }
 
 
