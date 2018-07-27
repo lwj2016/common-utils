@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.os.Looper;
+import android.view.View;
 
 /**
  * Created:2018/7/2
@@ -48,6 +49,9 @@ public class ThreadUtil {
     }
 
 
+    public static void runOnUIThread(View view, Runnable runnable) {
+        view.post(runnable);
+    }
 
 
 }

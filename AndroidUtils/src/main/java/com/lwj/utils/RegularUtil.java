@@ -1,7 +1,5 @@
 package com.lwj.utils;
 
-import android.text.format.Formatter;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +15,6 @@ public class RegularUtil extends StrUtil {
      * @return 是否合法
      */
     public static boolean isEmail(String email) {
-        Pattern pattern;
-        Formatter formatter;
-        Matcher matcher;
         String pattern1 = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
         return isEmail(email, pattern1);
     }
@@ -32,13 +27,7 @@ public class RegularUtil extends StrUtil {
      * @return
      */
     public static boolean isEmail(String email, String regex) {
-        boolean tag = true;
-        Pattern pattern = Pattern.compile(regex);
-        Matcher mat = pattern.matcher(email);
-        if (!mat.find()) {
-            tag = false;
-        }
-        return tag;
+        return isMatch(email, regex);
     }
 
     /**
@@ -49,6 +38,17 @@ public class RegularUtil extends StrUtil {
      */
     public static boolean isNumeric(String str) {
         String regularStr = "[0-9]*";
+        return isMatch(str, regularStr);
+    }
+
+    /**
+     * 判断是否是字母
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isLetter(String str) {
+        String regularStr = "[a-zA-Z]";
         return isMatch(str, regularStr);
     }
 
@@ -100,6 +100,14 @@ public class RegularUtil extends StrUtil {
         return isMatch(str, regularStr);
     }
 
+    /**
+     * Is match boolean.
+     *
+     * @param str        the str
+     * @param regularStr the regular str
+     * @return the boolean
+     * @author Created by lwjfork on 2018/07/23 16:03
+     */
     public static boolean isMatch(String str, String regularStr) {
         Pattern pattern = Pattern.compile(regularStr);
         Matcher matcher = pattern.matcher(str);

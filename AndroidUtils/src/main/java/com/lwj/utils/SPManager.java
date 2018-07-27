@@ -68,7 +68,7 @@ public class SPManager {
         if (value instanceof String) {
             applyString(key, (String) value);
         } else if (value instanceof Boolean) {
-            applyBoolean(key, (boolean) value);
+            applyBoolean(key   , (boolean) value);
         } else if (value instanceof Float) {
             applyFloat(key, (float) value);
         } else if (value instanceof Integer) {

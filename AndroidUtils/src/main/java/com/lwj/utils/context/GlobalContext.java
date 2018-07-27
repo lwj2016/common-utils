@@ -24,7 +24,6 @@ public class GlobalContext {
 
     /**
      * @param _application Application
-     *
      * @see #init()
      */
     public static void setApplication(Application _application) {
@@ -52,7 +51,7 @@ public class GlobalContext {
      * initialize  by reflection
      */
     @SuppressWarnings("all")
-    public static void init() {
+    private static void init() {
         if (sApplication == null) {
             try {
                 Class aClass = Class.forName("android.app.ActivityThread");
