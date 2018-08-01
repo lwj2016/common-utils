@@ -28,7 +28,7 @@ public class MoneyUtil {
      * @return
      */
     public static String getFormatDotMoney(double money) {
-        return FormatUtil.getFormat(money, "#,###.##");
+        return FormatUtil.getFormat(money + "", "#,###.##");
     }
 
 

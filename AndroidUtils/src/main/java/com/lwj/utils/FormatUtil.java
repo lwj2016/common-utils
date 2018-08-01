@@ -56,9 +56,13 @@ public class FormatUtil {
     }
 
 
-
     public static String getFormat(double money, String formatStr) {
         NumberFormat nf = new DecimalFormat(formatStr);
         return nf.format(money);
+    }
+
+    public static String getFormat(String money, String formatStr) {
+        NumberFormat nf = new DecimalFormat(formatStr);
+        return nf.format(str2Float(money));
     }
 }

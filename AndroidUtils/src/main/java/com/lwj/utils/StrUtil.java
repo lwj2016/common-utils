@@ -97,4 +97,15 @@ public class StrUtil {
 
         return str2Bytes(str, charset).length;
     }
+
+
+    public static String replaceFirst(String source, String regex, String replacement) {
+        return source.replaceFirst(regex, replacement);
+    }
+
+    public static String replacAll(String source, String regex, String replacement) {
+        return source.replaceAll(regex, replacement);
+    }
+
+
 }

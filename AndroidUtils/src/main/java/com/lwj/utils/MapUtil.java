@@ -30,4 +30,22 @@ public class MapUtil {
     }
 
 
+    /**
+     * put safe value.
+     *
+     * @param <K>          the type parameter
+     * @param <V>          the type parameter
+     * @param map          the map
+     * @param key          the key
+     * @param value        the value
+     * @param defaultValue the default value  if value is NULL ,we will set defaultValue
+     * @return the safe value
+     * @author Created by lwjfork on 2018/07/24 16:11
+     */
+    public static <K, V> void putSafeValue(Map<K, V> map, K key, V value, V defaultValue) {
+        V realValue = value == null ? defaultValue : value;
+        map.put(key, realValue);
+    }
+
+
 }

@@ -112,11 +112,13 @@ public class ViewUtil {
      * @param _view the view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static void viewGone(View _view) {
-        if (_view != null && _view.getVisibility() != View.GONE) {
-            _view.setVisibility(View.GONE);
-        }
+    public static void viewGone(View... _view) {
+        for (View view : _view) {
+            if (view != null && view.getVisibility() != View.GONE) {
+                view.setVisibility(View.GONE);
+            }
 
+        }
     }
 
     /**
@@ -125,11 +127,13 @@ public class ViewUtil {
      * @param _view the view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static void viewVisible(View _view) {
-        if (_view != null && _view.getVisibility() != View.VISIBLE) {
-            _view.setVisibility(View.VISIBLE);
-        }
+    public static void viewVisible(View... _view) {
+        for (View view : _view) {
+            if (view != null && view.getVisibility() != View.VISIBLE) {
+                view.setVisibility(View.VISIBLE);
+            }
 
+        }
     }
 
 

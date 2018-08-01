@@ -155,7 +155,7 @@ public class OSUtils {
      * @return 9.0.0
      */
     public static boolean hasP() {
-        return has(Build.VERSION_CODES.P);
+        return has(28);
     }
 
 
