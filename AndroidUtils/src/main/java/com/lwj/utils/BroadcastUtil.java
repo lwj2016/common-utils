@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
@@ -20,6 +21,34 @@ import java.io.File;
  */
 
 public class BroadcastUtil {
+
+
+    /**
+     * 注册App 内 广播
+     *
+     * @param context
+     * @param receiver
+     * @param action
+     */
+    public static BroadcastReceiver registerLocalReceiver(Context context, BroadcastReceiver receiver, String... action) {
+        IntentFilter filter = new IntentFilter();
+        for (String s : action) {
+            filter.addAction(s);
+        }
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
+        return receiver;
+    }
+
+
+    /**
+     * 反注册App内广播接受者
+     *
+     * @param context
+     * @param receiver
+     */
+    public static void unregisterLocalReceiver(Context context, BroadcastReceiver receiver) {
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
+    }
 
 
     /**
@@ -78,6 +107,21 @@ public class BroadcastUtil {
      * 发送广播
      */
     public static void sendBroadcast(Intent intent, String receiverPermission) {
+        GlobalContext.getContext().sendBroadcast(intent, receiverPermission);
+    }
+
+
+    /**
+     * 发送有序广播
+     */
+    public static void sendOrderBroadcast(Intent intent) {
+        sendBroadcast(intent, null);
+    }
+
+    /**
+     * 发送有序广播
+     */
+    public static void sendOrderBroadcast(Intent intent, String receiverPermission) {
         GlobalContext.getContext().sendBroadcast(intent, receiverPermission);
     }
 

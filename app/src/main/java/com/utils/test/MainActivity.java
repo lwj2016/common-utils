@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lwj.utils.AppBackPress;
+import com.lwj.utils.ArrayUtil;
 import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
 import com.lwj.utils.SysIntentUtil;
@@ -20,6 +21,7 @@ import com.lwj.utils.ViewUtil;
 import com.lwj.utils.log.LogUtil;
 
 import java.io.IOException;
+import java.util.function.IntFunction;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -69,13 +71,15 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         tv_empty.setTextColor(stateList);
 
 
-        receiver = BroadcastUtil.register(this, new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String test = intent.getStringExtra("test");
-                LogUtil.e("test %s", test);
-            }
-        }, "Test");
+        receiver = BroadcastUtil.register(this, new
+
+                BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String test = intent.getStringExtra("test");
+                        LogUtil.e("test %s", test);
+                    }
+                }, "Test");
     }
 
     @Override

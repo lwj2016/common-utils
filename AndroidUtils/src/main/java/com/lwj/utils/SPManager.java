@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
@@ -23,13 +24,29 @@ public class SPManager {
     private SharedPreferences mSharedPreferences;
 
     private SharedPreferences.Editor editor;
+
+    private static Context context;
+
+    public static void init(Context _context) {
+        if (context != null) {
+            return;
+        }
+        if (_context instanceof Application) {
+            context = _context;
+            return;
+        }
+        context = _context.getApplicationContext();
+    }
+
     private static final LinkedHashMap<String, SPManager> managers = new LinkedHashMap<>(3, 0.75F, true);
 
     public static SPManager getManager() {
+        init(GlobalContext.getContext());
         return getManager(PREF_NAME);
     }
 
     public static SPManager getManager(String preName) {
+        init(GlobalContext.getContext());
         SPManager manager = managers.get(preName);
         if (manager == null) {
             manager = new SPManager(preName);
@@ -40,7 +57,7 @@ public class SPManager {
 
     @SuppressWarnings("all")
     private SPManager(String preName) {
-        this.mSharedPreferences = GlobalContext.getContext().getSharedPreferences(preName, Context.MODE_PRIVATE);
+        this.mSharedPreferences = context.getSharedPreferences(preName, Context.MODE_PRIVATE);
         editor = this.mSharedPreferences.edit();
     }
 
@@ -68,7 +85,7 @@ public class SPManager {
         if (value instanceof String) {
             applyString(key, (String) value);
         } else if (value instanceof Boolean) {
-            applyBoolean(key   , (boolean) value);
+            applyBoolean(key, (boolean) value);
         } else if (value instanceof Float) {
             applyFloat(key, (float) value);
         } else if (value instanceof Integer) {

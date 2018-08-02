@@ -27,7 +27,6 @@ public class StreamUtil {
         try {
             while ((line = reader.readLine()) != null) {
                 sb.append((line));
-                // sb.append((line + "\n"));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,13 +29,14 @@ public class WebViewUtil {
     public static final String JAVA_SCRIPT = "javascript:";
     public static final String REGX = "; ";
 
-    public static void executeJS(final WebView webView, String jsMethod, final ValueCallback callback, Object... jsParams) {
+    @SuppressWarnings("SameParameterValue")
+    public static void executeJS(final WebView webView, String jsMethod, final ValueCallback<String> callback, Object... jsParams) {
         final String url = buildJSUrl(jsMethod, jsParams);
         LogUtil.d("execute JS code %s", url);
         webView.post(new Runnable() {
             @Override
             public void run() {
-                if (OSUtils.hasKitKat()) {  // 19
+                if (OSUtils.hasKitKat_19()) {  // 19
                     webView.evaluateJavascript(url, callback);
                 } else {
                     webView.loadUrl(url);
@@ -193,7 +194,7 @@ public class WebViewUtil {
 
     public static void setCookie(WebView webView, String url, Map<String, String> values) {
 
-        if (!OSUtils.hasLollipop()) {
+        if (!OSUtils.hasLollipop_21()) {
             CookieSyncManager.createInstance(GlobalContext.getContext());
         } else {
             CookieManager.getInstance().setAcceptCookie(true);
@@ -210,7 +211,7 @@ public class WebViewUtil {
             itemValue.append(key).append("=").append(value);
             cookieManager.setCookie(url, itemValue.toString());
         }
-        if (!OSUtils.hasLollipop()) {
+        if (!OSUtils.hasLollipop_21()) {
             CookieSyncManager.createInstance(GlobalContext.getContext()).sync();
         }
     }

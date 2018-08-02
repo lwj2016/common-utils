@@ -16,7 +16,13 @@ import java.io.IOException;
 
 public class AndroidFileUtil extends FileUtil {
 
-
+    /**
+     * @param folderName
+     * @return
+     * @throws IOException
+     * @see #getExternalCacheDir() 优先 SD卡 路径  #
+     * @see #getCacheFile(String) 其次 APP 路径
+     */
     public synchronized static File getCustomDirs(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
@@ -27,7 +33,13 @@ public class AndroidFileUtil extends FileUtil {
         return file;
 
     }
-
+    /**
+     * @param folderName
+     * @return
+     * @throws IOException
+     * @see #getExternalCacheDir() 优先 SD卡 路径  #
+     * @see #getCacheFile(String) 其次 APP 路径
+     */
     public synchronized static String getCustomFolderPath(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
@@ -41,7 +53,13 @@ public class AndroidFileUtil extends FileUtil {
         return null;
 
     }
-
+    /**
+     * @param folderName
+     * @return
+     * @throws IOException
+     * @see #getExternalCacheDir() 优先 SD卡 路径  #
+     * @see #getCacheFile(String) 其次 APP 路径
+     */
     public synchronized static File getCustomFile(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
@@ -53,6 +71,13 @@ public class AndroidFileUtil extends FileUtil {
 
     }
 
+    /**
+     * @param folderName
+     * @return
+     * @throws IOException
+     * @see #getExternalCacheDir() 优先 SD卡 路径  #
+     * @see #getCacheFile(String) 其次 APP 路径
+     */
     public synchronized static String getCustomFilePath(String folderName) throws IOException {
         File file;
         if (isSDCardMounted() || !isExternalStorageRemovable()) { // SD卡挂载了或者有效
@@ -161,10 +186,13 @@ public class AndroidFileUtil extends FileUtil {
         return getFilePath(getExternalCacheDir().getAbsolutePath(), file);
     }
 
-
+    /***
+     *
+     * @return SDCard/Android/data/{pm}/cache/
+     */
     public static File getExternalCacheDir() {
         File file = null;
-        if (OSUtils.hasFroyo()) {
+        if (OSUtils.hasFroyo_8()) {
             file = GlobalContext.getContext().getExternalCacheDir();
         }
         if (file == null) {
@@ -173,6 +201,10 @@ public class AndroidFileUtil extends FileUtil {
         return file;
     }
 
+    /***
+     *
+     * @return SDCard/Android/data/{pm}/cache/
+     */
     public static String getExternalCacheDirPath() {
         File file = getExternalCacheDir();
         if (file != null) {
@@ -184,15 +216,21 @@ public class AndroidFileUtil extends FileUtil {
 
     /**
      * 有则返回，无则自己创建
+     * <p>
+     * /**
      *
-     * @return
+     * @return /Android/data/{packageName}/cache/
      */
     public static File createExternalCacheDirPath() {
-        StringBuilder path = new StringBuilder();
-        path.append(Environment.getExternalStorageDirectory().getPath());
-        path.append("/Android/data").append(GlobalContext.getContext().getPackageName());
-        path.append("/cache").append(File.separator);
-        return new File(path.toString());
+        String path = StrUtil.concat(File.separator
+                , false, true
+                , Environment.getExternalStorageDirectory().getPath()
+                , "Android"
+                , "data"
+                , AppUtil.getPackageName()
+                , "cache"
+        );
+        return new File(path);
     }
 
     /**
@@ -203,7 +241,7 @@ public class AndroidFileUtil extends FileUtil {
      */
     @TargetApi(9)
     public static boolean isExternalStorageRemovable() {
-        if (OSUtils.hasGingerbread()) {
+        if (OSUtils.hasGingerbread_9()) {
             return Environment.isExternalStorageRemovable();
         }
         return true;

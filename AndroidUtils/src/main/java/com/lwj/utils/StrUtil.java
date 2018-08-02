@@ -14,7 +14,7 @@ public class StrUtil {
         return str == null || str.trim().length() == 0;
     }
 
-    public static String formatNotNull(String string) {
+    public static String safeStr(String string) {
         if (string == null) {
             return "";
         }
@@ -107,5 +107,35 @@ public class StrUtil {
         return source.replaceAll(regex, replacement);
     }
 
+
+    public static String concat(String separator, String... array) {
+        return concat(separator, false, false, array);
+    }
+
+
+    public static String concat(String separator, boolean start, boolean end, String... array) {
+        if (array == null || array.length == 0) {
+            if (start || end) {
+                return separator;
+            } else {
+                return "";
+            }
+        }
+        int length = array.length;
+        StringBuilder sb = new StringBuilder();
+        if (start) {
+            sb.append(separator);
+        }
+        for (int i = 0; i < length; i++) {
+            sb.append(array[i]);
+            if (i < length - 1) {
+                sb.append(separator);
+            }
+        }
+        if (end) {
+            sb.append(separator);
+        }
+        return sb.toString();
+    }
 
 }

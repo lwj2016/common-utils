@@ -24,7 +24,7 @@ public class SysIntentUtil {
      */
     public static void openNetSetting(Context context) {
         Intent intent = null;
-        if (OSUtils.hasHoneycomb()) {
+        if (OSUtils.hasHoneycomb_11()) {
             // 3.0 以上
             intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
         } else {

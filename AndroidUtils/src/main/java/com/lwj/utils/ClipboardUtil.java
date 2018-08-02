@@ -53,7 +53,7 @@ public class ClipboardUtil {
      * @param htmlText The actual HTML text in the clip.
      */
     public static void copyHtmlText(@Nullable CharSequence label, @NonNull CharSequence text, @NonNull String htmlText) {
-        if (OSUtils.hasJellyBean()) {
+        if (OSUtils.hasJellyBean_16()) {
             getManager().setPrimaryClip(ClipData.newHtmlText(label, text, htmlText));
         } else {
             copyText(label, htmlText);

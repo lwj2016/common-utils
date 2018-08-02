@@ -13,7 +13,7 @@ public class OSUtils {
      *
      * @return 2.2
      */
-    public static boolean hasFroyo() {
+    public static boolean hasFroyo_8() {
         return has(Build.VERSION_CODES.FROYO);
     }
 
@@ -22,7 +22,7 @@ public class OSUtils {
      *
      * @return 2.3
      */
-    public static boolean hasGingerbread() {
+    public static boolean hasGingerbread_9() {
         return has(Build.VERSION_CODES.GINGERBREAD);
     }
 
@@ -31,7 +31,7 @@ public class OSUtils {
      *
      * @return 3.0
      */
-    public static boolean hasHoneycomb() {
+    public static boolean hasHoneycomb_11() {
         return has(Build.VERSION_CODES.HONEYCOMB);
     }
 
@@ -40,7 +40,7 @@ public class OSUtils {
      *
      * @return 4.0
      */
-    public static boolean hasIceCreamSandwich() {
+    public static boolean hasIceCreamSandwich_14() {
         return has(Build.VERSION_CODES.ICE_CREAM_SANDWICH);
     }
 
@@ -50,7 +50,7 @@ public class OSUtils {
      *
      * @return 4.2
      */
-    public static boolean hasJellyBean() {
+    public static boolean hasJellyBean_16() {
         return has(Build.VERSION_CODES.JELLY_BEAN);
     }
 
@@ -60,7 +60,7 @@ public class OSUtils {
      *
      * @return 4.3
      */
-    public static boolean hasJELLY_BEAN_MR1() {
+    public static boolean hasJELLY_BEAN_MR1_17() {
         return has(Build.VERSION_CODES.JELLY_BEAN_MR1);
     }
 
@@ -69,7 +69,7 @@ public class OSUtils {
      *
      * @return 4.4
      */
-    public static boolean hasJELLY_BEAN_MR2() {
+    public static boolean hasJELLY_BEAN_MR2_18() {
         return has(Build.VERSION_CODES.JELLY_BEAN_MR2);
     }
 
@@ -78,7 +78,7 @@ public class OSUtils {
      *
      * @return 4.4
      */
-    public static boolean hasKitKat() {
+    public static boolean hasKitKat_19() {
         return has(Build.VERSION_CODES.KITKAT);
     }
 
@@ -87,7 +87,7 @@ public class OSUtils {
      *
      * @return 5.0
      */
-    public static boolean hasLollipop() {
+    public static boolean hasLollipop_21() {
         return has(Build.VERSION_CODES.LOLLIPOP);
     }
 
@@ -97,7 +97,7 @@ public class OSUtils {
      *
      * @return 5.1
      */
-    public static boolean hasLollipop_MR1() {
+    public static boolean hasLollipop_MR1_22() {
         return has(Build.VERSION_CODES.LOLLIPOP_MR1);
     }
 
@@ -106,7 +106,7 @@ public class OSUtils {
      *
      * @return 6.0
      */
-    public static boolean hasM() {
+    public static boolean hasM_23() {
         return has(Build.VERSION_CODES.M);
     }
 
@@ -115,7 +115,7 @@ public class OSUtils {
      *
      * @return 7.0
      */
-    public static boolean hasN() {
+    public static boolean hasN_24() {
         return has(Build.VERSION_CODES.N);
     }
 
@@ -124,7 +124,7 @@ public class OSUtils {
      *
      * @return 7.1.1
      */
-    public static boolean hasN_MR1() {
+    public static boolean hasN_MR1_25() {
         return has(Build.VERSION_CODES.N_MR1);
     }
 
@@ -134,7 +134,7 @@ public class OSUtils {
      *
      * @return 8.0.0
      */
-    public static boolean hasO() {
+    public static boolean hasO_26() {
         return has(Build.VERSION_CODES.O);
     }
 
@@ -144,7 +144,7 @@ public class OSUtils {
      *
      * @return 8.1.0
      */
-    public static boolean hasO_MR1() {
+    public static boolean hasO_MR1_27() {
         return has(Build.VERSION_CODES.O_MR1);
     }
 
@@ -154,7 +154,7 @@ public class OSUtils {
      *
      * @return 9.0.0
      */
-    public static boolean hasP() {
+    public static boolean hasP_28() {
         return has(28);
     }
 

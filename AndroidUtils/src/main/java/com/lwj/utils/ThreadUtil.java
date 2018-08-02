@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.app.Activity;
 import android.os.Looper;
 import android.view.View;
 
@@ -51,6 +52,11 @@ public class ThreadUtil {
 
     public static void runOnUIThread(View view, Runnable runnable) {
         view.post(runnable);
+    }
+
+
+    public static void runOnUIThread(Activity activity, Runnable runnable) {
+        activity.runOnUiThread(runnable);
     }
 
 
