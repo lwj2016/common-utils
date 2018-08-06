@@ -1,6 +1,10 @@
 package com.lwj.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Picture;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -251,7 +255,57 @@ public class WebViewUtil {
      * @param webView
      * @return
      */
-    public boolean isCanGoBack(WebView webView) {
+    public static boolean isCanGoBack(WebView webView) {
         return webView.canGoBack() && webView.copyBackForwardList().getSize() > 0;
     }
+
+
+    public static String getEncodePostParams(Map<String, String> params) {
+        if (params == null || params.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> iterator = params.keySet().iterator();
+        String key = "";
+        String value = "";
+        while (iterator.hasNext()) {
+            key = iterator.next();
+            value = params.get(key);
+            sb.append(URLUtil.encode(key))
+                    .append("=")
+                    .append(URLUtil.encode(value));
+            sb.append("&");
+        }
+        sb.deleteCharAt(sb.lastIndexOf("&"));
+        return sb.toString();
+    }
+
+    public static void postUrl(WebView webView, String url, Map<String, String> params) {
+        webView.postUrl(url, StrUtil.str2Bytes(getEncodePostParams(params)));
+    }
+
+    public static void postUrl(WebView webView, String url) {
+        webView.postUrl(url, StrUtil.str2Bytes(getEncodePostParams(null)));
+    }
+
+
+//    @Nullable
+//    public static Bitmap captureView(WebView webView) {
+//        webView.capturePicture();
+//        if (!OSUtils.hasJELLY_BEAN_MR2_18()) { // 4.3 及以下
+//            Bitmap bitmap = null;
+//            Picture picture = webView.capturePicture();
+//            int width = picture.getWidth();
+//            int height = picture.getHeight();
+//            if (width > 0 && height > 0) {
+//                bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//                Canvas canvas = new Canvas(bitmap);
+//                picture.draw(canvas);
+//            }
+//            return bitmap;
+//        }
+//
+//        return null;
+//    }
+
 }

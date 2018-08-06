@@ -17,24 +17,28 @@ public class ArrayUtil {
 
 
     public static void main(final String[] args) {
-        Integer[] array = newArray(10, 1);
-        String[] result1 = ArrayUtil.convertElements(new ElementsConverts<Integer, String>() {
+        Integer[] array = newArrayByDefault(10, 1);
+        for (Integer s : array) {
+            System.out.println(s);
+        }
+        convertIntElements(new ElementsConvert<Integer>() {
             @Override
-            public String apply(int value, Integer... array) {
-                return array[value] + "{xxxx}";
+            public Integer apply(int value, Integer... array) {
+                return value;
             }
-        }, String.class, array);
-        for (String s : result1) {
+        }, array);
+
+        for (Integer s : array) {
             System.out.println(s);
         }
 
-        array = sort(new Comparator<Integer>() {
+        String[] result1 = convertElements2String(new ElementsConverts<Integer, String>() {
             @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
+            public String apply(int value, Integer... array) {
+                return array[value] + "ddd";
             }
         }, array);
-        for (Integer s : array) {
+        for (String s : result1) {
             System.out.println(s);
         }
 
@@ -47,6 +51,22 @@ public class ArrayUtil {
 
     public static <T> ArrayList<T> array2ArrayList(T... objects) {
         return CollectionUtil.array2ArrayList(objects);
+    }
+
+
+    public interface ElementsConvert<R> extends ElementsConverts<R, R> {
+    }
+
+
+    public interface ElementsConverts<R, T> {
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         */
+        @SuppressWarnings("all")
+        T apply(int value, R... array);
     }
 
 
@@ -166,6 +186,75 @@ public class ArrayUtil {
     }
 
 
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R, T> T[] convertElements2Obj(final ElementsConverts<R, T> generator, Class<T> targetClass, final R... array) {
+        if (generator == null)
+            throw new NullPointerException();
+        int length = array.length;
+        T[] resultArray = (T[]) Array.newInstance(targetClass, length);
+        for (int i = 0; i < length; i++)
+            resultArray[i] = generator.apply(i, array);
+        return resultArray;
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Integer[] convertElements2Int(final ElementsConverts<R, Integer> generator, final R... array) {
+
+        return convertElements2Obj(generator, Integer.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Byte[] convertElements2Byte(final ElementsConverts<R, Byte> generator, final R... array) {
+
+        return convertElements2Obj(generator, Byte.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Double[] convertElements2Double(final ElementsConverts<R, Double> generator, final R... array) {
+
+        return convertElements2Obj(generator, Double.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Float[] convertElements2Float(final ElementsConverts<R, Float> generator, final R... array) {
+
+        return convertElements2Obj(generator, Float.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Long[] convertElements2Long(final ElementsConverts<R, Long> generator, final R... array) {
+
+        return convertElements2Obj(generator, Long.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> Short[] convertElements2Short(final ElementsConverts<R, Short> generator, final R... array) {
+
+        return convertElements2Obj(generator, Short.class, array);
+    }
+
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <R> String[] convertElements2String(final ElementsConverts<R, String> generator, final R... array) {
+
+        return convertElements2Obj(generator, String.class, array);
+    }
+
+
     public static int[] sort(int... array) {
         Arrays.sort(array);
         return array;
@@ -259,46 +348,59 @@ public class ArrayUtil {
         return array;
     }
 
+    /**
+     * create a Array
+     *
+     * @param <T>    the type of element
+     * @param length the length of array
+     * @param value  the default value
+     * @return the t [ ]
+     * @author Created by liuwenjie on 2018/08/03 14:56
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] newArrayByDefault(int length, T value) {
+        return fill(value, newArray(length, (Class<T>) value.getClass()));
+    }
 
-    public static <T> T[] newArray(int length, T value) {
-        T[] array = (T[]) Array.newInstance(value.getClass(), length);
-        return fill(value, array);
+    @SuppressWarnings("unchecked")
+    public static <T> T[] newArray(int length, Class<T> clazz) {
+        return (T[]) Array.newInstance(clazz, length);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static String[] newStrArray(int length) {
+        return newArray(length, String.class);
     }
 
 
-    public interface ElementsConvert<R> {
-        /**
-         * Applies this function to the given argument.
-         *
-         * @param value the function argument
-         * @return the function result
-         */
-        R apply(int value, R... array);
+    @SuppressWarnings("unchecked")
+    public static Integer[] newIntegeArray(int length) {
+        return newArray(length, Integer.class);
     }
 
 
-    @SafeVarargs
-    public static <R, T> T[] convertElements(final ElementsConverts<R, T> generator, Class<T> targetClass, final R... array) {
-
-        if (generator == null)
-            throw new NullPointerException();
-        int length = array.length;
-        T[] resultArray = (T[]) Array.newInstance(targetClass, length);
-        for (int i = 0; i < length; i++)
-            resultArray[i] = generator.apply(i, array);
-
-
-        return resultArray;
+    @SuppressWarnings("unchecked")
+    public static Double[] newDoubleStrArray(int length) {
+        return newArray(length, Double.class);
     }
 
 
-    public interface ElementsConverts<R, T> {
-        /**
-         * Applies this function to the given argument.
-         *
-         * @param value the function argument
-         * @return the function result
-         */
-        T apply(int value, R... array);
+    @SuppressWarnings("unchecked")
+    public static Float[] newFloatArray(int length) {
+        return newArray(length, Float.class);
     }
+
+
+    @SuppressWarnings("unchecked")
+    public static Short[] newShortArray(int length) {
+        return newArray(length, Short.class);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static Byte[] newByteStrArray(int length) {
+        return newArray(length, Byte.class);
+    }
+
+
 }
