@@ -1,6 +1,10 @@
 package com.lwj.utils;
 
+import android.annotation.TargetApi;
+import android.app.Application;
 import android.os.Build;
+
+import com.lwj.utils.context.GlobalContext;
 
 
 /**
@@ -8,6 +12,23 @@ import android.os.Build;
  * Des:
  */
 public class OSUtils {
+
+
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getSystemService(String service) {
+        return (T) getContext().getSystemService(service);
+    }
+
+    @TargetApi(23)
+    public static <T> T getSystemService(Class<T> tClass) {
+        return getContext().getSystemService(tClass);
+    }
+
+
     /**
      * 8
      *

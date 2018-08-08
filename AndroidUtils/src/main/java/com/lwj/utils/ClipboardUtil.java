@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.lwj.utils.context.GlobalContext;
-
 /**
  * Created by lwj on 2018/7/5.
  * lwjfork@gmail.com
@@ -17,13 +15,16 @@ import com.lwj.utils.context.GlobalContext;
 
 public class ClipboardUtil {
 
+
+
+
     /**
      * 剪切板管理类 ClipboardManager
      *
      * @return
      */
     public static ClipboardManager getManager() {
-        return (ClipboardManager) GlobalContext.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        return OSUtils.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
 

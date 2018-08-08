@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.app.Application;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -32,13 +33,18 @@ import java.nio.charset.Charset;
  */
 public class ResUtil {
 
+
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
+    
     /**
      * 获得全局的resources
      *
      * @return resources
      */
     public static Resources getResources() {
-        return GlobalContext.getContext().getResources();
+        return getContext().getResources();
     }
 
 

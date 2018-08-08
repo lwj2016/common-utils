@@ -14,7 +14,7 @@ public class SoftKeyboardUtil {
 
 
     public static void showInputMethod(View v) {
-        InputMethodManager imm = (InputMethodManager) GlobalContext.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = OSUtils.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) {
             return;
         }
@@ -23,7 +23,7 @@ public class SoftKeyboardUtil {
     }
 
     public static boolean hideInputMethod(View v) {
-        InputMethodManager imm = (InputMethodManager) GlobalContext.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = OSUtils.getSystemService(Context.INPUT_METHOD_SERVICE);
         return imm != null && imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 

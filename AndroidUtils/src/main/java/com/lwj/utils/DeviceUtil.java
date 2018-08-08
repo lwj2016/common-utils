@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * lwjfork@gmail.com
  */
 public class DeviceUtil {
+
 
 
     public static String getPhoneModel() {
@@ -41,7 +43,7 @@ public class DeviceUtil {
 
     @SuppressWarnings("MissingPermission")
     public static String getDeviceId() {
-        TelephonyManager tm = (TelephonyManager) GlobalContext.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = OSUtils.getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) {
             LogUtil.e("TelephonyManager %s", "null");
             return "";
@@ -59,7 +61,7 @@ public class DeviceUtil {
     public static long getUseAbleMemory() {
         long MEM_UNUSED;
         // 得到ActivityManager
-        ActivityManager am = (ActivityManager) GlobalContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = OSUtils.getSystemService(Context.ACTIVITY_SERVICE);
         // 创建ActivityManager.MemoryInfo对象
 
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();

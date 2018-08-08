@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lwj.utils.AndroidFileUtil;
 import com.lwj.utils.AppBackPress;
 import com.lwj.utils.ArrayUtil;
 import com.lwj.utils.BroadcastUtil;
@@ -58,6 +59,8 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                 BroadcastUtil.sendBroadcast(intent);
             }
         });
+
+        LogUtil.d("test-> %s", AndroidFileUtil.createExternalCacheDirPath());
 
 
         backPress.setOnBackPressListener(this);

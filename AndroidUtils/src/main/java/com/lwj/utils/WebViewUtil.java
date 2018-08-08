@@ -260,6 +260,14 @@ public class WebViewUtil {
     }
 
 
+    /**
+     * Gets encode post params.
+     * encode this params
+     *
+     * @param params the params
+     * @return the encode post params
+     * @author Created by liuwenjie on 2018/08/06 13:46
+     */
     public static String getEncodePostParams(Map<String, String> params) {
         if (params == null || params.isEmpty()) {
             return "";

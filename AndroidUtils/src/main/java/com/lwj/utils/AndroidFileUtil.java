@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.os.Environment;
 import android.os.StatFs;
 
@@ -8,6 +9,7 @@ import com.lwj.utils.context.GlobalContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Struct;
 
 /**
  * Created by lwj on 2018/3/16.
@@ -15,6 +17,11 @@ import java.io.IOException;
  */
 
 public class AndroidFileUtil extends FileUtil {
+
+
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
 
     /**
      * @param folderName
@@ -33,6 +40,7 @@ public class AndroidFileUtil extends FileUtil {
         return file;
 
     }
+
     /**
      * @param folderName
      * @return
@@ -53,6 +61,7 @@ public class AndroidFileUtil extends FileUtil {
         return null;
 
     }
+
     /**
      * @param folderName
      * @return
@@ -114,7 +123,7 @@ public class AndroidFileUtil extends FileUtil {
      */
     public synchronized static String getCacheDirPath() {
 
-        return GlobalContext.getContext().getCacheDir().getPath();
+        return getContext().getCacheDir().getPath();
     }
 
     /**
@@ -139,7 +148,7 @@ public class AndroidFileUtil extends FileUtil {
      * @return /data/data/{packageName}/files/
      */
     public synchronized static String getFilesDirPath() {
-        return GlobalContext.getContext().getFilesDir().getPath();
+        return getContext().getFilesDir().getPath();
     }
 
     /**
@@ -193,7 +202,7 @@ public class AndroidFileUtil extends FileUtil {
     public static File getExternalCacheDir() {
         File file = null;
         if (OSUtils.hasFroyo_8()) {
-            file = GlobalContext.getContext().getExternalCacheDir();
+            file = getContext().getExternalCacheDir();
         }
         if (file == null) {
             file = createExternalCacheDirPath();
@@ -222,13 +231,12 @@ public class AndroidFileUtil extends FileUtil {
      * @return /Android/data/{packageName}/cache/
      */
     public static File createExternalCacheDirPath() {
-        String path = StrUtil.concat(File.separator
-                , false, true
+        String path = StrUtil.join(File.separator
                 , Environment.getExternalStorageDirectory().getPath()
                 , "Android"
                 , "data"
                 , AppUtil.getPackageName()
-                , "cache"
+                , "cache" + File.separator
         );
         return new File(path);
     }

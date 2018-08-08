@@ -1,7 +1,11 @@
 package com.lwj.utils;
 
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 /**
  * Created by lwj on 2016/3/8.
@@ -15,14 +19,18 @@ public class StrUtil {
     }
 
     public static String safeStr(String string) {
-        if (string == null) {
-            return "";
-        }
-        return string;
+        return emptyIfNull(string);
+    }
+
+    public static String emptyIfNull(String string) {
+        return string == null ? "" : string;
+    }
+
+    public static String nullIfEmpty(@Nullable String str) {
+        return isEmpty(str) ? null : str;
     }
 
     public static boolean isValid(String string) {
-
         return !isEmpty(string);
     }
 
@@ -107,35 +115,39 @@ public class StrUtil {
         return source.replaceAll(regex, replacement);
     }
 
+    public static CharSequence concat(CharSequence... array) {
+        return TextUtils.concat(array);
+    }
 
-    public static String concat(String separator, String... array) {
-        return concat(separator, false, false, array);
+    /**
+     * 拼接字符串
+     *
+     * @param delimiter 分割符
+     * @param tokens    数组数据
+     * @return String
+     */
+    public static String join(CharSequence delimiter, Object... tokens) {
+        if (OSUtils.hasN_24()) {
+            StringJoiner joiner = new StringJoiner(delimiter);
+            for (Object token : tokens) {
+                joiner.add(token.toString());
+            }
+            return joiner.toString();
+        }
+        return TextUtils.join(delimiter, tokens);
     }
 
 
-    public static String concat(String separator, boolean start, boolean end, String... array) {
-        if (array == null || array.length == 0) {
-            if (start || end) {
-                return separator;
-            } else {
-                return "";
-            }
-        }
-        int length = array.length;
-        StringBuilder sb = new StringBuilder();
-        if (start) {
-            sb.append(separator);
-        }
-        for (int i = 0; i < length; i++) {
-            sb.append(array[i]);
-            if (i < length - 1) {
-                sb.append(separator);
-            }
-        }
-        if (end) {
-            sb.append(separator);
-        }
-        return sb.toString();
+    /**
+     * 拼接字符串
+     *
+     * @param delimiter 分割符
+     * @param tokens    数组数据
+     * @return String
+     */
+    public static String join(CharSequence delimiter, Iterable tokens) {
+        return TextUtils.join(delimiter, tokens);
     }
+
 
 }

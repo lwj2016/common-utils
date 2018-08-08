@@ -3,8 +3,6 @@ package com.lwj.utils;
 import android.content.Context;
 import android.location.LocationManager;
 
-import com.lwj.utils.context.GlobalContext;
-
 /**
  * Created:2018/6/21
  * User：lwjfork
@@ -16,8 +14,9 @@ import com.lwj.utils.context.GlobalContext;
 public class GPSUtil {
 
 
+
     public static LocationManager getManager() {
-        return ((LocationManager) GlobalContext.getContext().getSystemService(Context.LOCATION_SERVICE));
+        return OSUtils.getSystemService(Context.LOCATION_SERVICE);
     }
 
     /**

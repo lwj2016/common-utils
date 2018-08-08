@@ -1,5 +1,6 @@
 package com.lwj.utils;
 
+import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -17,6 +18,10 @@ public class NetUtil {
     public static final int TYPE_4G = 4;
 
 
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
+
     /**
      * 检查网络连接状态
      *
@@ -24,7 +29,7 @@ public class NetUtil {
      */
     @SuppressWarnings("MissingPermission")
     public static boolean checkNetwork() {
-        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = getManager();
         if (cm == null) {
             return false;
         }
@@ -34,6 +39,10 @@ public class NetUtil {
         }
 
         return false;
+    }
+
+    public static ConnectivityManager getManager() {
+        return OSUtils.getSystemService(Service.CONNECTIVITY_SERVICE);
     }
 
     public static boolean isNetConnected() {
@@ -47,7 +56,7 @@ public class NetUtil {
      */
     @SuppressWarnings("MissingPermission")
     public static boolean isWifiConnected() {
-        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = getManager();
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
@@ -65,7 +74,7 @@ public class NetUtil {
     @SuppressWarnings("MissingPermission")
     public static int getAPNType() {
         int type = TYPE_UNKNOWN;
-        ConnectivityManager cm = (ConnectivityManager) GlobalContext.getContext().getSystemService(Service.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = getManager();
         if (cm != null) {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if (isConnect(networkInfo)) {
@@ -73,7 +82,7 @@ public class NetUtil {
                 if (netType == ConnectivityManager.TYPE_WIFI) {
                     type = TYPE_WIFI;
                 } else {
-                    TelephonyManager telephonyManager = (TelephonyManager) GlobalContext.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+                    TelephonyManager telephonyManager = OSUtils.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null && !telephonyManager.isNetworkRoaming()) {
                         int subType = networkInfo.getSubtype();
                         if ((subType == TelephonyManager.NETWORK_TYPE_GPRS

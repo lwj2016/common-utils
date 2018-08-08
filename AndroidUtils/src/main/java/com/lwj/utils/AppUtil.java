@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -25,9 +26,15 @@ import java.util.List;
 
 public class AppUtil {
 
+
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
+
+
     public static PackageInfo getPackageInfo() {
         try {
-            return GlobalContext.getContext().getPackageManager().getPackageInfo(GlobalContext.getContext().getPackageName(), 0);
+            return getPackageManager().getPackageInfo(getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException var2) {
             var2.printStackTrace();
             return null;
@@ -36,7 +43,7 @@ public class AppUtil {
 
     public static PackageInfo getPackageInfo(String _packageName) {
         try {
-            return GlobalContext.getContext().getPackageManager().getPackageInfo(_packageName, 0);
+            return getPackageManager().getPackageInfo(_packageName, 0);
         } catch (PackageManager.NameNotFoundException var2) {
             var2.printStackTrace();
             return null;
@@ -44,7 +51,7 @@ public class AppUtil {
     }
 
     public static PackageManager getPackageManager() {
-        return GlobalContext.getContext().getPackageManager();
+        return getContext().getPackageManager();
     }
 
     public static String getVersionName() {
@@ -111,7 +118,7 @@ public class AppUtil {
     public boolean isRunning(String packageName) {
 
         boolean isRunning = false;
-        ActivityManager am = (ActivityManager) GlobalContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (am == null) {
             return false;
         }
@@ -127,18 +134,16 @@ public class AppUtil {
     }
 
 
-
     /**
      * 返回对应包的签名信息
      *
      * @param packageName
-     *
      * @return
      */
     public static Signature[] getSignatures(String packageName) {
         PackageInfo packageInfo = null;
         try {
-            packageInfo = GlobalContext.getContext().getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            packageInfo = getContext().getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             return packageInfo.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -158,7 +163,6 @@ public class AppUtil {
      *
      * @param packageName
      * @param type
-     *
      * @return
      */
     public static String getSingInfo(String packageName, String type) {
@@ -178,7 +182,6 @@ public class AppUtil {
      * 返回一个签名的对应类型的字符串
      *
      * @param type
-     *
      * @return
      */
     public static String getSingInfo(String type) {
@@ -200,7 +203,6 @@ public class AppUtil {
      *
      * @param sig
      * @param type
-     *
      * @return
      */
     public static String getSignatureString(Signature sig, String type) {

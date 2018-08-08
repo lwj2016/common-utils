@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class AnimationUtil {
 
 
+
     public static AnimatorSet buildSyncAnim(AnimatorSet animatorSet, ArrayList<Animator> animators) {
         if (animatorSet == null) {
             animatorSet = new AnimatorSet();

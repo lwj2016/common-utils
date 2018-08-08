@@ -1,6 +1,7 @@
 package com.lwj.utils;
 
 import android.app.Activity;
+import android.app.Application;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
@@ -25,9 +26,14 @@ public class DisplayUtil {
 
 
     static {
-        dm = GlobalContext.getContext().getResources().getDisplayMetrics();
+        dm = getContext().getResources().getDisplayMetrics();
     }
 
+
+    private static Application getContext() {
+        return GlobalContext.getContext();
+    }
+    
 
     public static DisplayMetrics getDisplayMetrics() {
         return dm;
