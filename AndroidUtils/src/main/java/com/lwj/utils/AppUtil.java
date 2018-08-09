@@ -33,12 +33,7 @@ public class AppUtil {
 
 
     public static PackageInfo getPackageInfo() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException var2) {
-            var2.printStackTrace();
-            return null;
-        }
+        return getPackageInfo(getPackageName());
     }
 
     public static PackageInfo getPackageInfo(String _packageName) {
@@ -55,45 +50,25 @@ public class AppUtil {
     }
 
     public static String getVersionName() {
-
-        PackageInfo packageInfo = getPackageInfo();
-        if (packageInfo != null) {
-            return packageInfo.versionName;
-        }
-        return null;
+        return getPackageInfo().versionName;
     }
 
     public static int getVersionCode() {
-        PackageInfo packageInfo = getPackageInfo();
-        if (packageInfo != null) {
-            return packageInfo.versionCode;
-        }
-        return -1;
+
+        return getPackageInfo().versionCode;
     }
 
     public static String getPackageName() {
-        PackageInfo packageInfo = getPackageInfo();
-        if (packageInfo != null) {
-            return packageInfo.packageName;
-        }
-        return null;
+        return getContext().getPackageName();
     }
 
     public static ApplicationInfo getApplicationInfo() {
-        PackageInfo packageInfo = getPackageInfo();
-        if (packageInfo != null) {
-            return packageInfo.applicationInfo;
-        }
-        return null;
+        return getContext().getApplicationInfo();
     }
 
 
     public static String getAppName() {
-        ApplicationInfo applicationInfo = getApplicationInfo();
-        if (applicationInfo != null) {
-            return applicationInfo.name;
-        }
-        return null;
+        return getApplicationInfo().name;
     }
 
     public static boolean isInstall(String _packageName) {

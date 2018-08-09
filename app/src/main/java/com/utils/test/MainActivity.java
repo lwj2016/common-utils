@@ -16,6 +16,7 @@ import com.lwj.utils.AppBackPress;
 import com.lwj.utils.ArrayUtil;
 import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
+import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
@@ -83,6 +84,13 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                         LogUtil.e("test %s", test);
                     }
                 }, "Test");
+
+
+        SPManager.getManager().commit("test", "tt");
+        LogUtil.e("test----> %s",SPManager.getManager().getString("test"));
+        SPManager.getManager().removeAndCommit("test");
+
+        LogUtil.e("test----> %s",SPManager.getManager().getString("test"));
     }
 
     @Override

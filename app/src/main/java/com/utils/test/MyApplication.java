@@ -2,6 +2,7 @@ package com.utils.test;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.lwj.utils.NetUtil;
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
@@ -17,10 +18,16 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Stetho.initializeWithDefaults(this);
+
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .build());
 
         LogUtil.setLog(BuildConfig.DEBUG);
 
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 if (NetUtil.isNetConnected()) {

@@ -17,9 +17,12 @@ import java.util.LinkedHashMap;
 /**
  * Created by lwj on 16/4/4.
  * Des:
+ * <p>
+ * /data/date/{packageName}/shared_prefs
  */
 public class SPManager {
-    private static String PREF_NAME = "sp_manager";
+    // com.google.support----> com_google_support
+    private static String PREF_NAME = StrUtil.replaceAll(AppUtil.getPackageName(), "\\.", "_");
 
     private SharedPreferences mSharedPreferences;
 
@@ -77,6 +80,18 @@ public class SPManager {
             saveObject(key, value);
         }
 
+        return this;
+    }
+
+
+    public SPManager remove(String key) {
+        editor.remove(key);
+        return this;
+    }
+
+
+    public SPManager removeAndCommit(String key) {
+        editor.remove(key).commit();
         return this;
     }
 

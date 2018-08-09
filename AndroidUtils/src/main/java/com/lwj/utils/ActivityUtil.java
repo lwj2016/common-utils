@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.lwj.utils.log.LogUtil;
 
 import java.security.InvalidParameterException;
+import java.util.Stack;
 
 /**
  * Created by lwj on 16/3/9.
@@ -245,7 +246,7 @@ public class ActivityUtil {
             if (activity.isFinishing()) {
                 return false;
             }
-            if (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed()) {
+            if (OSUtils.hasJELLY_BEAN_MR1_17() && activity.isDestroyed()) {
                 return false;
             }
             return true;
@@ -253,4 +254,6 @@ public class ActivityUtil {
 
         return false;
     }
+
+
 }

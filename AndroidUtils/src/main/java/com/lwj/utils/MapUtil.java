@@ -38,7 +38,7 @@ public class MapUtil {
      * @param map          the map
      * @param key          the key
      * @param value        the value
-     * @param defaultValue the default value  if value is NULL ,we will set defaultValue
+     * @param defaultValue the default value , if value is NULL ,we will set defaultValue
      * @return the safe value
      * @author Created by lwjfork on 2018/07/24 16:11
      */

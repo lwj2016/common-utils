@@ -111,7 +111,7 @@ public class StrUtil {
         return source.replaceFirst(regex, replacement);
     }
 
-    public static String replacAll(String source, String regex, String replacement) {
+    public static String replaceAll(String source, String regex, String replacement) {
         return source.replaceAll(regex, replacement);
     }
 
@@ -149,5 +149,10 @@ public class StrUtil {
         return TextUtils.join(delimiter, tokens);
     }
 
+
+    public static void main(String[] args) {
+        System.out.println(StrUtil.replaceAll("com.google.test", "\\.", "_"));
+        System.out.println(StrUtil.replaceFirst("com.google.test", "\\.", "_"));
+    }
 
 }
