@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
  * <p>
  * /data/date/{packageName}/shared_prefs
  */
-public class SPManager {
+public final class SPManager extends GlobalContext {
     // com.google.support----> com_google_support
     private static String PREF_NAME = StrUtil.replaceAll(AppUtil.getPackageName(), "\\.", "_");
 
@@ -30,7 +30,7 @@ public class SPManager {
 
     private static Context context;
 
-    public static void init(Context _context) {
+    private static void init(Context _context) {
         if (context != null) {
             return;
         }
@@ -44,12 +44,12 @@ public class SPManager {
     private static final LinkedHashMap<String, SPManager> managers = new LinkedHashMap<>(3, 0.75F, true);
 
     public static SPManager getManager() {
-        init(GlobalContext.getContext());
+        init(getContext());
         return getManager(PREF_NAME);
     }
 
     public static SPManager getManager(String preName) {
-        init(GlobalContext.getContext());
+        init(getContext());
         SPManager manager = managers.get(preName);
         if (manager == null) {
             manager = new SPManager(preName);
@@ -112,7 +112,7 @@ public class SPManager {
         }
     }
 
-
+    @SuppressWarnings("UnusedReturnValue")
     public boolean commit(String key, Object value) {
         if (value instanceof String) {
             return commitString(key, (String) value);

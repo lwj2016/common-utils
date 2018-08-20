@@ -19,7 +19,7 @@ import java.io.IOException;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public class DeviceUtil {
+public  final class DeviceUtil {
 
 
 

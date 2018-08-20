@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  * Created by lwj on 16/5/16.
  * Des:
  */
-public class FormatUtil {
+public final class FormatUtil {
 
 
     public static int str2Int(String str) {
@@ -56,13 +56,17 @@ public class FormatUtil {
     }
 
 
-    public static String getFormat(double money, String formatStr) {
+    public static String getNumberFormat(double money, String formatStr) {
         NumberFormat nf = new DecimalFormat(formatStr);
         return nf.format(money);
     }
 
-    public static String getFormat(String money, String formatStr) {
+    public static String getNumberFormat(String money, String formatStr) {
         NumberFormat nf = new DecimalFormat(formatStr);
         return nf.format(str2Float(money));
+    }
+
+    public static String format(String str, Object... args) {
+        return StrUtil.getFormatStr(str, args);
     }
 }

@@ -20,7 +20,7 @@ import java.io.File;
  * lwjfork@gmail.com
  */
 
-public class BroadcastUtil {
+public class BroadcastUtil extends GlobalContext {
 
 
     /**
@@ -31,12 +31,7 @@ public class BroadcastUtil {
      * @param action
      */
     public static BroadcastReceiver registerLocalReceiver(Context context, BroadcastReceiver receiver, String... action) {
-        IntentFilter filter = new IntentFilter();
-        for (String s : action) {
-            filter.addAction(s);
-        }
-        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
-        return receiver;
+        return register(context, receiver, false, action);
     }
 
 
@@ -47,7 +42,22 @@ public class BroadcastUtil {
      * @param receiver
      */
     public static void unregisterLocalReceiver(Context context, BroadcastReceiver receiver) {
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
+        unregister(context, receiver, false);
+    }
+
+
+    public static BroadcastReceiver registerGlobalReceiver(Context context, BroadcastReceiver receiver, String... action) {
+        return register(context, receiver, true, action);
+    }
+
+    /**
+     * 反注册广播接受者
+     *
+     * @param context
+     * @param receiver
+     */
+    public static void unregisterGlobalReceiver(Context context, BroadcastReceiver receiver) {
+        unregister(context, receiver, true);
     }
 
 
@@ -57,13 +67,18 @@ public class BroadcastUtil {
      * @param context
      * @param receiver
      * @param action
+     * @param isGlobal 是否是全局广播
      */
-    public static BroadcastReceiver register(Context context, BroadcastReceiver receiver, String... action) {
+    public static BroadcastReceiver register(Context context, BroadcastReceiver receiver, boolean isGlobal, String... action) {
         IntentFilter filter = new IntentFilter();
         for (String s : action) {
             filter.addAction(s);
         }
-        context.registerReceiver(receiver, filter);
+        if (isGlobal) {
+            context.registerReceiver(receiver, filter);
+            return receiver;
+        }
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
         return receiver;
     }
 
@@ -73,7 +88,11 @@ public class BroadcastUtil {
      * @param context
      * @param receiver
      */
-    public static void unregister(Context context, BroadcastReceiver receiver) {
+    public static void unregister(Context context, BroadcastReceiver receiver, boolean isGlobal) {
+        if (isGlobal) {
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
+            return;
+        }
         context.unregisterReceiver(receiver);
     }
 
@@ -107,7 +126,7 @@ public class BroadcastUtil {
      * 发送广播
      */
     public static void sendBroadcast(Intent intent, String receiverPermission) {
-        GlobalContext.getContext().sendBroadcast(intent, receiverPermission);
+        getContext().sendBroadcast(intent, receiverPermission);
     }
 
 
@@ -122,7 +141,7 @@ public class BroadcastUtil {
      * 发送有序广播
      */
     public static void sendOrderBroadcast(Intent intent, String receiverPermission) {
-        GlobalContext.getContext().sendBroadcast(intent, receiverPermission);
+        getContext().sendBroadcast(intent, receiverPermission);
     }
 
 

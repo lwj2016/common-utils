@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by lwj on 16/6/29.
  * Des:
  */
-public class AnimationUtil {
+public final  class AnimationUtil {
 
 
 

@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  * lwjfork@gmail.com
  */
 
-public class ReflectUtil {
+public  final class ReflectUtil {
 
 
     public static Method[] getDeclaredMethods(Class clazz) {

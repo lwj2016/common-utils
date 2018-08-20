@@ -6,6 +6,11 @@
 package com.lwj.utils.context;
 
 import android.app.Application;
+import android.content.ContentResolver;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.os.Looper;
 
 import com.lwj.utils.log.LogUtil;
 
@@ -87,6 +92,29 @@ public class GlobalContext {
 
             throw new IllegalStateException("GlobalContext is not initialed, it is recommend to init with application context.");
         }
+    }
+
+    public static Resources getResources() {
+        return getContext().getResources();
+    }
+
+
+    public static AssetManager getAssetManager() {
+        return getContext().getAssets();
+    }
+
+
+    public static PackageManager getPackageManager() {
+        return getContext().getPackageManager();
+    }
+
+
+    public static ContentResolver getContentResolver() {
+        return getContext().getContentResolver();
+    }
+
+    public static Looper getMainLooper() {
+        return getContext().getMainLooper();
     }
 
 }

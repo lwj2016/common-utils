@@ -14,7 +14,7 @@ import android.widget.TextView;
  * ====================
  */
 
-public class DrawableUtil {
+public  final class DrawableUtil {
 
 
     public static Drawable getBoundDrawable(@DrawableRes int id) {

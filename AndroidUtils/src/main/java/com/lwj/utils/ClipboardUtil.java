@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
  * 剪切板管理类
  */
 
-public class ClipboardUtil {
+public  final class ClipboardUtil {
 
 
 

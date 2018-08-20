@@ -9,7 +9,7 @@ import java.util.Stack;
  * lwjfork@gmail.com
  */
 
-public class ActivityManager {
+public final class ActivityManager {
 
 
 

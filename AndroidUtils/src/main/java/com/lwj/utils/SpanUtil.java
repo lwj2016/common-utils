@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * lwjfork@gmail.com
  */
 
-public class SpanUtil {
+public final  class SpanUtil {
 
 
     public static SpanUtil getInstance() {

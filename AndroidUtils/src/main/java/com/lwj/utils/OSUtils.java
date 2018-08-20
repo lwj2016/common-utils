@@ -11,12 +11,9 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 16/6/7.
  * Des:
  */
-public class OSUtils {
+public final class OSUtils extends GlobalContext {
 
 
-    private static Application getContext() {
-        return GlobalContext.getContext();
-    }
 
     @SuppressWarnings("unchecked")
     public static <T> T getSystemService(String service) {
@@ -160,6 +157,7 @@ public class OSUtils {
     }
 
 
+
     /**
      * api 27
      *
@@ -176,7 +174,7 @@ public class OSUtils {
      * @return 9.0.0
      */
     public static boolean hasP_28() {
-        return has(28);
+        return has(Build.VERSION_CODES.P);
     }
 
 

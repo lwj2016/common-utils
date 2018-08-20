@@ -192,7 +192,7 @@ public class FileUtil extends ZipUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized static <T> T readObjfromFile(String path, String name) {
+    public synchronized static <T> T readObjFromFile(String path, String name) {
         FileInputStream f_in = null;
         Object object = null;
         String filePath = path + File.separator + name;

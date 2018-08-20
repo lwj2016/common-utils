@@ -12,7 +12,7 @@ import android.view.View;
  * ====================
  */
 
-public class ThreadUtil {
+public final  class ThreadUtil {
 
 
     /**

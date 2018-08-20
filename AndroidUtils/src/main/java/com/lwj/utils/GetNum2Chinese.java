@@ -8,7 +8,7 @@ package com.lwj.utils;
  * 二--二
  */
 
-public class GetNum2Chinese {
+public final  class GetNum2Chinese {
 
     private static final String ZEROstr = "零";
     private static final long ZEROnum = 0;

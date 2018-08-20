@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public class ViewUtil {
+public final class ViewUtil extends GlobalContext {
     /**
      * Find view by id v.
      *
@@ -144,7 +145,7 @@ public class ViewUtil {
      * @author Created by lwjfork on 2018/07/09 17:44
      */
     public static LayoutInflater newInflate() {
-        return LayoutInflater.from(GlobalContext.getContext());
+        return LayoutInflater.from(getContext());
     }
 
     /**
@@ -184,51 +185,51 @@ public class ViewUtil {
     }
 
     /**
-     * Find linear layout by id linear layout.
+     * Find LinearLayout by id linear layout.
      *
      * @param view the view
      * @param id   the id
      * @return the linear layout
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static LinearLayout findLinearLayoutById(View view, @IdRes int id) {
+    public static LinearLayout findLLById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
     /**
-     * Find relative layout by id relative layout.
+     * Find RelativeLayout by id relative layout.
      *
      * @param view the view
      * @param id   the id
      * @return the relative layout
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static RelativeLayout findRelativeLayoutById(View view, @IdRes int id) {
+    public static RelativeLayout findRLById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
 
     /**
-     * Find frame layout by id frame layout.
+     * Find FrameLayout by id frame layout.
      *
      * @param view the view
      * @param id   the id
      * @return the frame layout
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static FrameLayout findFrameLayoutById(View view, @IdRes int id) {
+    public static FrameLayout findFLById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
     /**
-     * Find text view by id text view.
+     * Find TextView by id text view.
      *
      * @param view the view
      * @param id   the id
      * @return the text view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static TextView findTextViewById(View view, @IdRes int id) {
+    public static TextView findTVById(View view, @IdRes int id) {
 
         return findViewById(view, id);
     }
@@ -241,20 +242,20 @@ public class ViewUtil {
      * @return the button
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static Button findButtonById(View view, @IdRes int id) {
+    public static Button findBtnById(View view, @IdRes int id) {
 
         return findViewById(view, id);
     }
 
     /**
-     * Find image view by id image view.
+     * Find ImageView by id image view.
      *
      * @param view the view
      * @param id   the id
      * @return the image view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static ImageView findImageViewById(View view, @IdRes int id) {
+    public static ImageView findIVById(View view, @IdRes int id) {
         return findViewById(view, id);
     }
 
@@ -346,7 +347,7 @@ public class ViewUtil {
      * @author Created by lwjfork on 2018/07/09 17:44
      */
     public static TextView setTvText(View view, @IdRes int id, String text) {
-        TextView textView = findTextViewById(view, id);
+        TextView textView = findTVById(view, id);
         textView.setText(text);
         return textView;
     }
@@ -543,6 +544,12 @@ public class ViewUtil {
      */
     public static <T extends TextView> void clearCompoundDrawables(T view) {
         DrawableUtil.clearCompoundDrawables(view);
+    }
+
+
+    public static void setDivider(LinearLayout layout, Drawable drawable, @LinearLayoutCompat.DividerMode int showDividers) {
+        layout.setDividerDrawable(drawable);
+        layout.setShowDividers(showDividers);
     }
 
 }

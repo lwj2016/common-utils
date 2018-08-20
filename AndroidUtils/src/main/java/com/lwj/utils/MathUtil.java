@@ -11,7 +11,7 @@ import java.math.RoundingMode;
  * ====================
  */
 
-public class MathUtil {
+public final  class MathUtil {
     /**
      * 求 地板运算
      *

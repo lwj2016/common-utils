@@ -8,7 +8,7 @@ import java.nio.charset.Charset;
  * Created by lwj on 16/6/28.
  * Des:
  */
-public class Base64Util {
+public final  class Base64Util {
 
 
     /**

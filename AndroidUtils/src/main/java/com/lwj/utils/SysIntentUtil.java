@@ -18,7 +18,7 @@ import java.io.File;
  * Created by lwj on 16/3/23.
  * Des: open the system app or  service
  */
-public class SysIntentUtil {
+public final class SysIntentUtil {
     /**
      * 打开网络设置界面
      */
@@ -87,7 +87,7 @@ public class SysIntentUtil {
      * @param context
      */
     public static void openSetting(Context context) {
-        ActivityUtil.startActivity(context,android.provider.Settings.ACTION_SETTINGS);
+        ActivityUtil.startActivity(context, android.provider.Settings.ACTION_SETTINGS);
     }
 
     /**
@@ -97,7 +97,7 @@ public class SysIntentUtil {
      */
 
     public static void openCamera(Context context) {
-        ActivityUtil.startActivity(context,"android.media.action.STILL_IMAGE_CAMERA");
+        ActivityUtil.startActivity(context, "android.media.action.STILL_IMAGE_CAMERA");
     }
 
     /**
@@ -166,7 +166,7 @@ public class SysIntentUtil {
      * @param requestCode
      */
     public static void selectImage(Activity activity, int requestCode) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);//视频
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);//图片
         intent.setType("image/*");
         activity.startActivityForResult(intent, requestCode);
     }

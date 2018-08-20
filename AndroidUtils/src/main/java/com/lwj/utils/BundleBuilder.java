@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * ====================
  */
 
-public class BundleBuilder {
+public final  class BundleBuilder {
 
     private Bundle resultBundle = new Bundle();
 

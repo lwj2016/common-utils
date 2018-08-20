@@ -13,7 +13,7 @@ import com.lwj.utils.context.GlobalContext;
  * lwjfork@gmail.com
  */
 
-public class ToastUtil {
+public final  class ToastUtil extends GlobalContext{
 
 
     public static final int DEFAULT_GRAVITY = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
@@ -128,11 +128,11 @@ public class ToastUtil {
 
         public void show() {
             if (view == null) {
-                Toast toast = Toast.makeText(GlobalContext.getContext(), getMsg(), duration);
+                Toast toast = Toast.makeText(getContext(), getMsg(), duration);
                 toast.setGravity(gravity, xOffset, yOffset);
                 toast.show();
             } else {
-                Toast toast = new Toast(GlobalContext.getContext());
+                Toast toast = new Toast(getContext());
                 toast.setGravity(gravity, xOffset, yOffset);
                 toast.setDuration(duration);
                 toast.setView(view);
@@ -153,7 +153,7 @@ public class ToastUtil {
     }
 
     public static ToastBuilder get() {
-        return get(GlobalContext.getContext());
+        return get(getContext());
     }
 
     public static void show(Context context, String msg) {
@@ -167,7 +167,7 @@ public class ToastUtil {
     }
 
     public static void show(String msg, int duration, int gravity, int xOffset, int yOffset) {
-        show(GlobalContext.getContext(), msg, duration, gravity, xOffset, yOffset);
+        show(getContext(), msg, duration, gravity, xOffset, yOffset);
     }
 
 
@@ -184,7 +184,7 @@ public class ToastUtil {
     }
 
     public static void show(String msg, int duration) {
-        Toast.makeText(GlobalContext.getContext(), msg, duration).show();
+        Toast.makeText(getContext(), msg, duration).show();
     }
 
     public static void show(int msg) {
@@ -192,7 +192,7 @@ public class ToastUtil {
     }
 
     public static void show(int msg, int duration) {
-        Toast.makeText(GlobalContext.getContext(), msg, duration).show();
+        Toast.makeText(getContext(), msg, duration).show();
     }
 
 

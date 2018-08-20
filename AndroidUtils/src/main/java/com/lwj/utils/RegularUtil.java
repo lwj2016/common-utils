@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by lwj on 16/3/23.
  * Des: 正则工具类
  */
-public class RegularUtil extends StrUtil {
+public final  class RegularUtil {
     /**
      * 验证输入的邮箱格式是否符合
      *
@@ -37,7 +37,7 @@ public class RegularUtil extends StrUtil {
      * @return
      */
     public static boolean isNumeric(String str) {
-        String regularStr = "[0-9]*";
+        String regularStr = "[0-9]+";
         return isMatch(str, regularStr);
     }
 
@@ -48,7 +48,7 @@ public class RegularUtil extends StrUtil {
      * @return
      */
     public static boolean isLetter(String str) {
-        String regularStr = "[a-zA-Z]";
+        String regularStr = "[a-zA-Z]+";
         return isMatch(str, regularStr);
     }
 
@@ -117,7 +117,7 @@ public class RegularUtil extends StrUtil {
 
     public static void main(String[] args) {
 
-        boolean isTrue = isPhone("+8618715618142");
+        boolean isTrue = isPhone("+8618715218142");
 
 
         System.out.println(isTrue);

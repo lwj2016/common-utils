@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public class StrUtil {
+public  final   class StrUtil {
 
 
     public static boolean isEmpty(String str) {

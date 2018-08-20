@@ -10,7 +10,7 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
-public class SoftKeyboardUtil {
+public final class SoftKeyboardUtil {
 
 
     public static void showInputMethod(View v) {

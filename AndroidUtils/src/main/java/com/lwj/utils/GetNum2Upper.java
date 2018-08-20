@@ -8,7 +8,7 @@ package com.lwj.utils;
  * 2-- 贰
  */
 
-public class GetNum2Upper {
+public final  class GetNum2Upper {
 
     private static final String ZEROstr = "零";
     private static final long ZEROnum = 0;

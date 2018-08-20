@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by lwj on 16/6/7.
  * Des:
  */
-public class URLUtil {
+public final  class URLUtil {
 
     /**
      * Gets url from str.

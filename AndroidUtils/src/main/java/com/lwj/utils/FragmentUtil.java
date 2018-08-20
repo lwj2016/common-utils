@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
-public class FragmentUtil {
+public final  class FragmentUtil {
 
     /**
      * @param activity   android.support.v4.app.FragmentActivity

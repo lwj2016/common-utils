@@ -1,10 +1,7 @@
 package com.lwj.utils;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Picture;
+import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -28,12 +25,13 @@ import java.util.Set;
  * ====================
  */
 
-public class WebViewUtil {
+public final class WebViewUtil {
 
     public static final String JAVA_SCRIPT = "javascript:";
     public static final String REGX = "; ";
 
     @SuppressWarnings("SameParameterValue")
+    @TargetApi(19)
     public static void executeJS(final WebView webView, String jsMethod, final ValueCallback<String> callback, Object... jsParams) {
         final String url = buildJSUrl(jsMethod, jsParams);
         LogUtil.d("execute JS code %s", url);
@@ -177,6 +175,9 @@ public class WebViewUtil {
             // 禁止 JS 代码继续执行
             webView.getSettings().setJavaScriptEnabled(false);
             webView.clearHistory();
+            webView.clearFormData();
+            webView.clearSslPreferences();
+            webView.freeMemory();
             webView.clearView();
             webView.removeAllViews();
             ViewGroup parent = (ViewGroup) webView.getParent();

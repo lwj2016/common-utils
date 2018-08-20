@@ -11,7 +11,7 @@ import android.widget.ListView;
  * Created by lwj on 16/3/15.
  * Des: AdapterViewUtil
  */
-public class AdapterViewUtil {
+public final  class AdapterViewUtil {
 
     @SuppressWarnings("unchecked")
     public static <T> T getItemModel(AdapterView adapterView, int i) {

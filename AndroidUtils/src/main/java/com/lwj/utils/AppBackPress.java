@@ -8,7 +8,7 @@ import android.view.KeyEvent;
  * 双击退出程序
  */
 
-public class AppBackPress {
+public final  class AppBackPress {
 
 
     private long exitTime = 0;

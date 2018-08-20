@@ -11,7 +11,7 @@ import com.lwj.utils.context.GlobalContext;
  * Created by lwj on 16/3/15.
  * Des: DisplayUtil
  */
-public class DisplayUtil {
+public final class DisplayUtil extends GlobalContext {
 
     private static DisplayMetrics dm = null;
 
@@ -26,14 +26,9 @@ public class DisplayUtil {
 
 
     static {
-        dm = getContext().getResources().getDisplayMetrics();
+        dm = getResources().getDisplayMetrics();
     }
 
-
-    private static Application getContext() {
-        return GlobalContext.getContext();
-    }
-    
 
     public static DisplayMetrics getDisplayMetrics() {
         return dm;
@@ -88,11 +83,13 @@ public class DisplayUtil {
         return dm.density;
     }
 
-    public static int getScreenTitleBarHeight(Activity activity) {
-        Rect rect = new Rect();
-        activity.getWindow().getDecorView()
-                .getWindowVisibleDisplayFrame(rect);
-        return rect.top;
+    public static int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = ResUtil.getDimenId("status_bar_height", "android");
+        if (resourceId > 0) {
+            result = getContext().getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 }

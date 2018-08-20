@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
@@ -24,12 +25,9 @@ import java.util.List;
  */
 
 
-public class AppUtil {
+public class AppUtil extends GlobalContext {
 
-
-    private static Application getContext() {
-        return GlobalContext.getContext();
-    }
+    public final static String SHA1 = "SHA1";
 
 
     public static PackageInfo getPackageInfo() {
@@ -45,9 +43,7 @@ public class AppUtil {
         }
     }
 
-    public static PackageManager getPackageManager() {
-        return getContext().getPackageManager();
-    }
+
 
     public static String getVersionName() {
         return getPackageInfo().versionName;
@@ -115,6 +111,7 @@ public class AppUtil {
      * @param packageName
      * @return
      */
+    @Nullable
     public static Signature[] getSignatures(String packageName) {
         PackageInfo packageInfo = null;
         try {
@@ -126,12 +123,11 @@ public class AppUtil {
         return null;
     }
 
-
+    @Nullable
     public static Signature[] getSignatures() {
         return getSignatures(getPackageName());
     }
 
-    public final static String SHA1 = "SHA1";
 
     /**
      * 返回一个签名的对应类型的字符串
@@ -140,9 +136,13 @@ public class AppUtil {
      * @param type
      * @return
      */
+    @Nullable
     public static String getSingInfo(String packageName, String type) {
         String tmp = null;
         Signature[] signs = getSignatures(packageName);
+        if (signs == null) {
+            return null;
+        }
         for (Signature sig : signs) {
             if (SHA1.equals(type)) {
                 tmp = getSignatureString(sig, SHA1);
@@ -159,6 +159,7 @@ public class AppUtil {
      * @param type
      * @return
      */
+    @Nullable
     public static String getSingInfo(String type) {
         return getSingInfo(getPackageName(), type);
     }
@@ -168,6 +169,7 @@ public class AppUtil {
      *
      * @return
      */
+    @Nullable
     public static String getSingInfo() {
         return getSingInfo(getPackageName(), SHA1);
     }

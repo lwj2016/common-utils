@@ -7,7 +7,7 @@ import org.json.JSONObject;
  * lwjfork@gmail.com
  */
 
-public class JSONUtil {
+public final  class JSONUtil {
 
 
     public static boolean isHave(JSONObject jsonObject, String key) {

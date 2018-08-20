@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
  * lwjfork@gmail.com
  */
 
-public class StreamUtil {
+public final  class StreamUtil {
 
     /**
      * 将输入流转换为字符串

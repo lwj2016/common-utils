@@ -55,7 +55,7 @@ public class BluetoothUtil {
      * @see BluetoothAdapter#ACTION_DISCOVERY_STARTED
      */
     public static void registerStartDiscoveryReceiver(Context context, BroadcastReceiver receiver) {
-        BroadcastUtil.register(context, receiver, BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        BroadcastUtil.registerGlobalReceiver(context, receiver, BluetoothAdapter.ACTION_DISCOVERY_STARTED);
     }
 
     /**
@@ -66,7 +66,7 @@ public class BluetoothUtil {
      * @see BluetoothDevice#ACTION_FOUND
      */
     public static void registerFoundReceiver(Context context, BroadcastReceiver receiver) {
-        BroadcastUtil.register(context, receiver, BluetoothDevice.ACTION_FOUND);
+        BroadcastUtil.registerGlobalReceiver(context, receiver, BluetoothDevice.ACTION_FOUND);
     }
 
 
@@ -77,7 +77,7 @@ public class BluetoothUtil {
      * @param receiver
      */
     public static void registerFinishReceiver(Context context, BroadcastReceiver receiver) {
-        BroadcastUtil.register(context, receiver, BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        BroadcastUtil.registerGlobalReceiver(context, receiver, BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
     }
 
     /**

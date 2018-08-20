@@ -10,7 +10,7 @@ import java.util.Properties;
  * lwjfork@gmail.com
  */
 
-public class PropertiesUtil {
+public final class PropertiesUtil {
 
 
     /**
@@ -45,6 +45,15 @@ public class PropertiesUtil {
     }
 
 
+    /**
+     * Gets value by class loader.
+     *
+     * @param path the path
+     * @param keys the keys
+     * @return the value by class loader
+     * @throws IOException the io exception
+     * @author Created by liuwenjie on 2018/08/17 11:30
+     */
     public static HashMap<String, String> getValueByClassLoader(String path, String... keys) throws IOException {
         Properties properties = getPropertiesByClassLoader(path);
 
@@ -56,10 +65,27 @@ public class PropertiesUtil {
     }
 
 
+    /**
+     * Gets value.
+     *
+     * @param properties   the properties
+     * @param key          the key
+     * @param defaultValue the default value
+     * @return the value
+     * @author Created by liuwenjie on 2018/08/17 11:30
+     */
     public static String getValue(Properties properties, String key, String defaultValue) {
         return properties.getProperty(key, defaultValue);
     }
 
+    /**
+     * Gets value.
+     *
+     * @param properties the properties
+     * @param key        the key
+     * @return the value
+     * @author Created by liuwenjie on 2018/08/17 11:30
+     */
     public static String getValue(Properties properties, String key) {
         return properties.getProperty(key, null);
     }

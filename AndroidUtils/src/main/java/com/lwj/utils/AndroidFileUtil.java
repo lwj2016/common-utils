@@ -6,9 +6,18 @@ import android.os.Environment;
 import android.os.StatFs;
 
 import com.lwj.utils.context.GlobalContext;
+import com.lwj.utils.log.LogUtil;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Struct;
 
 /**
@@ -16,12 +25,8 @@ import java.sql.Struct;
  * lwjfork@gmail.com
  */
 
-public class AndroidFileUtil extends FileUtil {
+public final class AndroidFileUtil extends GlobalContext {
 
-
-    private static Application getContext() {
-        return GlobalContext.getContext();
-    }
 
     /**
      * @param folderName
@@ -310,4 +315,174 @@ public class AndroidFileUtil extends FileUtil {
     public static void refreshGallery(String filePath) {
         BroadcastUtil.refreshGallery(filePath);
     }
+
+
+    /**
+     * @param path directory path
+     * @param name file name
+     * @return really path for this file
+     */
+    public static String getFilePath(String path, String name) {
+        return FileUtil.getFilePath(path, name);
+    }
+
+
+    /**
+     * 创建目录
+     *
+     * @param path
+     * @return
+     */
+    public static File createDirectory(String path) {
+        return FileUtil.createDirectory(path);
+    }
+
+
+    /**
+     * 创建目录
+     *
+     * @param path
+     * @return
+     */
+    public static File createDirectory(String path, String name) {
+        return createDirectory(getFilePath(path, name));
+    }
+
+
+    /**
+     * 创建文件
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static File createFile(String path) throws IOException {
+        return FileUtil.createFile(path);
+    }
+
+    /**
+     * 创建文件
+     *
+     * @param dir
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
+    public static File createFile(File dir, String fileName) throws IOException {
+        return FileUtil.createFile(dir, fileName);
+    }
+
+
+    /**
+     * 创建文件
+     *
+     * @param dirPath
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
+    public static File createFile(String dirPath, String fileName) throws IOException {
+        return FileUtil.createFile(dirPath, fileName);
+    }
+
+
+    /**
+     * @param object obj
+     * @param path   directory
+     * @param name   file name
+     */
+    public synchronized static <T extends Serializable> void saveObj2File(T object, String path, String name) {
+        FileUtil.saveObj2File(object, path, name);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public synchronized static <T> T readObjFromFile(String path, String name) {
+        return FileUtil.readObjFromFile(path, name);
+    }
+
+
+    /**
+     * 移动文件
+     *
+     * @param srcFileName 源文件完整路径
+     * @param desFileName 目的目录完整路径
+     * @return 文件移动成功返回true，否则返回false
+     */
+    public static boolean moveFile(String srcFileName, String desFileName) {
+        return FileUtil.moveFile(srcFileName, desFileName);
+    }
+
+    /**
+     * 删除包含该文件夹在内的所有文件
+     *
+     * @param file
+     */
+    public static void deleteFilesAll(File file) {
+        FileUtil.deleteFilesAll(file);
+    }
+
+    /**
+     * 删除该文件夹内所有文件，不包含该文件夹
+     *
+     * @param path
+     */
+    public static void deleteFiles(String path) {
+        deleteFilesAll(new File(path));
+    }
+
+    /**
+     * 删除单个文件
+     *
+     * @param path
+     */
+    public static void deleteFile(String path) {
+        FileUtil.deleteFile(path);
+    }
+
+    /**
+     * @param path
+     * @return true if file is exits,otherwise false
+     */
+    public static boolean isFileExists(String path) {
+        return FileUtil.isFileExists(path);
+    }
+
+    public static boolean isFileExists(File file) {
+
+        return FileUtil.isFileExists(file);
+    }
+
+
+    /**
+     * 从文件中读取数据
+     *
+     * @param fileName
+     * @return
+     * @throws java.io.IOException
+     */
+    public static String readStrFromFile(String fileName) throws IOException {
+        return FileUtil.readStrFromFile(fileName);
+    }
+
+    /**
+     * 保存数据到文件中
+     *
+     * @param content
+     * @param file
+     * @throws java.io.IOException
+     */
+    public static void writeStr2File(String content, File file) throws IOException {
+        FileUtil.writeStr2File(content, file);
+    }
+
+    public static long getLastModified(String fileName) {
+        return getLastModified(fileName);
+    }
+
+    public static long getLastModified(File file) {
+        return getLastModified(file);
+    }
+
+
 }

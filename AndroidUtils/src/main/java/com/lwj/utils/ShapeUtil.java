@@ -22,13 +22,11 @@ public class ShapeUtil {
      */
     public static GradientDrawable getGradientDrawable(@ColorInt int color, int radius) {
 
-        if (radius <= 0) {
-            return getGradientDrawable(color);
-        }
-
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(radius);
+        if (radius > 0) {
+            shape.setCornerRadius(radius);
+        }
         shape.setColor(color);
         return shape;
     }

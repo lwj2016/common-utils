@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Utils</string>
+
+
+    <integer-array name="test">
+        <item>1</item>
+
+    </integer-array>
 </resources>

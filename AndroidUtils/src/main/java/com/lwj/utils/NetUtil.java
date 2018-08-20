@@ -1,6 +1,5 @@
 package com.lwj.utils;
 
-import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,7 +8,7 @@ import android.telephony.TelephonyManager;
 
 import com.lwj.utils.context.GlobalContext;
 
-public class NetUtil {
+public final class NetUtil {
 
     public static final int TYPE_UNKNOWN = 0;
     public static final int TYPE_WIFI = 1;
@@ -17,10 +16,6 @@ public class NetUtil {
     public static final int TYPE_3G = 3;
     public static final int TYPE_4G = 4;
 
-
-    private static Application getContext() {
-        return GlobalContext.getContext();
-    }
 
     /**
      * 检查网络连接状态

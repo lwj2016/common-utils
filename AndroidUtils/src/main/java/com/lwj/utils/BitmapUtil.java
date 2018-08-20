@@ -32,7 +32,7 @@ import java.sql.Struct;
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
-public class BitmapUtil {
+public  final class BitmapUtil {
     public static void saveBitmap2jpg(File saveDir, String jpgName,
                                       Bitmap bitmap) {
         saveBitmap2jpg(saveDir, jpgName, bitmap, 0, 0);

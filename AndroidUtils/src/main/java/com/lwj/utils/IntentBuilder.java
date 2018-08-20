@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * ====================
  */
 
-public class IntentBuilder {
+public final  class IntentBuilder {
 
     private Intent resultIntent = new Intent();
 

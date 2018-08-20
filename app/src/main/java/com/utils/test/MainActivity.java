@@ -16,6 +16,7 @@ import com.lwj.utils.AppBackPress;
 import com.lwj.utils.ArrayUtil;
 import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
+import com.lwj.utils.ResUtil;
 import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
@@ -75,7 +76,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         tv_empty.setTextColor(stateList);
 
 
-        receiver = BroadcastUtil.register(this, new
+        receiver = BroadcastUtil.registerLocalReceiver(this, new
 
                 BroadcastReceiver() {
                     @Override
@@ -87,10 +88,21 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
 
 
         SPManager.getManager().commit("test", "tt");
-        LogUtil.e("test----> %s",SPManager.getManager().getString("test"));
+
+        LogUtil.e("test----> %s", SPManager.getManager().getString("test"));
+
         SPManager.getManager().removeAndCommit("test");
 
-        LogUtil.e("test----> %s",SPManager.getManager().getString("test"));
+        LogUtil.e("test----> %s", SPManager.getManager().getString("test"));
+
+
+        int resID = ResUtil.getArrayId("test");
+
+        LogUtil.e("resID --> %d", resID);
+
+        int[] array = getResources().getIntArray(resID);
+
+        LogUtil.e("resID --> %d", array[0]);
     }
 
     @Override
@@ -103,7 +115,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.e("onDestroy %s", "onDestroy");
-        BroadcastUtil.unregister(this, receiver);
+        BroadcastUtil.unregisterLocalReceiver(this, receiver);
     }
 
     @Override

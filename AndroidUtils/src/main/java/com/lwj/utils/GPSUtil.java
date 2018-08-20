@@ -11,7 +11,7 @@ import android.location.LocationManager;
  * ====================
  */
 
-public class GPSUtil {
+public final  class GPSUtil {
 
 
 
