@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -19,8 +20,7 @@ import java.io.IOException;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public  final class DeviceUtil {
-
+public final class DeviceUtil extends GlobalContext {
 
 
     public static String getPhoneModel() {
@@ -118,4 +118,48 @@ public  final class DeviceUtil {
     public static boolean isGPSEnabled() {
         return GPSUtil.isGPSEnabled();
     }
+
+    /**
+     * 判断是否是平板电脑
+     *
+     * @return
+     */
+    public static boolean isTablet() {
+        return (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    /**
+     * 获得设备型号
+     *
+     * @return
+     */
+    public static String getDeviceModel() {
+        return StrUtil.trim(Build.MODEL);
+    }
+
+
+    /**
+     * 检测是否魅族手机
+     */
+    public static boolean isMeizu() {
+        return getDeviceModel().toLowerCase().contains("meizu");
+    }
+
+    /**
+     * 检测是否HTC手机
+     */
+    public static boolean isHTC() {
+        return getDeviceModel().toLowerCase().contains("htc");
+    }
+
+    /**
+     * 是否是小米手机
+     *
+     * @return
+     */
+    public static boolean isXiaomi() {
+        return getDeviceModel().toLowerCase().contains("xiaomi");
+
+    }
+
 }

@@ -5,9 +5,8 @@ import android.util.Log;
 /**
  * Created by lwj on 2018/4/10.
  * lwjfork@gmail.com
- *
+ * <p>
  * Copy from https://github.com/JakeWharton/timber
- *
  */
 public abstract class Tree {
     public final ThreadLocal<String> explicitTag = new ThreadLocal<>();
@@ -15,7 +14,7 @@ public abstract class Tree {
     public Tree() {
     }
 
-    String getTag() {
+    protected String getTag() {
         String tag = (String) this.explicitTag.get();
         if (tag != null) {
             this.explicitTag.remove();
@@ -97,4 +96,77 @@ public abstract class Tree {
     }
 
     protected abstract void log(int var1, String var2, String var3, Throwable var4);
+
+    public void v(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.VERBOSE, null, message, args);
+    }
+
+    public void v(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.VERBOSE, t, message, args);
+    }
+
+    public void d(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.DEBUG, null, message, args);
+    }
+
+    public void d(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.DEBUG, t, message, args);
+    }
+
+    public void i(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.INFO, null, message, args);
+    }
+
+    public void i(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.INFO, t, message, args);
+    }
+
+    public void w(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.WARN, null, message, args);
+    }
+
+    public void w(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.WARN, t, message, args);
+    }
+
+    public void e(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.ERROR, null, message, args);
+    }
+
+    public void e(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.ERROR, t, message, args);
+    }
+
+    public void wtf(String tag, String message, Object... args) {
+        this.prepareLog(tag, Log.ASSERT, null, message, args);
+    }
+
+    public void wtf(String tag, Throwable t, String message, Object... args) {
+        this.prepareLog(tag, Log.ASSERT, t, message, args);
+    }
+
+    private void prepareLog(String tag, int priority, Throwable t, String message, Object... args) {
+        if (message != null && message.length() == 0) {
+            message = null;
+        }
+
+        if (message == null) {
+            if (t == null) {
+                return;
+            }
+
+            message = Log.getStackTraceString(t);
+        } else {
+            if (args.length > 0) {
+                message = String.format(message, args);
+            }
+
+            if (t != null) {
+                message = message + "\n" + Log.getStackTraceString(t);
+            }
+        }
+
+        this.log(priority, tag, message, t);
+    }
+
 }

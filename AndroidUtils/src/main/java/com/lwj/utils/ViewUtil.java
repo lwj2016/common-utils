@@ -113,13 +113,8 @@ public final class ViewUtil extends GlobalContext {
      * @param _view the view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static void viewGone(View... _view) {
-        for (View view : _view) {
-            if (view != null && view.getVisibility() != View.GONE) {
-                view.setVisibility(View.GONE);
-            }
-
-        }
+    public static void setGong(View... _view) {
+        setVisibility(View.GONE, _view);
     }
 
     /**
@@ -128,10 +123,15 @@ public final class ViewUtil extends GlobalContext {
      * @param _view the view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static void viewVisible(View... _view) {
+    public static void setVisible(View... _view) {
+        setVisibility(View.VISIBLE, _view);
+    }
+
+
+    public static void setVisibility(int visibility, View... _view) {
         for (View view : _view) {
-            if (view != null && view.getVisibility() != View.VISIBLE) {
-                view.setVisibility(View.VISIBLE);
+            if (view != null && view.getVisibility() != visibility) {
+                view.setVisibility(visibility);
             }
 
         }

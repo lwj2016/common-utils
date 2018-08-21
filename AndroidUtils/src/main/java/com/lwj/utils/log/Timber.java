@@ -12,6 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Timber {
     private static final List<Tree> FOREST = new CopyOnWriteArrayList<>();
     private static final Tree TREE_OF_SOULS = new Tree() {
+
+
         public void v(String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
@@ -132,9 +134,132 @@ public class Timber {
 
         }
 
+        public void v(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).v(tag, message, args);
+            }
+
+        }
+
+        public void v(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).v(tag, t, message, args);
+            }
+
+        }
+
+        public void d(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).d(tag, message, args);
+            }
+
+        }
+
+        public void d(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).d(tag, t, message, args);
+            }
+
+        }
+
+        public void i(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).i(tag, message, args);
+            }
+
+        }
+
+        public void i(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).i(tag, t, message, args);
+            }
+
+        }
+
+        public void w(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).w(tag, message, args);
+            }
+
+        }
+
+        public void w(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).w(tag, t, message, args);
+            }
+
+        }
+
+        public void e(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).e(tag, message, args);
+            }
+
+        }
+
+        public void e(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).e(tag, t, message, args);
+            }
+
+        }
+
+        public void wtf(String tag, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).wtf(tag, message, args);
+            }
+
+        }
+
+        public void wtf(String tag, Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).wtf(tag, t, message, args);
+            }
+
+        }
+
+
         protected void log(int priority, String tag, String message, Throwable t) {
             throw new AssertionError("Missing override for log method.");
         }
+
+
     };
 
     public Timber() {
@@ -187,6 +312,56 @@ public class Timber {
     public static void wtf(Throwable t, String message, Object... args) {
         TREE_OF_SOULS.wtf(t, message, args);
     }
+
+
+    public static void v(String tag, String message, Object... args) {
+        TREE_OF_SOULS.v(tag, message, args);
+    }
+
+    public static void v(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.v(tag, t, message, args);
+    }
+
+    public static void d(String tag, String message, Object... args) {
+        TREE_OF_SOULS.d(tag, message, args);
+    }
+
+    public static void d(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.d(tag, t, message, args);
+    }
+
+    public static void i(String tag, String message, Object... args) {
+        TREE_OF_SOULS.i(tag, message, args);
+    }
+
+    public static void i(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.i(tag, t, message, args);
+    }
+
+    public static void w(String tag, String message, Object... args) {
+        TREE_OF_SOULS.w(tag, message, args);
+    }
+
+    public static void w(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.w(tag, t, message, args);
+    }
+
+    public static void e(String tag, String message, Object... args) {
+        TREE_OF_SOULS.e(tag, message, args);
+    }
+
+    public static void e(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.e(tag, t, message, args);
+    }
+
+    public static void wtf(String tag, String message, Object... args) {
+        TREE_OF_SOULS.wtf(tag, message, args);
+    }
+
+    public static void wtf(String tag, Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.wtf(tag, t, message, args);
+    }
+
 
     public static Tree asTree() {
         return TREE_OF_SOULS;

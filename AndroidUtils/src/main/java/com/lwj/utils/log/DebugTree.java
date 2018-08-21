@@ -8,9 +8,8 @@ import java.util.regex.Pattern;
 /**
  * Created by lwj on 2018/4/10.
  * lwjfork@gmail.com
- *
+ * <p>
  * Copy from https://github.com/JakeWharton/timber
- *
  */
 
 public class DebugTree extends Tree {
@@ -31,7 +30,8 @@ public class DebugTree extends Tree {
         return tag.substring(tag.lastIndexOf(".") + 1);
     }
 
-    final String getTag() {
+    @Override
+    protected String getTag() {
         String tag = super.getTag();
         if (tag != null) {
             return tag;
@@ -45,6 +45,7 @@ public class DebugTree extends Tree {
         }
     }
 
+    @Override
     protected void log(int priority, String tag, String message, Throwable t) {
         if (message.length() < MAX_LOG_LENGTH) {
             if (priority == Log.ASSERT) {

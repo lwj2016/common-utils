@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  */
-public  final   class StrUtil {
+public final class StrUtil {
 
 
     public static boolean isEmpty(String str) {
@@ -32,6 +32,11 @@ public  final   class StrUtil {
 
     public static boolean isValid(String string) {
         return !isEmpty(string);
+    }
+
+
+    public static String trim(String string) {
+        return string.trim();
     }
 
     /**

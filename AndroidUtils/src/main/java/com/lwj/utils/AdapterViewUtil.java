@@ -95,4 +95,9 @@ public final  class AdapterViewUtil {
         }
         return true;
     }
+
+
+
+
+
 }

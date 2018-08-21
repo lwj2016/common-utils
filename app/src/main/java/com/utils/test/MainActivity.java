@@ -103,6 +103,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         int[] array = getResources().getIntArray(resID);
 
         LogUtil.e("resID --> %d", array[0]);
+        LogUtil.e("TAG", "resID --> %d", array[0]);
     }
 
     @Override

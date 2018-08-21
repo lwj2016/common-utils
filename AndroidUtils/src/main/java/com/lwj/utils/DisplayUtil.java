@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
@@ -27,6 +28,16 @@ public final class DisplayUtil extends GlobalContext {
 
     static {
         dm = getResources().getDisplayMetrics();
+    }
+
+
+    /**
+     * 获得设备屏幕密度
+     */
+    public static float getScreenDensity() {
+        DisplayMetrics metrics = getContext().getResources()
+                .getDisplayMetrics();
+        return metrics.density;
     }
 
 
