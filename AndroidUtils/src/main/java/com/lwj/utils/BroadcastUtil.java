@@ -89,6 +89,9 @@ public class BroadcastUtil extends GlobalContext {
      * @param receiver
      */
     public static void unregister(Context context, BroadcastReceiver receiver, boolean isGlobal) {
+        if(receiver == null){
+            return;
+        }
         if (isGlobal) {
             LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
             return;

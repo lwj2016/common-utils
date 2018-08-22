@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.lwj.utils.NetUtil;
 import com.lwj.utils.context.GlobalContext;
 import com.lwj.utils.log.LogUtil;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by lwj on 2017/10/27.
@@ -24,6 +25,13 @@ public class MyApplication extends Application {
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .build());
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         LogUtil.setLog(BuildConfig.DEBUG);
 

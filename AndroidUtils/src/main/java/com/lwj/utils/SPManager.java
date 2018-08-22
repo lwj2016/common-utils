@@ -28,6 +28,7 @@ public final class SPManager extends GlobalContext {
 
     private SharedPreferences.Editor editor;
 
+    @SuppressWarnings("Leaked")
     private static Context context;
 
     private static void init(Context _context) {

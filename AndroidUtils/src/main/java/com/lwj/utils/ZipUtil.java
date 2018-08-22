@@ -21,7 +21,6 @@ public class ZipUtil {
      *
      * @param zipFile
      * @param folderPath
-     *
      * @throws IOException
      * @throws IOException
      */
@@ -41,14 +40,16 @@ public class ZipUtil {
             } else {  // 不是目录的- 写文件
                 File subFile = new File(folderPath + File.separator + subDirName);
                 boolean isSuccess = subFile.createNewFile();
-                FileOutputStream out = new FileOutputStream(subFile);
-                int len;
-                byte[] buffer = new byte[1024];
-                while ((len = zipInputStream.read(buffer)) != -1) {
-                    out.write(buffer, 0, len);
-                    out.flush();
+                if (isSuccess) {
+                    FileOutputStream out = new FileOutputStream(subFile);
+                    int len;
+                    byte[] buffer = new byte[1024];
+                    while ((len = zipInputStream.read(buffer)) != -1) {
+                        out.write(buffer, 0, len);
+                        out.flush();
+                    }
+                    out.close();
                 }
-                out.close();
             }
             zipInputStream.closeEntry();
             zipEntry = zipInputStream.getNextEntry();
@@ -64,7 +65,6 @@ public class ZipUtil {
      *
      * @param zipFile
      * @param folderPath
-     *
      * @throws IOException
      */
     public static boolean unZip(String zipFile, String folderPath, boolean isDeleteZip) throws IOException {
@@ -81,7 +81,6 @@ public class ZipUtil {
      *
      * @param filepath 源文件路径
      * @param zipPath  压缩后路径
-     *
      * @throws IOException 异常
      */
     public static void zipFile(String filepath, String zipPath) throws IOException {

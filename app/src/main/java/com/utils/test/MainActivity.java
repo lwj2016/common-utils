@@ -1,12 +1,17 @@
 package com.utils.test;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +26,7 @@ import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
+import com.lwj.utils.WeakHandler;
 import com.lwj.utils.log.LogUtil;
 
 import java.io.IOException;
@@ -47,8 +53,10 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     BroadcastReceiver receiver;
 
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkPermission();
         setContentView(R.layout.activity_main);
         tv_empty = ViewUtil.findViewById(this, R.id.tv_empty);
         tv_empty.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +112,49 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
 
         LogUtil.e("resID --> %d", array[0]);
         LogUtil.e("TAG", "resID --> %d", array[0]);
+
+        weakHandler1 = new TestHandler(this);
+        weakHandler1.sendEmptyMessageDelayed(10, 1000L);
+        weakHandler2 = new TestHandler(this);
+        weakHandler2.sendEmptyMessageDelayed(100, 2000L);
+    }
+
+    private int index;
+    private int index1;
+
+    private WeakHandler<MainActivity> weakHandler1;
+    private WeakHandler<MainActivity> weakHandler2;
+
+    public static class TestHandler extends WeakHandler<MainActivity> {
+
+        public TestHandler(MainActivity activity) {
+            super(activity);
+        }
+
+        @Override
+        protected void handleMsg(Message message, MainActivity weakObj) {
+            int what = message.what;
+            if (what == 10) {
+                LogUtil.e("weakHandler index --> %d", weakObj.addAndGetIndex());
+                sendEmptyMessageDelayed(what, 1000L);
+            } else if (what == 100) {
+                LogUtil.e("weakHandler index1--> %d", weakObj.addAndGetIndex1());
+                sendEmptyMessageDelayed(what, 2000L);
+            }
+
+        }
+    }
+
+
+    public int addAndGetIndex() {
+
+        return ++index;
+    }
+
+
+    public int addAndGetIndex1() {
+
+        return ++index1;
     }
 
     @Override
@@ -116,7 +167,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.e("onDestroy %s", "onDestroy");
-        BroadcastUtil.unregisterLocalReceiver(this, receiver);
+        WeakHandler.destroyHandler(weakHandler1, weakHandler2);
     }
 
     @Override
@@ -126,8 +177,17 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
 
     @Override
     public void onBackPressedFinish() {
-        SysIntentUtil.goHome(this);
+        finish();
     }
 
+
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
 
 }
