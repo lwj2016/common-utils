@@ -69,4 +69,10 @@ public final class FormatUtil {
     public static String format(String str, Object... args) {
         return StrUtil.getFormatStr(str, args);
     }
+
+    public static <T> T defaultIfNull(T str, T defaultValue) {
+        return str == null ? defaultValue : str;
+    }
+
+
 }

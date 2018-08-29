@@ -28,7 +28,7 @@ public class CollectionUtil {
         return result;
     }
 
-    public static String[] strlist2Array(ArrayList<String> list) {
+    public static String[] list2Array(ArrayList<String> list) {
         return list2Array(list, String.class);
     }
 
@@ -56,10 +56,15 @@ public class CollectionUtil {
     public static void main(String[] args) {
 
         ArrayList<String> list = newArrayList(10, "122");
-        for (String s : list) {
+
+
+        String[] array = list2Array(list, String.class);
+
+        String[] array1 = (String[]) list.toArray();
+
+        for (String s : array1) {
             System.out.println(s);
         }
-
     }
 
 

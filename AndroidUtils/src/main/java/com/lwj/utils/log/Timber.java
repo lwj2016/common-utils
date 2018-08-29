@@ -24,116 +24,6 @@ public class Timber {
 
         }
 
-        public void v(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).v(t, message, args);
-            }
-
-        }
-
-        public void d(String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).d(message, args);
-            }
-
-        }
-
-        public void d(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).d(t, message, args);
-            }
-
-        }
-
-        public void i(String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).i(message, args);
-            }
-
-        }
-
-        public void i(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).i(t, message, args);
-            }
-
-        }
-
-        public void w(String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).w(message, args);
-            }
-
-        }
-
-        public void w(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).w(t, message, args);
-            }
-
-        }
-
-        public void e(String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).e(message, args);
-            }
-
-        }
-
-        public void e(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).e(t, message, args);
-            }
-
-        }
-
-        public void wtf(String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).wtf(message, args);
-            }
-
-        }
-
-        public void wtf(Throwable t, String message, Object... args) {
-            List forest = Timber.FOREST;
-            int i = 0;
-
-            for (int count = forest.size(); i < count; ++i) {
-                ((Tree) forest.get(i)).wtf(t, message, args);
-            }
-
-        }
-
         public void v(String tag, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
@@ -144,12 +34,35 @@ public class Timber {
 
         }
 
+
+        public void v(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).v(t, message, args);
+            }
+
+        }
+
+
         public void v(String tag, Throwable t, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
 
             for (int count = forest.size(); i < count; ++i) {
                 ((Tree) forest.get(i)).v(tag, t, message, args);
+            }
+
+        }
+
+
+        public void d(String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).d(message, args);
             }
 
         }
@@ -164,12 +77,33 @@ public class Timber {
 
         }
 
+        public void d(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).d(t, message, args);
+            }
+
+        }
+
         public void d(String tag, Throwable t, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
 
             for (int count = forest.size(); i < count; ++i) {
                 ((Tree) forest.get(i)).d(tag, t, message, args);
+            }
+
+        }
+
+
+        public void i(String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).i(message, args);
             }
 
         }
@@ -184,12 +118,32 @@ public class Timber {
 
         }
 
+        public void i(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).i(t, message, args);
+            }
+
+        }
+
         public void i(String tag, Throwable t, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
 
             for (int count = forest.size(); i < count; ++i) {
                 ((Tree) forest.get(i)).i(tag, t, message, args);
+            }
+
+        }
+
+        public void w(String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).w(message, args);
             }
 
         }
@@ -204,6 +158,16 @@ public class Timber {
 
         }
 
+        public void w(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).w(t, message, args);
+            }
+
+        }
+
         public void w(String tag, Throwable t, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
@@ -214,12 +178,34 @@ public class Timber {
 
         }
 
+
+        public void e(String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).e(message, args);
+            }
+
+        }
+
+
         public void e(String tag, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
 
             for (int count = forest.size(); i < count; ++i) {
                 ((Tree) forest.get(i)).e(tag, message, args);
+            }
+
+        }
+
+        public void e(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).e(t, message, args);
             }
 
         }
@@ -234,12 +220,33 @@ public class Timber {
 
         }
 
+        public void wtf(String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).wtf(message, args);
+            }
+
+        }
+
+
         public void wtf(String tag, String message, Object... args) {
             List forest = Timber.FOREST;
             int i = 0;
 
             for (int count = forest.size(); i < count; ++i) {
                 ((Tree) forest.get(i)).wtf(tag, message, args);
+            }
+
+        }
+
+        public void wtf(Throwable t, String message, Object... args) {
+            List forest = Timber.FOREST;
+            int i = 0;
+
+            for (int count = forest.size(); i < count; ++i) {
+                ((Tree) forest.get(i)).wtf(t, message, args);
             }
 
         }
@@ -269,99 +276,98 @@ public class Timber {
         TREE_OF_SOULS.v(message, args);
     }
 
-    public static void v(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.v(t, message, args);
-    }
-
-    public static void d(String message, Object... args) {
-        TREE_OF_SOULS.d(message, args);
-    }
-
-    public static void d(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.d(t, message, args);
-    }
-
-    public static void i(String message, Object... args) {
-        TREE_OF_SOULS.i(message, args);
-    }
-
-    public static void i(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.i(t, message, args);
-    }
-
-    public static void w(String message, Object... args) {
-        TREE_OF_SOULS.w(message, args);
-    }
-
-    public static void w(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.w(t, message, args);
-    }
-
-    public static void e(String message, Object... args) {
-        TREE_OF_SOULS.e(message, args);
-    }
-
-    public static void e(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.e(t, message, args);
-    }
-
-    public static void wtf(String message, Object... args) {
-        TREE_OF_SOULS.wtf(message, args);
-    }
-
-    public static void wtf(Throwable t, String message, Object... args) {
-        TREE_OF_SOULS.wtf(t, message, args);
-    }
-
-
     public static void v(String tag, String message, Object... args) {
         TREE_OF_SOULS.v(tag, message, args);
+    }
+
+    public static void v(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.v(t, message, args);
     }
 
     public static void v(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.v(tag, t, message, args);
     }
 
+    public static void d(String message, Object... args) {
+        TREE_OF_SOULS.d(message, args);
+    }
+
     public static void d(String tag, String message, Object... args) {
         TREE_OF_SOULS.d(tag, message, args);
+    }
+
+    public static void d(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.d(t, message, args);
     }
 
     public static void d(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.d(tag, t, message, args);
     }
 
+    public static void i(String message, Object... args) {
+        TREE_OF_SOULS.i(message, args);
+    }
+
     public static void i(String tag, String message, Object... args) {
         TREE_OF_SOULS.i(tag, message, args);
+    }
+
+    public static void i(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.i(t, message, args);
     }
 
     public static void i(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.i(tag, t, message, args);
     }
 
+
+    public static void w(String message, Object... args) {
+        TREE_OF_SOULS.w(message, args);
+    }
+
     public static void w(String tag, String message, Object... args) {
         TREE_OF_SOULS.w(tag, message, args);
+    }
+
+    public static void w(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.w(t, message, args);
     }
 
     public static void w(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.w(tag, t, message, args);
     }
 
+    public static void e(String message, Object... args) {
+        TREE_OF_SOULS.e(message, args);
+    }
+
     public static void e(String tag, String message, Object... args) {
         TREE_OF_SOULS.e(tag, message, args);
+    }
+
+    public static void e(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.e(t, message, args);
     }
 
     public static void e(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.e(tag, t, message, args);
     }
 
+    public static void wtf(String message, Object... args) {
+        TREE_OF_SOULS.wtf(message, args);
+    }
+
     public static void wtf(String tag, String message, Object... args) {
         TREE_OF_SOULS.wtf(tag, message, args);
+    }
+
+    public static void wtf(Throwable t, String message, Object... args) {
+        TREE_OF_SOULS.wtf(t, message, args);
     }
 
     public static void wtf(String tag, Throwable t, String message, Object... args) {
         TREE_OF_SOULS.wtf(tag, t, message, args);
     }
-
 
     public static Tree asTree() {
         return TREE_OF_SOULS;
