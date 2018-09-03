@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -120,13 +121,23 @@ public final class ColorUtil {
 
 
     /**
-     * create Drawable by color
+     * create Drawable by color res
      *
      * @param resId color id
      * @return Drawable
      */
     public static Drawable getColorDrawable(@ColorRes int resId) {
         return ResUtil.getColorDrawable(resId);
+    }
+
+    /**
+     * create Drawable by color int
+     *
+     * @param color color id
+     * @return Drawable
+     */
+    public static Drawable getColorDrawableByColor(@ColorInt int color) {
+        return new ColorDrawable(color);
     }
 
 

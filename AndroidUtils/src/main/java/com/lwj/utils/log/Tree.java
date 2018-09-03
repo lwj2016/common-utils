@@ -97,51 +97,51 @@ public abstract class Tree {
 
     protected abstract void log(int var1, String var2, String var3, Throwable var4);
 
-    public void v(String tag, String message, Object... args) {
+    public void vT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.VERBOSE, null, message, args);
     }
 
-    public void v(String tag, Throwable t, String message, Object... args) {
+    public void vT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.VERBOSE, t, message, args);
     }
 
-    public void d(String tag, String message, Object... args) {
+    public void dT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.DEBUG, null, message, args);
     }
 
-    public void d(String tag, Throwable t, String message, Object... args) {
+    public void dT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.DEBUG, t, message, args);
     }
 
-    public void i(String tag, String message, Object... args) {
+    public void iT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.INFO, null, message, args);
     }
 
-    public void i(String tag, Throwable t, String message, Object... args) {
+    public void iT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.INFO, t, message, args);
     }
 
-    public void w(String tag, String message, Object... args) {
+    public void wT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.WARN, null, message, args);
     }
 
-    public void w(String tag, Throwable t, String message, Object... args) {
+    public void wT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.WARN, t, message, args);
     }
 
-    public void e(String tag, String message, Object... args) {
+    public void eT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.ERROR, null, message, args);
     }
 
-    public void e(String tag, Throwable t, String message, Object... args) {
+    public void eT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.ERROR, t, message, args);
     }
 
-    public void wtf(String tag, String message, Object... args) {
+    public void wtfT(String tag, String message, Object... args) {
         this.prepareLog(tag, Log.ASSERT, null, message, args);
     }
 
-    public void wtf(String tag, Throwable t, String message, Object... args) {
+    public void wtfT(String tag, Throwable t, String message, Object... args) {
         this.prepareLog(tag, Log.ASSERT, t, message, args);
     }
 

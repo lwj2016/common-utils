@@ -403,4 +403,29 @@ public class ArrayUtil {
     }
 
 
+    public static boolean contains(Object[] array, Object object) {
+        return Arrays.binarySearch(array, object) >= 0;
+    }
+
+    public static boolean contains(int[] array, int object) {
+        return Arrays.binarySearch(array, object) >= 0;
+    }
+
+    public static boolean contains(String[] array, String object) {
+        return Arrays.binarySearch(array, object) >= 0;
+    }
+
+    public static int indexOf(Object[] array, Object object) {
+        return Arrays.binarySearch(array, object);
+    }
+
+    public static int indexOf(int[] array, int object) {
+        return Arrays.binarySearch(array, object);
+    }
+
+    public static int indexOf(String[] array, String object) {
+        return Arrays.binarySearch(array, object);
+    }
+
+
 }

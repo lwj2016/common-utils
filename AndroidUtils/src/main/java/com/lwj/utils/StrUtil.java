@@ -155,9 +155,49 @@ public final class StrUtil {
     }
 
 
+    public static String randomStr(int length) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(randomChar());
+        }
+        return stringBuilder.toString();
+    }
+
+
+    public static char randomChar(String src) {
+        int length = src.length();
+        int index = (int) (Math.random() * length);
+        return src.charAt(index);
+    }
+
+
+    /**
+     * 随机一个 0-9A-Za-z 的字符
+     *
+     * @return
+     */
+    public static char randomChar() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            stringBuilder.append(i);
+        }
+        for (char i = 'a'; i <= 'z'; i++) {
+            stringBuilder.append(i);
+        }
+
+        for (char i = 'A'; i <= 'Z'; i++) {
+            stringBuilder.append(i);
+        }
+        return randomChar(stringBuilder.toString());
+    }
+
+
     public static void main(String[] args) {
         System.out.println(StrUtil.replaceAll("com.google.test", "\\.", "_"));
         System.out.println(StrUtil.replaceFirst("com.google.test", "\\.", "_"));
+
+        System.out.println(randomStr(10));
+        System.out.println(randomStr(20));
     }
 
 }

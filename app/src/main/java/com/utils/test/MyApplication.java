@@ -35,29 +35,7 @@ public class MyApplication extends Application {
 
         LogUtil.setLog(BuildConfig.DEBUG);
 
-        new Thread() {
-            @Override
-            public void run() {
-                if (NetUtil.isNetConnected()) {
-                    LogUtil.d("isNetConnected---> %s", true);
-
-                    if (NetUtil.is2GConnected()) {
-                        LogUtil.d("is2GConnected---> %s", true);
-                    }
-
-                    if (NetUtil.is3GConnected()) {
-                        LogUtil.d("is3GConnected---> %s", true);
-                    }
-
-                    if (NetUtil.is4GConnected()) {
-                        LogUtil.d("is4GConnected---> %s", true);
-                    }
-
-                    if (NetUtil.isWifiConnected()) {
-                        LogUtil.d("isWifiConnected---> %s", true);
-                    }
-                }
-            }
-        }.start();
+        LogUtil.d("isNetConnected---> %s", "TEST");
+        LogUtil.dT("tag", "isNetConnected---> %s", "TEST");
     }
 }
