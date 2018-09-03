@@ -15,22 +15,25 @@ public abstract class WeakHandler<T> extends Handler {
 
     private WeakReference<T> weakReference;
 
-    public WeakHandler(T activity) {
-        setTarget(activity);
+    public WeakHandler(T target) {
+        setTarget(target);
     }
 
-    private void setTarget(T activity) {
-        weakReference = new WeakReference<>(activity);
+    private void setTarget(T target) {
+        weakReference = new WeakReference<>(target);
     }
 
     @Override
     public void handleMessage(Message msg) {
         if (weakReference == null) {
+            destroyHandler(this);
             return;
         }
         T weakObj = weakReference.get();
         if (weakObj != null) {
             handleMsg(msg, weakObj);
+        } else {
+            destroyHandler(this);
         }
     }
 
