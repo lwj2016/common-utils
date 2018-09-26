@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import com.lwj.utils.context.GlobalContext;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -230,6 +231,11 @@ public class ResUtil extends GlobalContext {
     }
 
 
+    public static InputStream readRasById(@RawRes int id) {
+        return getResources().openRawResource(id);
+    }
+
+
     public static int getResourceId(String name, String defType, String defPackage) {
         return getResources().getIdentifier(name, defType, defPackage);
     }
@@ -240,96 +246,96 @@ public class ResUtil extends GlobalContext {
     }
 
 
-    public static int getLayoutId(String paramString, String defPackage) {
+    public static int getLayoutResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "layout", defPackage);
     }
 
-    public static int getStringId(String paramString, String defPackage) {
+    public static int getStringResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "string", defPackage);
     }
 
-    public static int getDrawableId(String paramString, String defPackage) {
+    public static int getDrawableResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "drawable", defPackage);
     }
 
-    public static int getStyleId(String paramString, String defPackage) {
+    public static int getStyleResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "style", defPackage);
     }
 
-    public static int getId(String paramString, String defPackage) {
+    public static int getResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "id", defPackage);
     }
 
-    public static int getColorId(String paramString, String defPackage) {
+    public static int getColorResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "color", defPackage);
     }
 
-    public static int getDimenId(String paramString, String defPackage) {
+    public static int getDimenResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "dimen", defPackage);
     }
 
-    public static int getAnimId(String paramString, String defPackage) {
+    public static int getAnimResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "anim", defPackage);
     }
 
 
-    public static int getArrayId(String paramString, String defPackage) {
+    public static int getArrayResId(String paramString, String defPackage) {
 
         return getResourceId(paramString, "array", defPackage);
     }
 
 
-    public static int getLayoutId(String paramString) {
+    public static int getLayoutResId(String paramString) {
 
-        return getLayoutId(paramString, AppUtil.getPackageName());
+        return getLayoutResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getStringId(String paramString) {
+    public static int getStringResId(String paramString) {
 
-        return getStringId(paramString, AppUtil.getPackageName());
+        return getStringResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getDrawableId(String paramString) {
+    public static int getDrawableResId(String paramString) {
 
-        return getDrawableId(paramString, AppUtil.getPackageName());
+        return getDrawableResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getStyleId(String paramString) {
+    public static int getStyleResId(String paramString) {
 
-        return getStyleId(paramString, AppUtil.getPackageName());
+        return getStyleResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getId(String paramString) {
+    public static int getResId(String paramString) {
 
-        return getId(paramString, AppUtil.getPackageName());
+        return getResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getColorId(String paramString) {
+    public static int getColorResId(String paramString) {
 
-        return getColorId(paramString, AppUtil.getPackageName());
+        return getColorResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getDimenId(String paramString) {
+    public static int getDimenResId(String paramString) {
 
-        return getDimenId(paramString, AppUtil.getPackageName());
+        return getDimenResId(paramString, AppUtil.getPackageName());
     }
 
-    public static int getAnimId(String paramString) {
+    public static int getAnimResId(String paramString) {
 
-        return getAnimId(paramString, AppUtil.getPackageName());
+        return getAnimResId(paramString, AppUtil.getPackageName());
     }
 
 
-    public static int getArrayId(String paramString) {
-        return getArrayId(paramString, AppUtil.getPackageName());
+    public static int getArrayResId(String paramString) {
+        return getArrayResId(paramString, AppUtil.getPackageName());
     }
 
 

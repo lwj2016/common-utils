@@ -2,6 +2,7 @@ package com.lwj.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -84,14 +85,12 @@ public final class WebViewUtil {
 
     public static WebSettings setCommonSetting(WebSettings webSetting, boolean isJSEnable) {
         setJavaScriptEnabled(webSetting, isJSEnable);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //  5.0以后 https url load http image
+
+        if (OSUtils.hasLollipop_21()) { //  5.0以后 https url load http image
             webSetting.setMixedContentMode(webSetting.getMixedContentMode());
         }
         // 禁止保存表单数据
         webSetting.setSaveFormData(false);
-        // 禁止保存密码
-        webSetting.setSavePassword(false);
-        ;
         // 支持js自动打开窗口
         webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
         // 当webview调用requestFocus时为webview设置节点
@@ -99,6 +98,16 @@ public final class WebViewUtil {
         // 缩放
         setZoom(webSetting, true);
         return webSetting;
+    }
+
+
+    public static void setSafe(WebView webView) {
+        if (OSUtils.hasHoneycomb_11()) {
+            // 在4.0至4.2的Android系统上，Webview会增加searchBoxJavaBredge_，导致远程代码执行。攻击者可以向页面植入Javascript，通过反射在客户端中执行任意恶意代码。
+            webView.removeJavascriptInterface("searchBoxJavaBredge_");
+        }
+        // 禁止保存密码
+        webView.getSettings().setSavePassword(false);
     }
 
     public static WebSettings setCommonSetting(WebSettings webSetting, boolean isJSEnable, String cahcheFile) {
@@ -172,6 +181,8 @@ public final class WebViewUtil {
     public static void destroyWebView(WebView webView) {
         if (webView != null) {
             webView.stopLoading();
+            // fix ZoomButton 引起的 crash bug
+            webView.setVisibility(View.GONE);
             // 禁止 JS 代码继续执行
             webView.getSettings().setJavaScriptEnabled(false);
             webView.clearHistory();

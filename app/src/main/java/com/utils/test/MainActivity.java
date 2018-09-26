@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.PatternMatcher;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,7 @@ import com.lwj.utils.SPManager;
 import com.lwj.utils.SysIntentUtil;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
+import com.lwj.utils.WeakActivityHandler;
 import com.lwj.utils.WeakHandler;
 import com.lwj.utils.log.LogUtil;
 
@@ -104,7 +106,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         LogUtil.e("test----> %s", SPManager.getManager().getString("test"));
 
 
-        int resID = ResUtil.getArrayId("test");
+        int resID = ResUtil.getArrayResId("test");
 
         LogUtil.e("resID --> %d", resID);
 
@@ -114,9 +116,20 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         LogUtil.e("TAG", "resID --> %d", array[0]);
 
         weakHandler1 = new TestHandler(this);
-        weakHandler1.sendEmptyMessageDelayed(10, 1000L);
+//        weakHandler1.sendEmptyMessageDelayed(10, 1000L);
         weakHandler2 = new TestHandler(this);
-        weakHandler2.sendEmptyMessageDelayed(100, 2000L);
+//        weakHandler2.sendEmptyMessageDelayed(100, 2000L);
+
+
+        String string = new String("二维空间啊卡打开看看 aadddvva111223aaad1dasd2332adfas");
+
+        String[] arrays = string.split("[^0-9]+");
+
+        for (String s : arrays) {
+            System.out.println(s);
+        }
+
+
     }
 
     private int index;
@@ -125,7 +138,7 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     private WeakHandler<MainActivity> weakHandler1;
     private WeakHandler<MainActivity> weakHandler2;
 
-    public static class TestHandler extends WeakHandler<MainActivity> {
+    public static class TestHandler extends WeakActivityHandler<MainActivity> {
 
         public TestHandler(MainActivity activity) {
             super(activity);

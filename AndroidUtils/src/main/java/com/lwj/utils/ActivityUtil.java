@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.lwj.utils.log.LogUtil;
 
 import java.security.InvalidParameterException;
-import java.util.Stack;
 
 /**
  * Created by lwj on 16/3/9.
@@ -239,20 +237,14 @@ public final class ActivityUtil {
     }
 
 
-    public static boolean isRunning(Context context) {
-        if (context != null && context instanceof Activity) {
-
-            Activity activity = (Activity) context;
-            if (activity.isFinishing()) {
-                return false;
-            }
-            if (OSUtils.hasJELLY_BEAN_MR1_17() && activity.isDestroyed()) {
-                return false;
-            }
-            return true;
+    public static boolean isRunning(Activity activity) {
+        if (activity.isFinishing()) {
+            return false;
         }
-
-        return false;
+        if (OSUtils.hasJELLY_BEAN_MR1_17() && activity.isDestroyed()) {
+            return false;
+        }
+        return true;
     }
 
 

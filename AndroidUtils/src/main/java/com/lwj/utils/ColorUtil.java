@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
+import android.support.annotation.Size;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,16 @@ import java.util.ArrayList;
 
 public final class ColorUtil {
 
+    /**
+     * black read ......
+     * #RRGGBB
+     * #AARRGGBB
+     *
+     * @param color int by color
+     * @return color string
+     */
     @ColorInt
-    public static int praseColor(String color) {
+    public static int praseColor(@Size(min = 1) String color) {
         return Color.parseColor(color);
     }
 
@@ -71,6 +80,7 @@ public final class ColorUtil {
         if (OSUtils.hasO_26()) {
             return Color.rgb(r, g, b);
         }
+        //  copy from source code
         return 0xff000000 |
                 ((int) (r * 255.0f + 0.5f) << 16) |
                 ((int) (g * 255.0f + 0.5f) << 8) |
@@ -89,6 +99,7 @@ public final class ColorUtil {
         if (OSUtils.hasO_26()) {
             return Color.argb(a, r, g, b);
         }
+        //  copy from source code
         return ((int) (a * 255.0f + 0.5f) << 24) |
                 ((int) (r * 255.0f + 0.5f) << 16) |
                 ((int) (g * 255.0f + 0.5f) << 8) |
@@ -117,6 +128,96 @@ public final class ColorUtil {
     @ColorInt
     public static int argb(@IntRange(from = 0, to = 255) int a, int color) {
         return argb(a, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+
+    /**
+     * 透明度--颜色
+     *
+     * @param a 透明度值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int a(@IntRange(from = 0, to = 255) int a) {
+        return argb(a, 0, 0, 0);
+    }
+
+    /**
+     * 红色--颜色
+     *
+     * @param r 红色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int r(@IntRange(from = 0, to = 255) int r) {
+        return argb(0, r, 0, 0);
+    }
+
+    /**
+     * 绿色--颜色
+     *
+     * @param g 绿色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int g(@IntRange(from = 0, to = 255) int g) {
+        return argb(0, 0, g, 0);
+    }
+
+    /**
+     * 蓝色--颜色
+     *
+     * @param b 蓝色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int b(@IntRange(from = 0, to = 255) int b) {
+        return argb(0, 0, 0, b);
+    }
+
+
+    /**
+     * 透明度--颜色
+     *
+     * @param a 透明度值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int a(@FloatRange(from = 0.0, to = 1.0) float a) {
+        return argb(a, 0.0f, 0.0f, 0.0f);
+    }
+
+    /**
+     * 红色--颜色
+     *
+     * @param r 红色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int r(@FloatRange(from = 0.0, to = 1.0) float r) {
+        return argb(0.0f, r, 0.0f, 0.0f);
+    }
+
+    /**
+     * 绿色--颜色
+     *
+     * @param g 绿色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int g(@FloatRange(from = 0.0, to = 1.0) float g) {
+        return argb(0.0f, 0.0f, g, 0.0f);
+    }
+
+    /**
+     * 蓝色--颜色
+     *
+     * @param b 蓝色值
+     * @return 合成颜色值
+     */
+    @ColorInt
+    public static int b(@FloatRange(from = 0.0, to = 1.0) float b) {
+        return argb(0.0f, 0.0f, 0.0f, b);
     }
 
 

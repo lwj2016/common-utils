@@ -113,7 +113,7 @@ public final class ViewUtil extends GlobalContext {
      * @param _view the view
      * @author Created by lwjfork on 2018/07/09 17:44
      */
-    public static void setGong(View... _view) {
+    public static void setGone(View... _view) {
         setVisibility(View.GONE, _view);
     }
 
@@ -125,6 +125,22 @@ public final class ViewUtil extends GlobalContext {
      */
     public static void setVisible(View... _view) {
         setVisibility(View.VISIBLE, _view);
+    }
+
+
+    /**
+     * Sets visibility.
+     *
+     * @param isVisible the is visible　true View.VISIBLE  false View.GONE
+     * @param views     the views
+     * @author Created by liuwenjie on 2018/09/05 14:40
+     */
+    public static void setVisibility(boolean isVisible, View... views) {
+        if (isVisible) {
+            setVisible(views);
+        } else {
+            setGone(views);
+        }
     }
 
 

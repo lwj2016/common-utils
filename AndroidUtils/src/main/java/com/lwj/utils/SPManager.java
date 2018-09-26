@@ -3,6 +3,7 @@ package com.lwj.utils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 
 import com.lwj.utils.context.GlobalContext;
@@ -22,7 +23,7 @@ import java.util.LinkedHashMap;
  */
 public final class SPManager extends GlobalContext {
     // com.google.support----> com_google_support
-    private static String PREF_NAME = StrUtil.replaceAll(AppUtil.getPackageName(), "\\.", "_");
+//    private static String PREF_NAME = StrUtil.replaceAll(AppUtil.getPackageName(), "\\.", "_");
 
     private SharedPreferences mSharedPreferences;
 
@@ -46,7 +47,11 @@ public final class SPManager extends GlobalContext {
 
     public static SPManager getManager() {
         init(getContext());
-        return getManager(PREF_NAME);
+        if (OSUtils.hasN_24()) {
+            return getManager(PreferenceManager.getDefaultSharedPreferencesName(context));
+        } else {
+            return getManager(context.getPackageName() + "_preferences");
+        }
     }
 
     public static SPManager getManager(String preName) {

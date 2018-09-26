@@ -25,15 +25,25 @@ public abstract class WeakHandler<T> extends Handler {
 
     @Override
     public void handleMessage(Message msg) {
+        T weakObj = isNeedHandle();
+        if (weakObj != null) {
+            handleMsg(msg, weakObj);
+        }
+    }
+
+
+    protected T isNeedHandle() {
+
         if (weakReference == null) {
             destroyHandler(this);
-            return;
+            return null;
         }
         T weakObj = weakReference.get();
         if (weakObj != null) {
-            handleMsg(msg, weakObj);
+            return weakObj;
         } else {
             destroyHandler(this);
+            return null;
         }
     }
 
