@@ -9,37 +9,27 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.PatternMatcher;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.lwj.utils.AndroidFileUtil;
 import com.lwj.utils.AppBackPress;
-import com.lwj.utils.ArrayUtil;
 import com.lwj.utils.BroadcastUtil;
 import com.lwj.utils.ColorUtil;
 import com.lwj.utils.ResUtil;
 import com.lwj.utils.SPManager;
-import com.lwj.utils.SysIntentUtil;
+import com.lwj.utils.SpanBuilder;
 import com.lwj.utils.ToastUtil;
 import com.lwj.utils.ViewUtil;
 import com.lwj.utils.WeakActivityHandler;
 import com.lwj.utils.WeakHandler;
 import com.lwj.utils.log.LogUtil;
-
-import java.io.IOException;
-import java.util.function.IntFunction;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 
 /**
@@ -54,6 +44,10 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
     TextView tv_empty;
     BroadcastReceiver receiver;
 
+
+    private TextView tv_span1;
+    private TextView tv_span2;
+
     @Override
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +55,8 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         checkPermission();
         setContentView(R.layout.activity_main);
         tv_empty = ViewUtil.findViewById(this, R.id.tv_empty);
+        tv_span1 = ViewUtil.findViewById(this, R.id.tv_span1);
+        tv_span2 = ViewUtil.findViewById(this, R.id.tv_span2);
         tv_empty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +124,21 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         for (String s : arrays) {
             System.out.println(s);
         }
+
+
+        tv_span1.setText(SpanBuilder.newInstance()
+                .append("蓝色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_blue_dark)))
+                .append("红色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_red_dark)))
+                .append("hah")
+                .buildSpan());
+
+
+        tv_span2.setText(SpanBuilder.newInstance("蓝色%，%红色¥，¥绿色% base%")
+                .setSpan("蓝色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_blue_dark)))
+                .setSpan("红色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_red_dark)))
+                .setSpan("绿色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_green_dark)))
+                .setRegexSpan("%|¥", new RelativeSizeSpan(0.5f))
+                .buildSpan());
 
 
     }

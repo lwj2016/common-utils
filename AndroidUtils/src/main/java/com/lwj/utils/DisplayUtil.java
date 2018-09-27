@@ -96,7 +96,7 @@ public final class DisplayUtil extends GlobalContext {
 
     public static int getStatusBarHeight() {
         int result = 0;
-        int resourceId = ResUtil.getDimenId("status_bar_height", "android");
+        int resourceId = ResUtil.getDimenResId("status_bar_height", "android");
         if (resourceId > 0) {
             result = getContext().getResources().getDimensionPixelSize(resourceId);
         }
