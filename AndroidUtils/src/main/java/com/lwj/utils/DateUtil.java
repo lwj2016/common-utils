@@ -1,4 +1,4 @@
-package com.lwj.utils.time;
+package com.lwj.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * Created by lwj on 16/5/13.
  * Des:
  */
-public class TimeUtil {
+public class DateUtil {
 
 
     public static String dateFormatYMDHMS = "yyyy-MM-dd HH:mm:ss";

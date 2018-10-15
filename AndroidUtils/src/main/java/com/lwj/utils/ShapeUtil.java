@@ -10,7 +10,7 @@ import android.support.annotation.ColorInt;
  * lwjfork@gmail.com
  * shape util
  */
-public class ShapeUtil {
+public final  class ShapeUtil {
 
 
     /**

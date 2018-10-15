@@ -15,7 +15,7 @@ import java.util.zip.ZipOutputStream;
  * 文件解压缩工具类
  */
 
-public class ZipUtil {
+public  class ZipUtil {
     /**
      * 解压文件
      *

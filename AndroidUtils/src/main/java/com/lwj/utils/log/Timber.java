@@ -1,14 +1,13 @@
 package com.lwj.utils.log;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * Created by lwj on 2016/3/8.
  * lwjfork@gmail.com
  * Copy from https://github.com/JakeWharton/timber
  */
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class Timber {
     private static final List<Tree> FOREST = new CopyOnWriteArrayList<>();
     private static final Tree TREE_OF_SOULS = new Tree() {

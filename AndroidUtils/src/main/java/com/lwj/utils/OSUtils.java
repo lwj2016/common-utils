@@ -1,10 +1,14 @@
 package com.lwj.utils;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 
 import com.lwj.utils.context.GlobalContext;
+
+import java.util.List;
 
 
 /**
@@ -25,6 +29,24 @@ public final class OSUtils extends GlobalContext {
         return getContext().getSystemService(tClass);
     }
 
+    public static String getProcessName() {
+        int pid = android.os.Process.myPid();
+        return getProcessName(pid);
+    }
+
+
+    public static String getProcessName(int pid) {
+        android.app.ActivityManager manager = OSUtils.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processInfoList = manager.getRunningAppProcesses();
+        if (processInfoList != null) {
+            for (ActivityManager.RunningAppProcessInfo runningAppProcessInfo : processInfoList) {
+                if (runningAppProcessInfo.pid == pid) {
+                    return runningAppProcessInfo.processName;
+                }
+            }
+        }
+        return null;
+    }
 
     /**
      * 8

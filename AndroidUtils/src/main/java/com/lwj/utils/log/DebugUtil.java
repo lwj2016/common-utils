@@ -3,8 +3,6 @@ package com.lwj.utils.log;
 /**
  * Created by lwj on 16/6/13.
  * Des:
- *
- * Copy from https://github.com/JakeWharton/timber
  */
 public class DebugUtil {
 
@@ -37,4 +35,6 @@ public class DebugUtil {
         }
         return object.getClass().getName();
     }
+
+
 }

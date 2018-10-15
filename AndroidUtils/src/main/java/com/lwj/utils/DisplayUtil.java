@@ -1,9 +1,5 @@
 package com.lwj.utils;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
 import com.lwj.utils.context.GlobalContext;

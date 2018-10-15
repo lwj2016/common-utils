@@ -17,7 +17,7 @@ import java.io.Serializable;
  * Created by lwj on 16/3/9.
  * lwjfork@gmail.com
  */
-public class FileUtil extends ZipUtil {
+public final class FileUtil extends ZipUtil {
 
 
     /**

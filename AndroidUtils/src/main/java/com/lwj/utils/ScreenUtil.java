@@ -4,7 +4,7 @@ package com.lwj.utils;
  * Created by lwj on 2018/8/22.
  * lwjfork@gmail.com
  */
-public class ScreenUtil {
+public final class ScreenUtil {
 
     public static int getScreenWidth() {
 

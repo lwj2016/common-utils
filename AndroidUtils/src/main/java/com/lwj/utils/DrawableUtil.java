@@ -29,7 +29,6 @@ public  final class DrawableUtil {
         return sourceDrawable;
     }
 
-
     public static <T extends TextView> void setCompoundDrawables(T view, @Nullable Drawable leftRes, @Nullable Drawable topRes, @Nullable Drawable rightRes, @Nullable Drawable bottomRes) {
         view.setCompoundDrawables(getBoundDrawable(leftRes),
                 getBoundDrawable(topRes),

@@ -1,20 +1,16 @@
 package com.lwj.utils;
 
 import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import com.lwj.utils.context.GlobalContext;
-import com.lwj.utils.log.LogUtil;
 
-import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -25,7 +21,7 @@ import java.util.List;
  */
 
 
-public class AppUtil extends GlobalContext {
+public final class AppUtil extends GlobalContext {
 
     public final static String SHA1 = "SHA1";
 
@@ -42,7 +38,6 @@ public class AppUtil extends GlobalContext {
             return null;
         }
     }
-
 
 
     public static String getVersionName() {
@@ -200,5 +195,20 @@ public class AppUtil extends GlobalContext {
         }
         return fingerprint;
     }
+
+    /**
+     *  多进程环境下，防止多次初始化
+     * @return true 初始化， false 不初始化
+     */
+    public static boolean isInitAble() {
+
+        String packageName = getPackageName();
+        if (packageName == null) { // impossible
+            return true;
+        }
+        return packageName.equalsIgnoreCase(OSUtils.getProcessName());
+    }
+
+
 }
 
