@@ -2,10 +2,8 @@ package com.utils.test;
 
 import android.app.Application;
 
+import com.common.lib.utils.log.LogUtil;
 import com.facebook.stetho.Stetho;
-import com.lwj.utils.NetUtil;
-import com.lwj.utils.context.GlobalContext;
-import com.lwj.utils.log.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 /**

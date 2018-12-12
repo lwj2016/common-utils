@@ -7,10 +7,10 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.lwj.utils.ResUtil;
-import com.lwj.utils.ToastUtil;
-import com.lwj.utils.WebViewUtil;
-import com.lwj.utils.log.LogUtil;
+import com.common.lib.utils.ResUtil;
+import com.common.lib.utils.ToastUtil;
+import com.common.lib.utils.WebViewUtil;
+import com.common.lib.utils.log.LogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +44,7 @@ public class WebActivity extends Activity {
         Map<String, String> result = WebViewUtil.getCookie(url);
 
         LogUtil.d("result %s", result.toString());
+
 
     }
 

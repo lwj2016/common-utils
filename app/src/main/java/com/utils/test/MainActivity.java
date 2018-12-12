@@ -18,18 +18,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lwj.utils.AndroidFileUtil;
-import com.lwj.utils.AppBackPress;
-import com.lwj.utils.BroadcastUtil;
-import com.lwj.utils.ColorUtil;
-import com.lwj.utils.ResUtil;
-import com.lwj.utils.SPManager;
-import com.lwj.utils.SpanBuilder;
-import com.lwj.utils.ToastUtil;
-import com.lwj.utils.ViewUtil;
-import com.lwj.utils.WeakActivityHandler;
-import com.lwj.utils.WeakHandler;
-import com.lwj.utils.log.LogUtil;
+import com.common.lib.GlobalContext;
+import com.common.lib.utils.AndroidFileUtil;
+import com.common.lib.utils.AppBackPress;
+import com.common.lib.utils.BroadcastUtil;
+import com.common.lib.utils.ColorUtil;
+import com.common.lib.utils.ResUtil;
+import com.common.lib.utils.SPManager;
+import com.common.lib.utils.SpanBuilder;
+import com.common.lib.utils.ToastUtil;
+import com.common.lib.utils.ViewUtil;
+import com.common.lib.utils.WeakActivityHandler;
+import com.common.lib.utils.WeakHandler;
+import com.common.lib.utils.log.LogUtil;
 
 
 /**
@@ -54,6 +55,9 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
         super.onCreate(savedInstanceState);
         checkPermission();
         setContentView(R.layout.activity_main);
+
+        MyApplication myApplication = GlobalContext.getContext();
+
         tv_empty = ViewUtil.findViewById(this, R.id.tv_empty);
         tv_span1 = ViewUtil.findViewById(this, R.id.tv_span1);
         tv_span2 = ViewUtil.findViewById(this, R.id.tv_span2);
@@ -92,14 +96,15 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                     }
                 }, "Test");
 
+        SPManager manager = SPManager.getManager("test_sp");
 
-        SPManager.getManager().commit("test", "tt");
+        manager.commit("test", "tt");
 
-        LogUtil.e("test----> %s", SPManager.getManager().getString("test"));
+        LogUtil.e("test----> %s", manager.getString("test"));
 
-        SPManager.getManager().removeAndCommit("test");
+//        SPManager.getManager().removeAndCommit("test");
 
-        LogUtil.e("test----> %s", SPManager.getManager().getString("test"));
+        LogUtil.e("test----> %s", manager.getString("test"));
 
 
         int resID = ResUtil.getArrayResId("test");
@@ -139,8 +144,11 @@ public class MainActivity extends Activity implements AppBackPress.OnBackPressLi
                 .setSpan("绿色", new ForegroundColorSpan(ResUtil.getColor(android.R.color.holo_green_dark)))
                 .setRegexSpan("%|¥", new RelativeSizeSpan(0.5f))
                 .buildSpan());
+        LogUtil.e("test--before clear--> %s", SPManager.getManager("test_sp").getString("test"));
+        SPManager.getDefaultManager().clear();
+//        SPManager.getManager("test_sp").clear();
 
-
+        LogUtil.e("test--After clear--> %s", SPManager.getManager("test_sp").getString("test"));
     }
 
     private int index;
