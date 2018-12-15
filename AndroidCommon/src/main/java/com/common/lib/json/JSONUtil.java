@@ -76,7 +76,7 @@ public class JSONUtil {
     }
 
 
-    public static <T> String fromJson(String jsonStr, Type type) {
+    public static <T> T fromJson(String jsonStr, Type type) {
         return iJsonConverter.fromJson(jsonStr, type);
     }
 

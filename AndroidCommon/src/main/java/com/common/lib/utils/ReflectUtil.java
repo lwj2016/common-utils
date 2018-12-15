@@ -30,7 +30,7 @@ public final class ReflectUtil {
      * @param args 泛型参数类型
      * @return 带参数的实际泛型类型
      */
-    public static ParameterizedType type(final Class raw, final Type... args) {
+    public static ParameterizedType getType(final Class raw, final Type... args) {
         return new ParameterizedType() {
             public Type getRawType() {
                 return raw;
@@ -44,5 +44,20 @@ public final class ReflectUtil {
                 return null;
             }
         };
+    }
+
+
+    /**
+     * @param raw 实际类型
+     * @return 带参数的实际泛型类型
+     */
+    public static Type getType(final Class<?> raw) {
+        Type type = raw.getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            ParameterizedType pType = (ParameterizedType) type;
+            return pType.getActualTypeArguments()[0];
+
+        }
+        return raw;
     }
 }

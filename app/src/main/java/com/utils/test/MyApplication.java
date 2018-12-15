@@ -2,6 +2,7 @@ package com.utils.test;
 
 import android.app.Application;
 
+import com.common.lib.utils.DeviceUtil;
 import com.common.lib.utils.log.LogUtil;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
@@ -33,7 +34,8 @@ public class MyApplication extends Application {
 
         LogUtil.setLog(BuildConfig.DEBUG);
 
-        LogUtil.d("isNetConnected---> %s", "TEST");
+        LogUtil.d("isNetConnected---> %s", DeviceUtil.uniqueID(16));
         LogUtil.dT("tag", "isNetConnected---> %s", "TEST");
+
     }
 }

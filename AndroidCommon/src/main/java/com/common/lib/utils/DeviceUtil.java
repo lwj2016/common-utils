@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
-
 import com.common.lib.GlobalContext;
 import com.common.lib.utils.log.LogUtil;
 
@@ -15,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by lwj on 2016/3/8.
@@ -54,6 +54,32 @@ public final class DeviceUtil extends GlobalContext {
             LogUtil.e("device_id %s", "null");
         }
         return device_id;
+    }
+
+    public static String getDeviceUniqueID(int length) {
+        String deviceTag = Build.CPU_ABI
+                + Build.VERSION.SDK_INT
+                + Build.DEVICE
+                + Build.DISPLAY
+                + Build.HOST
+                + Build.ID
+                + Build.MANUFACTURER
+                + Build.MODEL
+                + Build.PRODUCT
+                + Build.TAGS
+                + Build.TYPE
+                + Build.USER;
+
+        String serial = "serial"; // 随便一个初始化
+        try {
+            serial = android.os.Build.class.getField("SERIAL").get(null).toString();
+            //API>=9 使用serial号
+
+        } catch (Exception exception) {
+            //serial需要一个初始化
+
+        }
+        return MD5Util.str2Md5Str(new UUID(deviceTag.hashCode(), serial.hashCode()).toString(), length);
     }
 
 
