@@ -1,6 +1,9 @@
 package com.common.lib.json;
 
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -67,4 +70,14 @@ public class JSONUtil {
     public static <K, V> String map2Json(HashMap<K, V> map) {
         return iJsonConverter.map2Json(map);
     }
+
+    public static boolean isHave(JSONObject jsonObject, String key) {
+        return jsonObject.has(key);
+    }
+
+
+    public static <T> String fromJson(String jsonStr, Type type) {
+        return iJsonConverter.fromJson(jsonStr, type);
+    }
+
 }
