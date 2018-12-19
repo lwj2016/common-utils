@@ -49,7 +49,7 @@ public final class ViewUtil extends GlobalContext {
      * @param view the view
      * @param id   the id
      * @return the v
-     * @author Created by lwjfork on 2018/07/09 17:44
+     * @author Created by lwjfork on 2018/07/09 17:44tup
      */
     @SuppressWarnings("unchecked")
     public static <V extends View> V findViewById(View view, @IdRes int id) {
@@ -93,7 +93,7 @@ public final class ViewUtil extends GlobalContext {
      * @author Created by lwjfork on 2018/07/09 17:44
      */
     public static boolean isVisible(View _view) {
-        return _view.getVisibility() == View.VISIBLE;
+        return isVisiblility(_view, View.VISIBLE);
     }
 
     /**
@@ -104,7 +104,15 @@ public final class ViewUtil extends GlobalContext {
      * @author Created by lwjfork on 2018/07/09 17:44
      */
     public static boolean isGone(View view) {
-        return view.getVisibility() == View.GONE;
+        return isVisiblility(view, View.GONE);
+    }
+
+
+    public static boolean isVisiblility(View view, int visibility) {
+        if (view == null) {
+            return false;
+        }
+        return view.getVisibility() == visibility;
     }
 
     /**

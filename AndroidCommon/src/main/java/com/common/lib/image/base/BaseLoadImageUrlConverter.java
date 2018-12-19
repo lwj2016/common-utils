@@ -1,16 +1,16 @@
 package com.common.lib.image.base;
 
 /**
- * Created by lwj on 2017/9/14.
+ * Created by liuwenjie on 2017/9/14.
  * lwjfork@gmail.com
  */
 
 public abstract class BaseLoadImageUrlConverter implements LoadImageUrlConverter {
-
-
+    
+    
     @Override
-    public String convert(int type, String url) {
-        switch (type) {
+    public String convert(@ImageType int type, String url) {
+        switch(type) {
             case FILE:
                 return convertFile(url);
             case NET:
