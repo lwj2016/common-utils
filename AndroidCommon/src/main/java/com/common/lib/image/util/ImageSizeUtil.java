@@ -39,7 +39,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度充满屏幕
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize1() {
@@ -49,7 +48,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度 占屏幕的 1／2
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize2() {
@@ -59,7 +57,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度 占屏幕的 1／3
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize3() {
@@ -69,7 +66,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度 占屏幕的 1／4
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize4() {
@@ -79,7 +75,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度 占屏幕的 1／5
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize5() {
@@ -89,7 +84,6 @@ public class ImageSizeUtil {
     /**
      * 方形图，宽度 占屏幕的 1／6
      *
-     * @param
      * @return ReSize
      */
     public static ReSize getSquareReSize6() {
