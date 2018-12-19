@@ -1,5 +1,6 @@
 package com.common.lib.json;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -85,5 +86,11 @@ public abstract class BaseJsonConverter implements IJsonConverter {
     public <K, V> String map2Json(HashMap<K, V> map) {
         checkNotNull();
         return converter.map2Json(map);
+    }
+
+    @Override
+    public <T> T fromJson(String jsonStr, Type type) {
+        checkNotNull();
+        return converter.fromJson(jsonStr, type);
     }
 }

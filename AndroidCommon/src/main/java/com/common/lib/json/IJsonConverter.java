@@ -1,5 +1,6 @@
 package com.common.lib.json;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,4 +36,5 @@ public interface IJsonConverter {
     public <K, V> String map2Json(HashMap<K, V> map);
 
 
+    public <T> T fromJson(String jsonStr, Type type);
 }
