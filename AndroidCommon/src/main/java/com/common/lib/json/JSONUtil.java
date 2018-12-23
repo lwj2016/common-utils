@@ -16,8 +16,8 @@ public class JSONUtil {
 
     private static BaseJsonConverter iJsonConverter;
 
-    public static void setJsonConverter(BaseJsonConverter iJsonConverter) {
-        iJsonConverter = iJsonConverter;
+    public static void setJsonConverter(BaseJsonConverter jsonConverter) {
+        iJsonConverter = jsonConverter;
     }
 
 
